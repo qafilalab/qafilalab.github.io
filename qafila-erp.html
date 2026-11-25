@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QAFILA ERP — Enterprise Suite</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0E1420;--ink2:#1B2433;--bg:#F3F1EC;--card:#FFFFFF;--line:#E2DED5;--line2:#CFC9BC;--txt:#1C2230;--mute:#667085;--acc:#FF6A2B;--accd:#C2410C;--teal:#0F766E;--blue:#2563EB;--red:#B91C1C;--amber:#B45309;--violet:#6D28D9;--green:#15803D;--focus:#2563EB}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--txt);font:14.5px/1.5 'IBM Plex Sans','IBM Plex Sans Arabic',system-ui,sans-serif}
+html[dir=rtl] body{font-family:'IBM Plex Sans Arabic','IBM Plex Sans',system-ui,sans-serif}
+.mono{font-family:'JetBrains Mono','IBM Plex Sans Arabic',monospace;letter-spacing:.02em}
+a{color:var(--blue)}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+[hidden]{display:none!important}
+/* shell */
+.shell{position:sticky;top:0;z-index:20;background:var(--ink);color:#EDE6D6;display:flex;align-items:center;gap:12px;padding:8px 16px;flex-wrap:wrap;box-shadow:0 1px 0 rgba(0,0,0,.2)}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:#EDE6D6;margin-inline-end:6px}
+.brand .logo{width:30px;height:30px;border-radius:6px;background:var(--acc);display:grid;place-items:center;color:var(--ink);font-weight:800;font-size:15px}
+.brand b{font-size:16px;letter-spacing:.02em}.brand small{display:block;font-size:11px;color:#98A2B3;line-height:1.1}
+.cmd{display:flex;flex:1;min-width:220px;max-width:460px}
+.cmd input{flex:1;min-height:38px;border-radius:6px 0 0 6px;border:1px solid #3A4458;background:#121A29;color:#fff;padding:0 12px;font-family:'JetBrains Mono',monospace;font-size:13.5px}
+html[dir=rtl] .cmd input{border-radius:0 6px 6px 0}
+.cmd button{min-height:38px;padding:0 14px;border:0;border-radius:0 6px 6px 0;background:var(--acc);color:var(--ink);font-weight:700;cursor:pointer}
+html[dir=rtl] .cmd button{border-radius:6px 0 0 6px}
+.sh-r{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-inline-start:auto}
+.date{display:flex;align-items:center;gap:4px;background:#121A29;border:1px solid #3A4458;border-radius:6px;padding:3px 4px 3px 10px;font-size:12.5px}
+html[dir=rtl] .date{padding:3px 10px 3px 4px}
+.date b{font-family:'JetBrains Mono',monospace;font-weight:600;margin-inline-end:4px}
+.date button,.sbtn{min-height:32px;padding:0 10px;border-radius:5px;border:1px solid #3A4458;background:transparent;color:#EDE6D6;cursor:pointer;font-size:12.5px}
+.date button:hover,.sbtn:hover{background:#26314A}
+.sbtn.ai{background:var(--acc);color:var(--ink);border-color:var(--acc);font-weight:700}
+.shell select{min-height:34px;border-radius:5px;border:1px solid #3A4458;background:#121A29;color:#EDE6D6;padding:0 8px;font-size:12.5px}
+.shell a.sl{color:#98A2B3;font-size:12.5px;text-decoration:none}.shell a.sl:hover{color:#fff}
+.sub2{background:#fff;border-bottom:1px solid var(--line);padding:8px 20px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:13px;color:var(--mute)}
+.sub2 a{color:var(--txt);text-decoration:none;font-weight:600}.sub2 a:hover{color:var(--accd)}
+main{max-width:1440px;margin:0 auto;padding:20px 20px 60px}
+/* page header */
+.ph{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin:6px 0 16px}
+.ph h1{margin:0;font-size:26px;line-height:1.15;letter-spacing:-.01em}
+.ph .tc{margin:0 0 4px;color:var(--accd);font-size:12px;font-weight:600}
+.ph .sub{margin:6px 0 0;color:var(--mute);max-width:820px}
+.pa{display:flex;gap:8px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:40px;padding:0 16px;border-radius:6px;border:1px solid var(--ink);background:var(--ink);color:#fff;font-weight:600;cursor:pointer;text-decoration:none;font-size:14px;white-space:nowrap}
+.btn:hover{background:#26314A;color:#fff}
+.btn.ghost{background:#fff;color:var(--txt);border-color:var(--line2)}.btn.ghost:hover{border-color:var(--ink)}
+.btn.sm{min-height:32px;padding:0 12px;font-size:13px}
+.btn.danger{background:#fff;color:var(--red);border-color:#F1B5B5}
+.btn.file{position:relative;overflow:hidden}.btn.file input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.icon{width:32px;height:32px;border-radius:6px;border:1px solid var(--line2);background:#fff;cursor:pointer;color:var(--mute)}
+.icon:hover{color:var(--red);border-color:var(--red)}
+/* cards */
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+.card-h{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:12px}
+.card-h h3{margin:0;font-size:15px}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:16px}
+.two>.card,.two>div>.card:last-child{margin-bottom:16px}
+.kv{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px 18px;margin:0}
+.kv div{min-width:0}.kv dt{font-size:12px;color:var(--mute)}.kv dd{margin:2px 0 0;font-weight:500;word-wrap:break-word}
+.form{display:grid;gap:12px}.form.row{grid-template-columns:repeat(auto-fit,minmax(170px,1fr));align-items:end}
+.form label{display:flex;flex-direction:column;gap:4px;font-size:12.5px;color:var(--mute);font-weight:500}
+.form input,.form select,table.edit input,table.edit select,input.amt,.form textarea{min-height:38px;border:1px solid var(--line2);border-radius:6px;padding:0 10px;background:#fff;color:var(--txt);font-size:14px;width:100%}
+input.amt{width:130px;text-align:end;font-family:'JetBrains Mono',monospace}
+.form input:disabled{background:#F6F4EF}
+.hint{color:var(--mute);font-size:13px;margin:10px 0 0}
+.empty{color:var(--mute);padding:14px;background:#FAF9F6;border:1px dashed var(--line2);border-radius:8px;margin:0}
+/* tables */
+.tsearch{min-height:34px;border:1px solid var(--line2);border-radius:6px;padding:0 10px;margin-bottom:8px;width:min(320px,100%);background:#fff}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:8px}
+table.grid{width:100%;border-collapse:collapse;font-size:13.5px;background:#fff}
+table.grid th{position:sticky;top:0;background:#F7F5F0;text-align:start;font-weight:600;color:#475467;padding:9px 10px;border-bottom:1px solid var(--line);white-space:nowrap;cursor:pointer;user-select:none}
+table.grid th[aria-sort=ascending]::after{content:" ▲";font-size:9px}table.grid th[aria-sort=descending]::after{content:" ▼";font-size:9px}
+table.grid td{padding:8px 10px;border-bottom:1px solid #EFECE5;vertical-align:middle}
+table.grid tbody tr:hover td{background:#FBFAF7}
+table.grid tfoot td{font-weight:700;background:#F7F5F0;border-top:2px solid var(--line2)}
+.num{text-align:end;font-family:'JetBrains Mono',monospace;font-size:13px;white-space:nowrap;direction:ltr;unicode-bidi:isolate}
+html[dir=rtl] .num{text-align:left}
+table.grid th.num{font-family:inherit;font-size:13.5px}
+html[dir=rtl] .mono{letter-spacing:0}
+table.edit td{padding:6px}table.edit .num input{text-align:end}
+table.fs td{padding:7px 10px}table.fs tr.strong td{font-weight:700;background:#FAF9F6}table.fs tr.total td{border-top:2px solid var(--ink)}
+.dl{color:var(--blue);text-decoration:none;font-weight:600}.dl:hover{text-decoration:underline}
+.neg{color:var(--red)}.pos{color:var(--green)}
+.badge{display:inline-block;font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.b-blue{background:#E0EAFF;color:#1D4ED8}.b-red{background:#FDE2E1;color:#B42318}.b-amber{background:#FEF0C7;color:#93370D}.b-teal{background:#CCFBEF;color:#0F766E}.b-violet{background:#EDE9FE;color:#5B21B6}.b-green{background:#DCFAE6;color:#067647}.b-grey{background:#EEECE7;color:#475467}
+.pill{font-size:12px;font-weight:700;background:var(--ink);color:#fff;border-radius:999px;padding:1px 9px}
+/* home */
+.hero{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin:4px 0 16px}
+.hero h1{margin:0;font-size:30px}.hero .tc{margin:0 0 4px;color:var(--accd);font-size:12px;font-weight:600}.hero .sub{margin:4px 0 0;color:var(--mute)}
+.hero input{min-height:42px;border:1px solid var(--line2);border-radius:8px;padding:0 14px;width:min(340px,100%);background:#fff}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:20px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;text-decoration:none;color:var(--txt);border-top:3px solid var(--acc)}
+a.kpi:hover{border-color:var(--ink)}
+.kpi span{display:block;font-size:12px;color:var(--mute)}.kpi b{display:block;font-size:21px;margin-top:4px;direction:ltr;unicode-bidi:isolate}
+html[dir=rtl] .kpi b{text-align:right}
+.home2{display:grid;grid-template-columns:1fr 340px;gap:20px}@media(max-width:1080px){.home2{grid-template-columns:1fr}}
+.grp h2{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--mute);margin:4px 0 10px;font-weight:600}
+html[dir=rtl] .grp h2{letter-spacing:0}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(176px,1fr));gap:10px;margin-bottom:20px}
+.tile{position:relative;display:flex;flex-direction:column;gap:3px;min-height:128px;padding:12px 14px;background:var(--card);border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--txt);transition:transform .15s ease,box-shadow .15s ease,border-color .15s}
+.tile:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(16,24,40,.08);border-color:var(--line2)}
+.tile .tc{font-size:11.5px;font-weight:600;color:var(--accd)}
+.tile b{font-size:14.5px;line-height:1.25}.tile .ts{font-size:12.5px;color:var(--mute);line-height:1.35}
+.tile .tk{position:absolute;bottom:10px;inset-inline-end:12px;font-size:20px;font-weight:600;color:var(--ink)}
+.tile::before{content:"";position:absolute;inset-inline-start:0;top:12px;bottom:12px;width:3px;border-radius:3px;background:var(--gc,#CFC9BC)}
+.g-sales{--gc:#EA580C}.g-mm{--gc:#2563EB}.g-im{--gc:#0F766E}.g-pp{--gc:#CA8A04}.g-fi{--gc:#7C3AED}.g-md{--gc:#475467}.g-an{--gc:#DB2777}.g-learn{--gc:#15803D}.g-adm{--gc:#98A2B3}
+.inbox ul,.log{list-style:none;margin:0;padding:0}
+.inbox li a{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;padding:9px 6px;border-bottom:1px solid #F0EDE6;text-decoration:none;color:var(--txt)}
+.inbox li a:hover{background:#FBFAF7}
+.inbox code{font-size:11.5px;color:var(--mute)}
+.dot{min-width:28px;height:24px;border-radius:999px;display:grid;place-items:center;font-size:12.5px;color:#fff;padding:0 6px}
+.dot.red{background:#D92D20}.dot.blue{background:#2563EB}.dot.amber{background:#DC6803}.dot.violet{background:#7C3AED}
+.log li{display:grid;grid-template-columns:86px 1fr;gap:8px;font-size:13px;padding:6px 0;border-bottom:1px dashed #EAE6DD}
+.log li span{color:var(--mute);font-size:11.5px}.log li.warn{color:#93370D}.log li.err{color:var(--red)}
+/* object pages */
+.flow{list-style:none;margin:0;padding:0;border-inline-start:2px solid var(--line2);padding-inline-start:14px}
+.flow li a{display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:6px 8px;margin:3px 0;border-radius:6px;text-decoration:none;color:var(--txt);position:relative}
+.flow li a::before{content:"";position:absolute;inset-inline-start:-21px;top:13px;width:10px;height:10px;border-radius:50%;background:#fff;border:2px solid var(--acc)}
+.flow li a:hover{background:#FBFAF7}.flow .fk{font-weight:600;font-size:13px}.flow small{width:100%;color:var(--mute);font-family:'JetBrains Mono',monospace;font-size:12px}
+.credit{margin-top:12px}.cbar{height:8px;background:#EEECE7;border-radius:999px;overflow:hidden;margin:8px 0}.cbar i{display:block;height:100%;border-radius:999px}.cbar.sm{height:6px;width:90px;display:inline-block;vertical-align:middle;margin:0 6px 0 0}
+.stack{display:flex;height:14px;border-radius:999px;overflow:hidden;margin-top:14px;background:#EEECE7}.stack i{display:block;height:100%}
+.bars{display:flex;align-items:flex-end;gap:10px;height:200px;padding-top:20px}
+.bar{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:4px}.bar i{display:block;width:100%;max-width:64px;border-radius:6px 6px 0 0;min-height:2px}.bar span{font-size:11.5px}.bar b{font-size:12px;font-weight:600;color:var(--mute)}
+.hbars{display:grid;gap:8px}.hb{display:grid;grid-template-columns:minmax(120px,38%) 1fr auto;gap:10px;align-items:center;font-size:13px}.hb>div{height:12px;background:#F3F1EC;border-radius:999px;overflow:hidden}.hb i{display:block;height:100%;border-radius:999px}.hb span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tabs{display:flex;gap:4px;margin-bottom:12px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.tabs a{padding:10px 14px;text-decoration:none;color:var(--mute);font-weight:600;border-bottom:3px solid transparent;margin-bottom:-1px}
+.tabs a[aria-selected=true]{color:var(--txt);border-bottom-color:var(--acc)}
+.exgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,360px),1fr));gap:16px}
+.ex ol{list-style:none;margin:12px 0 14px;padding:0}
+.ex li{display:flex;gap:10px;align-items:flex-start;padding:7px 0;border-bottom:1px dashed #EAE6DD}
+.ex li a{color:var(--txt);text-decoration:none}.ex li a:hover{color:var(--accd)}
+.ex .chk{flex:none;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:700;border:2px solid var(--line2);color:var(--mute)}
+.ex li.done .chk{background:var(--green);border-color:var(--green);color:#fff}.ex li.done a{color:var(--mute);text-decoration:line-through}
+.stackb{display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+/* toasts */
+#toasts{position:fixed;bottom:18px;inset-inline-end:18px;z-index:60;display:flex;flex-direction:column;gap:8px;max-width:min(440px,calc(100vw - 36px))}
+.toast{padding:12px 16px;border-radius:8px;color:#fff;background:var(--ink);box-shadow:0 10px 30px rgba(0,0,0,.2);font-size:14px;border-inline-start:5px solid #12B76A;transition:opacity .4s,transform .4s}
+.toast.warn{border-inline-start-color:#F79009}.toast.err{border-inline-start-color:#F04438;background:#3B0D0C}.toast.out{opacity:0;transform:translateY(8px)}
+/* copilot */
+#copilot{position:fixed;top:0;bottom:0;inset-inline-end:0;width:min(420px,100vw);background:#fff;z-index:50;box-shadow:-10px 0 40px rgba(0,0,0,.18);display:flex;flex-direction:column}
+.cp-h{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:var(--ink);color:#EDE6D6}
+.cp-h h2{margin:0;font-size:16px}
+#aiLog{flex:1;overflow:auto;padding:14px;display:flex;flex-direction:column;gap:10px;background:#FAF9F6}
+.msg{padding:10px 12px;border-radius:10px;white-space:pre-wrap;line-height:1.5;font-size:14px;max-width:92%}
+.msg.u{background:var(--ink);color:#fff;align-self:flex-end}.msg.a{background:#fff;border:1px solid var(--line)}.msg.f{font-size:12px;color:var(--mute);background:none;padding:0 4px}
+#aiForm{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line)}
+#aiForm input{flex:1;min-height:42px;border:1px solid var(--line2);border-radius:8px;padding:0 12px}
+.cp-chips{display:flex;flex-wrap:wrap;gap:6px;padding:0 12px 12px}.cp-chips button{border:1px solid var(--line2);background:#fff;border-radius:999px;padding:6px 10px;font-size:12.5px;cursor:pointer}
+@media(max-width:720px){.shell{gap:8px}.cmd{order:3;max-width:none;min-width:100%}.brand small{display:none}main{padding:14px 12px 60px}.ph h1{font-size:22px}}
+@media print{.shell,.sub2,#toasts,#copilot,.pa,.tsearch{display:none!important}body{background:#fff}.card{box-shadow:none}}
+</style>
+</head>
+<body>
+<header class="shell">
+  <a class="brand" href="#home"><span class="logo" aria-hidden="true">Q</span><span><b data-k="brand">QAFILA ERP</b><small data-k="suite">Enterprise suite</small></span></a>
+  <form class="cmd" id="cmdForm" role="search"><input id="cmd" list="dl_cmd" autocomplete="off" aria-label="Transaction code"><datalist id="dl_cmd"></datalist><button type="submit" data-k="go">Go</button></form>
+  <div class="sh-r">
+    <div class="date" title="Posting date"><span data-k="date">Posting date</span> <b id="dateV"></b><button type="button" id="d1" data-k="days1">+1 day</button><button type="button" id="d7" data-k="days7">+7 days</button></div>
+    <label class="sr" style="display:flex;align-items:center;gap:6px;font-size:12.5px"><span data-k="role">Role</span><select id="roleSel"></select></label>
+    <button class="sbtn" type="button" id="langBtn">عربي</button>
+    <button class="sbtn ai" type="button" id="aiBtn" hidden><span aria-hidden="true">✦</span> <span data-k="copilot">Copilot</span></button>
+  </div>
+</header>
+<div class="sub2"><nav id="crumb" aria-label="Breadcrumb"></nav><span><span id="coName"></span> · <a href="erp-academy.html" data-k="academy">ERP Academy</a> · <a href="index.html" data-k="site">QAFILA</a></span></div>
+<main id="view" tabindex="-1"></main>
+<div id="toasts" aria-live="polite"></div>
+<aside id="copilot" hidden aria-label="Copilot">
+  <div class="cp-h"><h2><span aria-hidden="true">✦</span> <span data-k="ai">Ask the ERP copilot</span></h2><button class="sbtn" type="button" id="aiClose" aria-label="Close">✕</button></div>
+  <div id="aiLog"></div>
+  <form id="aiForm"><input id="aiQ" aria-label="Question"><button class="btn" type="submit" data-k="send">Send</button></form>
+</aside>
+<script>/* QAFILA ERP — seed company, master data and bilingual UI text. Fictional teaching company. */
+var ERP_SEED = function () {
+  var M = [
+    // id, en, ar, type, uom, std cost, sale price, safety stock, lot size, procurement (E in-house / F external), vendor, lead time days
+    ['FG-100', 'Medjool dates premium 1 kg box', 'تمر مجدول فاخر علبة 1 كغ', 'FERT', 'BOX', 38, 65, 100, 200, 'E', '', 2],
+    ['FG-110', 'Khalas dates gift box 500 g', 'تمر خلاص علبة هدايا 500 غ', 'FERT', 'BOX', 22, 39, 150, 300, 'E', '', 2],
+    ['FG-120', 'Date paste industrial pail 5 kg', 'معجون تمر صناعي سطل 5 كغ', 'FERT', 'PAIL', 72, 110, 50, 100, 'E', '', 3],
+    ['TG-500', 'Arabic coffee 250 g', 'قهوة عربية 250 غ', 'HAWA', 'PAC', 14, 24, 80, 200, 'F', 'V-2003', 5],
+    ['RM-200', 'Medjool dates bulk', 'تمر مجدول سائب', 'ROH', 'KG', 24, 0, 500, 1000, 'F', 'V-2001', 7],
+    ['RM-210', 'Khalas dates bulk', 'تمر خلاص سائب', 'ROH', 'KG', 11, 0, 600, 1000, 'F', 'V-2001', 5],
+    ['PK-300', 'Premium carton 1 kg', 'كرتون فاخر 1 كغ', 'VERP', 'EA', 2.5, 0, 500, 2000, 'F', 'V-2002', 10],
+    ['PK-310', 'Gift box 500 g', 'علبة هدايا 500 غ', 'VERP', 'EA', 3.2, 0, 500, 2000, 'F', 'V-2002', 10],
+    ['PK-320', 'Food-grade pail 5 kg', 'سطل غذائي 5 كغ', 'VERP', 'EA', 4, 0, 200, 500, 'F', 'V-2002', 10]
+  ].map(function (r) { return { id: r[0], en: r[1], ar: r[2], type: r[3], uom: r[4], std: r[5], sale: r[6], ss: r[7], lot: r[8], proc: r[9], vendor: r[10], lt: r[11] }; });
+  return {
+    v: 3,
+    date: '2026-11-01',
+    company: { code: 'QF10', en: 'Qafila Dates Trading LLC', ar: 'قافلة لتجارة التمور ذ.م.م', city: 'Dubai', currency: 'AED', trn: '100XXXXXXXXX003' },
+    plants: [{ id: 'DXB1', en: 'Dubai plant & DC', ar: 'مصنع ومركز توزيع دبي' }, { id: 'RUH1', en: 'Riyadh DC', ar: 'مركز توزيع الرياض' }],
+    accounts: [
+      ['110000', 'Bank – current account', 'البنك – الحساب الجاري', 'A'], ['120000', 'Trade receivables', 'الذمم المدينة التجارية', 'A'], ['130000', 'Inventory – raw & packaging', 'المخزون – مواد خام وتغليف', 'A'],
+      ['130100', 'Inventory – finished goods', 'المخزون – منتجات تامة', 'A'], ['130200', 'Inventory – trading goods', 'المخزون – بضائع تجارية', 'A'], ['131000', 'Work in progress', 'إنتاج تحت التشغيل', 'A'],
+      ['140000', 'VAT input (recoverable)', 'ضريبة المدخلات القابلة للاسترداد', 'A'], ['150000', 'Plant & machinery', 'الآلات والمعدات', 'A'],
+      ['210000', 'Trade payables', 'الذمم الدائنة التجارية', 'L'], ['211000', 'GR/IR clearing', 'حساب مقاصة الاستلام والفواتير', 'L'], ['220000', 'VAT output payable', 'ضريبة المخرجات المستحقة', 'L'], ['230000', 'Accrued expenses', 'مصروفات مستحقة', 'L'],
+      ['300000', 'Share capital', 'رأس المال', 'E'], ['310000', 'Retained earnings', 'الأرباح المحتجزة', 'E'],
+      ['400000', 'Sales revenue', 'إيرادات المبيعات', 'R'], ['500000', 'Cost of goods sold', 'تكلفة البضاعة المباعة', 'X'], ['510000', 'Purchase price differences', 'فروق أسعار الشراء', 'X'],
+      ['520000', 'Production variances', 'انحرافات الإنتاج', 'X'], ['590000', 'Inventory differences & scrap', 'فروق الجرد والتالف', 'X'], ['600000', 'Salaries & wages', 'الرواتب والأجور', 'X'],
+      ['610000', 'Production cost absorbed', 'تكاليف إنتاج محمّلة', 'X'], ['620000', 'Rent & utilities', 'الإيجار والمرافق', 'X'], ['630000', 'Freight out', 'مصاريف الشحن', 'X']
+    ].map(function (a) { return { id: a[0], en: a[1], ar: a[2], t: a[3] }; }),
+    materials: M,
+    conv: { 'FG-100': 11.02, 'FG-110': 13.19, 'FG-120': 11.9 },
+    boms: { 'FG-100': [{ m: 'RM-200', q: 1.02 }, { m: 'PK-300', q: 1 }], 'FG-110': [{ m: 'RM-210', q: 0.51 }, { m: 'PK-310', q: 1 }], 'FG-120': [{ m: 'RM-210', q: 5.1 }, { m: 'PK-320', q: 1 }] },
+    customers: [
+      { id: 'C-1001', en: 'Al Waha Hypermarkets LLC', ar: 'الواحة للهايبر ماركت ذ.م.م', city: 'Dubai', cty: 'AE', credit: 120000, terms: 30, disc: 0.03 },
+      { id: 'C-1002', en: 'Najd Food Distribution Co.', ar: 'شركة نجد لتوزيع الأغذية', city: 'Riyadh', cty: 'SA', credit: 150000, terms: 45, disc: 0.05 },
+      { id: 'C-1003', en: 'Doha Gourmet Trading', ar: 'الدوحة للتجارة الفاخرة', city: 'Doha', cty: 'QA', credit: 60000, terms: 30, disc: 0 },
+      { id: 'C-1004', en: 'Muscat Sweets Factory', ar: 'مصنع مسقط للحلويات', city: 'Muscat', cty: 'OM', credit: 50000, terms: 60, disc: 0.02 },
+      { id: 'C-1005', en: 'Skyline Catering Services', ar: 'سكاي لاين لخدمات التموين', city: 'Abu Dhabi', cty: 'AE', credit: 80000, terms: 30, disc: 0.04 }
+    ],
+    vendors: [
+      { id: 'V-2001', en: 'Al Qassim Date Farms', ar: 'مزارع القصيم للتمور', city: 'Buraydah', cty: 'SA', terms: 30, rating: 'A' },
+      { id: 'V-2002', en: 'Emirates Food Packaging Industries', ar: 'الإمارات لصناعات تغليف الأغذية', city: 'Sharjah', cty: 'AE', terms: 45, rating: 'B' },
+      { id: 'V-2003', en: 'Mocha Coffee Roasters FZE', ar: 'موكا لتحميص القهوة م.م.ح', city: 'Dubai', cty: 'AE', terms: 30, rating: 'A' }
+    ],
+    stock: { 'FG-100|DXB1': 380, 'FG-110|DXB1': 520, 'FG-120|DXB1': 60, 'TG-500|DXB1': 150, 'FG-100|RUH1': 90, 'RM-200|DXB1': 900, 'RM-210|DXB1': 1500, 'PK-300|DXB1': 1200, 'PK-310|DXB1': 800, 'PK-320|DXB1': 120 },
+    seq: { so: 5000000, dl: 8000000, bi: 9000000, pr: 10000000, po: 4500000, md: 4900000, iv: 5105600000, fi: 100000000, pp: 1000000, pl: 70000, pi: 300000 },
+    so: [], dl: [], bi: [], pr: [], po: [], md: [], iv: [], fi: [], pp: [], pl: [], pi: [], log: []
+  };
+};
+
+var ERP_TX = {
+  en: {
+    brand: 'QAFILA ERP', suite: 'Enterprise suite', cmd: 'Transaction code, e.g. VA01', go: 'Go', home: 'Home', back: 'Back', date: 'Posting date', role: 'Role', copilot: 'Copilot', academy: 'ERP Academy', site: 'QAFILA',
+    hello: 'Good day', helloSub: 'Your enterprise at a glance. Open an app or type a transaction code.', search: 'Search apps',
+    roles: { all: 'All roles', sales: 'Sales clerk', buyer: 'Buyer', wh: 'Warehouse', planner: 'Production planner', fin: 'Accountant', mgr: 'General manager' },
+    groups: { sales: 'Sales & distribution', mm: 'Procurement', im: 'Inventory & warehouse', pp: 'Planning & production', fi: 'Finance & controlling', md: 'Master data', an: 'Analytics', learn: 'Training', adm: 'Administration' },
+    k: { rev: 'Revenue (period)', open: 'Open sales orders', inv: 'Inventory value', ar: 'Receivables overdue', ap: 'Payables open', cash: 'Bank balance', gm: 'Gross margin' },
+    save: 'Save', check: 'Check', post: 'Post', cancel: 'Cancel', add: 'Add item', del: 'Remove', create: 'Create', open: 'Open', release: 'Release', confirm: 'Confirm', pay: 'Pay', bill: 'Create invoice', deliver: 'Create delivery', pgi: 'Post goods issue', run: 'Run', convert: 'Convert', export: 'Export CSV', all: 'All', none: 'No records yet.', status: 'Status', total: 'Total', net: 'Net', tax: 'VAT', gross: 'Gross', qty: 'Quantity', price: 'Price', amount: 'Amount', material: 'Material', plant: 'Plant', customer: 'Customer', vendor: 'Vendor', doc: 'Document', dateL: 'Date', due: 'Due date', ref: 'Reference', text: 'Text', account: 'G/L account', debit: 'Debit', credit: 'Credit', open_: 'Open', items: 'Items', flow: 'Document flow', acc: 'Accounting documents', header: 'Header', avail: 'Available', atp: 'ATP check', conf: 'Confirmed', desc: 'Description', uom: 'Unit', value: 'Value', type: 'Type',
+    days1: '+1 day', days7: '+7 days', saved: 'saved', posted: 'posted', err: 'Error', warn: 'Warning', ok: 'OK',
+    ai: 'Ask the ERP copilot', aiPh: 'e.g. Why is this order blocked? What should I do next?', aiWait: 'Thinking…', aiFoot: 'AI answers can be wrong. Check postings in the system.', send: 'Send',
+    reset: 'Reset demo company', resetQ: 'Reset all data to the starting company? Your postings in this browser will be lost.', exp: 'Export database (JSON)', imp: 'Import database (JSON)', impOk: 'Database imported.', about: 'QAFILA ERP is a teaching system modelled on how enterprise ERP suites work: integrated documents, automatic account determination, moving through order-to-cash, procure-to-pay and plan-to-produce. Company, prices and partners are fictional. Data stays in this browser.',
+    stat: { open: 'Open', cblock: 'Credit block', partdl: 'Partly delivered', delivered: 'Delivered', billed: 'Billed', paid: 'Paid', partpaid: 'Partly paid', picked: 'Picked', gi: 'Goods issued', ordered: 'Ordered', partgr: 'Partly received', received: 'Received', invoiced: 'Invoiced', blocked: 'Blocked for payment', crtd: 'Created', rel: 'Released', cnf: 'Confirmed', converted: 'Converted' }
+  },
+  ar: {
+    brand: 'قافلة ERP', suite: 'نظام المؤسسات', cmd: 'رمز المعاملة، مثل VA01', go: 'انتقال', home: 'الرئيسية', back: 'رجوع', date: 'تاريخ الترحيل', role: 'الدور', copilot: 'المساعد', academy: 'أكاديمية ERP', site: 'قافلة',
+    hello: 'يوم سعيد', helloSub: 'مؤسستك في لمحة. افتح تطبيقًا أو اكتب رمز معاملة.', search: 'ابحث في التطبيقات',
+    roles: { all: 'كل الأدوار', sales: 'موظف مبيعات', buyer: 'مسؤول مشتريات', wh: 'أمين مستودع', planner: 'مخطط إنتاج', fin: 'محاسب', mgr: 'مدير عام' },
+    groups: { sales: 'المبيعات والتوزيع', mm: 'المشتريات', im: 'المخزون والمستودعات', pp: 'التخطيط والإنتاج', fi: 'المالية والرقابة', md: 'البيانات الرئيسية', an: 'التحليلات', learn: 'التدريب', adm: 'الإدارة' },
+    k: { rev: 'الإيرادات (الفترة)', open: 'أوامر بيع مفتوحة', inv: 'قيمة المخزون', ar: 'ذمم مدينة متأخرة', ap: 'ذمم دائنة مفتوحة', cash: 'رصيد البنك', gm: 'هامش الربح الإجمالي' },
+    save: 'حفظ', check: 'فحص', post: 'ترحيل', cancel: 'إلغاء', add: 'إضافة بند', del: 'حذف', create: 'إنشاء', open: 'فتح', release: 'إفراج', confirm: 'تأكيد', pay: 'دفع', bill: 'إصدار فاتورة', deliver: 'إنشاء تسليم', pgi: 'ترحيل صرف البضاعة', run: 'تشغيل', convert: 'تحويل', export: 'تصدير CSV', all: 'الكل', none: 'لا توجد سجلات بعد.', status: 'الحالة', total: 'الإجمالي', net: 'الصافي', tax: 'الضريبة', gross: 'الإجمالي شامل الضريبة', qty: 'الكمية', price: 'السعر', amount: 'المبلغ', material: 'المادة', plant: 'الموقع', customer: 'العميل', vendor: 'المورد', doc: 'المستند', dateL: 'التاريخ', due: 'تاريخ الاستحقاق', ref: 'المرجع', text: 'البيان', account: 'حساب الأستاذ', debit: 'مدين', credit: 'دائن', open_: 'مفتوح', items: 'البنود', flow: 'تسلسل المستندات', acc: 'القيود المحاسبية', header: 'الرأس', avail: 'المتاح', atp: 'فحص التوفر', conf: 'المؤكد', desc: 'الوصف', uom: 'الوحدة', value: 'القيمة', type: 'النوع',
+    days1: '+يوم', days7: '+7 أيام', saved: 'تم الحفظ', posted: 'تم الترحيل', err: 'خطأ', warn: 'تنبيه', ok: 'تم',
+    ai: 'اسأل مساعد النظام', aiPh: 'مثال: لماذا هذا الأمر محظور؟ ما الخطوة التالية؟', aiWait: 'جارٍ التفكير…', aiFoot: 'قد تخطئ إجابات الذكاء الاصطناعي. تحقق من القيود في النظام.', send: 'إرسال',
+    reset: 'إعادة الشركة التجريبية', resetQ: 'إعادة كل البيانات إلى الشركة الأولية؟ ستُفقد قيودك في هذا المتصفح.', exp: 'تصدير قاعدة البيانات (JSON)', imp: 'استيراد قاعدة البيانات (JSON)', impOk: 'تم استيراد قاعدة البيانات.', about: 'قافلة ERP نظام تعليمي يحاكي طريقة عمل أنظمة تخطيط موارد المؤسسات: مستندات متكاملة وتحديد آلي للحسابات، عبر دورات الطلب حتى التحصيل والشراء حتى الدفع والتخطيط حتى الإنتاج. الشركة والأسعار والشركاء افتراضيون. البيانات تبقى في هذا المتصفح.',
+    stat: { open: 'مفتوح', cblock: 'حظر ائتماني', partdl: 'مسلّم جزئيًا', delivered: 'مسلّم', billed: 'مفوتر', paid: 'مدفوع', partpaid: 'مدفوع جزئيًا', picked: 'تم الالتقاط', gi: 'تم الصرف', ordered: 'مطلوب', partgr: 'مستلم جزئيًا', received: 'مستلم', invoiced: 'مفوتر', blocked: 'محظور للدفع', crtd: 'منشأ', rel: 'مُفرج عنه', cnf: 'مؤكد', converted: 'محوّل' }
+  }
+};
+
+/* apps: tcode, group, roles, en title, ar title, en sub, ar sub */
+var ERP_APPS = [
+  ['VA01', 'sales', 'sales', 'Create sales order', 'إنشاء أمر بيع', 'Pricing, ATP and credit check', 'التسعير وفحص التوفر والائتمان'],
+  ['VA05', 'sales', 'sales mgr', 'Sales orders', 'أوامر البيع', 'List, status and document flow', 'القائمة والحالة وتسلسل المستندات'],
+  ['VKM3', 'sales', 'mgr fin', 'Release credit block', 'الإفراج عن الحظر الائتماني', 'Orders above credit limit', 'أوامر تتجاوز حد الائتمان'],
+  ['VL01N', 'sales', 'sales wh', 'Outbound delivery', 'التسليم الصادر', 'Pick and post goods issue', 'الالتقاط وترحيل الصرف'],
+  ['VF01', 'sales', 'sales fin', 'Billing', 'الفوترة', 'Invoice delivered orders with VAT', 'فوترة الأوامر المسلّمة مع الضريبة'],
+  ['F-28', 'fi', 'fin', 'Incoming payment', 'تحصيل الدفعات', 'Clear customer invoices', 'تسوية فواتير العملاء'],
+  ['FBL5N', 'fi', 'fin sales mgr', 'Customer line items & aging', 'بنود العملاء وأعمار الديون', 'Open receivables by age', 'الذمم المدينة حسب العمر'],
+  ['ME51N', 'mm', 'buyer planner', 'Purchase requisition', 'طلب الشراء', 'Request materials', 'طلب المواد'],
+  ['ME21N', 'mm', 'buyer', 'Create purchase order', 'إنشاء أمر شراء', 'From requisitions or direct', 'من طلبات الشراء أو مباشرة'],
+  ['ME2N', 'mm', 'buyer mgr', 'Purchase orders', 'أوامر الشراء', 'Status of receipts and invoices', 'حالة الاستلام والفواتير'],
+  ['MIGO', 'im', 'wh buyer', 'Goods movement', 'حركة البضائع', 'Receipt, transfer and scrap', 'الاستلام والنقل والإتلاف'],
+  ['MIRO', 'fi', 'fin buyer', 'Supplier invoice', 'فاتورة المورد', 'Three-way match', 'المطابقة الثلاثية'],
+  ['MRBR', 'fi', 'fin mgr', 'Release blocked invoices', 'الإفراج عن الفواتير المحظورة', 'Price variances above tolerance', 'فروق أسعار تتجاوز الحد'],
+  ['F-53', 'fi', 'fin', 'Outgoing payment', 'سداد الموردين', 'Pay supplier invoices', 'دفع فواتير الموردين'],
+  ['FBL1N', 'fi', 'fin buyer mgr', 'Supplier line items & aging', 'بنود الموردين وأعمار الديون', 'Open payables by age', 'الذمم الدائنة حسب العمر'],
+  ['MMBE', 'im', 'wh sales buyer planner mgr', 'Stock overview', 'نظرة على المخزون', 'Quantities and values by plant', 'الكميات والقيم حسب الموقع'],
+  ['MB51', 'im', 'wh fin', 'Material documents', 'مستندات المواد', 'Every goods movement', 'كل حركات البضائع'],
+  ['MI07', 'im', 'wh fin', 'Physical inventory', 'الجرد الفعلي', 'Count and post differences', 'العد وترحيل الفروق'],
+  ['MD01', 'pp', 'planner buyer', 'MRP run', 'تشغيل تخطيط المواد', 'Net requirements and proposals', 'صافي الاحتياجات والمقترحات'],
+  ['MD04', 'pp', 'planner', 'Stock / requirements list', 'قائمة المخزون والاحتياجات', 'Supply and demand per material', 'العرض والطلب لكل مادة'],
+  ['CO40', 'pp', 'planner', 'Convert planned orders', 'تحويل الأوامر المخططة', 'Create production orders', 'إنشاء أوامر الإنتاج'],
+  ['CO01', 'pp', 'planner', 'Create production order', 'إنشاء أمر إنتاج', 'Direct order with BOM', 'أمر مباشر مع قائمة المواد'],
+  ['CO11N', 'pp', 'planner wh', 'Confirm production', 'تأكيد الإنتاج', 'Backflush, receipt and variance', 'الصرف التلقائي والاستلام والانحراف'],
+  ['COOIS', 'pp', 'planner mgr', 'Production orders', 'أوامر الإنتاج', 'Order information system', 'نظام معلومات الأوامر'],
+  ['CS03', 'pp', 'planner fin', 'Bills of materials', 'قوائم المواد', 'Components and cost roll-up', 'المكونات وتجميع التكلفة'],
+  ['FB50', 'fi', 'fin', 'Journal entry', 'قيد يومية', 'Manual G/L posting', 'ترحيل يدوي على الأستاذ'],
+  ['FB03', 'fi', 'fin mgr', 'Accounting documents', 'المستندات المحاسبية', 'Every financial posting', 'كل الترحيلات المالية'],
+  ['FS10N', 'fi', 'fin', 'G/L account balances', 'أرصدة حسابات الأستاذ', 'Balances and line items', 'الأرصدة والبنود'],
+  ['F.01', 'fi', 'fin mgr', 'Financial statements', 'القوائم المالية', 'Trial balance, P&L, balance sheet', 'ميزان المراجعة وقائمة الدخل والميزانية'],
+  ['MM03', 'md', 'all', 'Materials', 'المواد', 'Material master', 'سجل المواد الرئيسي'],
+  ['XD03', 'md', 'sales fin mgr', 'Customers', 'العملاء', 'Customer master and credit', 'سجل العملاء والائتمان'],
+  ['XK03', 'md', 'buyer fin mgr', 'Suppliers', 'الموردون', 'Supplier master', 'سجل الموردين'],
+  ['FSP0', 'md', 'fin', 'Chart of accounts', 'دليل الحسابات', 'G/L master data', 'بيانات حسابات الأستاذ'],
+  ['DASH', 'an', 'mgr fin sales', 'Management cockpit', 'لوحة الإدارة', 'KPIs and charts', 'المؤشرات والرسوم'],
+  ['TRAIN', 'learn', 'all', 'Guided exercises', 'تمارين موجّهة', 'Learn the end-to-end processes', 'تعلّم العمليات من البداية للنهاية'],
+  ['ADMIN', 'adm', 'all', 'System settings', 'إعدادات النظام', 'Reset, export, import', 'إعادة وتصدير واستيراد']
+];
+</script>
+<script>/* QAFILA ERP — integrated document and posting engine */
+var E = (function () {
+  var KEY = 'qafila-erp-v3', db;
+  function r2(x) { return Math.round((x + Number.EPSILON) * 100) / 100; }
+  function clone(o) { return JSON.parse(JSON.stringify(o)); }
+  function load() { try { var s = localStorage.getItem(KEY); if (s) { var o = JSON.parse(s); if (o && o.v === 3) return o; } } catch (e) {} return null; }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(db)); } catch (e) {} }
+  function addDays(d, n) { var t = new Date(d + 'T00:00:00Z'); t.setUTCDate(t.getUTCDate() + n); return t.toISOString().slice(0, 10); }
+  function days(a, b) { return Math.round((new Date(b + 'T00:00:00Z') - new Date(a + 'T00:00:00Z')) / 864e5); }
+  function next(k) { db.seq[k]++; return String(db.seq[k]); }
+  function byId(list, id) { for (var i = 0; i < list.length; i++) if (list[i].id === id) return list[i]; return null; }
+  function mat(id) { return byId(db.materials, id); }
+  function cust(id) { return byId(db.customers, id); }
+  function vend(id) { return byId(db.vendors, id); }
+  function acc(id) { return byId(db.accounts, id); }
+  function fail(en, ar) { var e = new Error(en); e.ar = ar || en; throw e; }
+  function stock(m, p) { return db.stock[m + '|' + p] || 0; }
+  function addStock(m, p, q) { var k = m + '|' + p; db.stock[k] = r2((db.stock[k] || 0) + q); if (db.stock[k] < -1e-6) fail('Stock of ' + m + ' in ' + p + ' would become negative.', 'سيصبح مخزون ' + m + ' في ' + p + ' سالبًا.'); }
+  function invAcc(m) { var t = mat(m).type; return t === 'FERT' ? '130100' : t === 'HAWA' ? '130200' : '130000'; }
+  function vat(cty) { return cty === 'AE' ? 0.05 : 0; }
+  function post(type, text, ref, lines, date) {
+    lines = lines.filter(function (l) { return Math.abs(l.d || 0) > 0.004 || Math.abs(l.c || 0) > 0.004; }).map(function (l) { return { a: l.a, d: r2(l.d || 0), c: r2(l.c || 0), p: l.p || '', t: l.t || '' }; });
+    var D = 0, C = 0; lines.forEach(function (l) { D += l.d; C += l.c; });
+    var diff = r2(D - C);
+    if (Math.abs(diff) > 0 && Math.abs(diff) <= 0.05 && lines.length) { lines[lines.length - 1][diff > 0 ? 'c' : 'd'] = r2(lines[lines.length - 1][diff > 0 ? 'c' : 'd'] + Math.abs(diff)); D = C = 0; lines.forEach(function (l) { D += l.d; C += l.c; }); }
+    if (Math.abs(r2(D - C)) > 0.001) fail('Document is not balanced: debit ' + r2(D) + ' vs credit ' + r2(C) + '.', 'المستند غير متوازن: مدين ' + r2(D) + ' مقابل دائن ' + r2(C) + '.');
+    lines.forEach(function (l) { if (!acc(l.a)) fail('Unknown G/L account ' + l.a + '.', 'حساب أستاذ غير معروف ' + l.a + '.'); });
+    var doc = { id: next('fi'), type: type, date: date || db.date, text: text, ref: ref || '', lines: lines };
+    db.fi.push(doc); return doc.id;
+  }
+  function matdoc(mvt, items, ref, text) {
+    var doc = { id: next('md'), mvt: mvt, date: db.date, ref: ref || '', text: text || '', items: items.map(function (i) { return { m: i.m, p: i.p, q: r2(i.q), v: r2(i.q * mat(i.m).std) }; }) };
+    db.md.push(doc); return doc;
+  }
+  function log(en, ar, kind) { db.log.unshift({ t: db.date, en: en, ar: ar, k: kind || 'ok' }); db.log = db.log.slice(0, 60); }
+
+  /* ---------- opening balances ---------- */
+  function opening() {
+    var lines = [{ a: '110000', d: 750000, t: 'Opening bank' }, { a: '150000', d: 400000, t: 'Opening machinery' }], inv = {};
+    Object.keys(db.stock).forEach(function (k) { var m = k.split('|')[0], a = invAcc(m); inv[a] = (inv[a] || 0) + db.stock[k] * mat(m).std; });
+    Object.keys(inv).forEach(function (a) { lines.push({ a: a, d: r2(inv[a]), t: 'Opening stock' }); });
+    var ar = [['C-1001', 18375, '2026-10-14'], ['C-1002', 42000, '2026-09-01'], ['C-1004', 9500, '2026-08-20']];
+    var ap = [['V-2001', 36000, '2026-10-20'], ['V-2002', 12600, '2026-10-05']];
+    ar.forEach(function (x, i) { var c = cust(x[0]); db.bi.push({ id: 'OB-' + (90001 + i), so: '', dl: '', cust: x[0], net: x[1], vat: 0, gross: x[1], open: x[1], date: x[2], due: addDays(x[2], c.terms), ob: true }); lines.push({ a: '120000', d: x[1], p: x[0], t: 'Opening invoice' }); });
+    ap.forEach(function (x, i) { var v = vend(x[0]); db.iv.push({ id: 'OB-' + (80001 + i), po: '', vendor: x[0], net: x[1], vat: 0, gross: x[1], open: x[1], date: x[2], due: addDays(x[2], v.terms), blocked: false, ob: true }); lines.push({ a: '210000', c: x[1], p: x[0], t: 'Opening invoice' }); });
+    var D = 0, C = 0; lines.forEach(function (l) { D += l.d || 0; C += l.c || 0; });
+    lines.push({ a: '300000', c: 300000, t: 'Share capital' }); lines.push({ a: '310000', c: r2(D - C - 300000), t: 'Retained earnings' });
+    post('OB', 'Opening balances', 'Go-live', lines, '2026-10-31');
+  }
+  function reset() { db = ERP_SEED(); opening(); log('Company QF10 live: opening balances posted for 31 Oct 2026', 'تشغيل الشركة QF10: ترحيل الأرصدة الافتتاحية في 31 أكتوبر 2026'); save(); }
+  db = load(); if (!db) reset();
+
+  /* ---------- sales ---------- */
+  function soOpen(so, m) { var q = 0; so.items.forEach(function (i) { if (i.m === m) q += i.q - i.dlq; }); return q; }
+  function reserved(m, p, exceptId) { var q = 0; db.so.forEach(function (s) { if (s.plant === p && s.id !== exceptId) s.items.forEach(function (i) { if (i.m === m) q += Math.max(0, i.conf - i.dlq); }); }); db.dl.forEach(function (d) { if (!d.gi && d.plant === p) d.items.forEach(function (i) { if (i.m === m) q += 0; }); }); return q; }
+  function atp(m, p, exceptId) { return Math.max(0, r2(stock(m, p) - reserved(m, p, exceptId))); }
+  function price(c, m, q) { var cu = cust(c), mt = mat(m), pr00 = mt.sale, gross0 = pr00 * q, disc = r2(gross0 * (cu.disc || 0)), net = r2(gross0 - disc), v = r2(net * vat(cu.cty)); return { pr00: pr00, disc: disc, rate: cu.disc || 0, net: net, vat: v, gross: r2(net + v), vr: vat(cu.cty) }; }
+  function exposure(c) { var x = 0; db.bi.forEach(function (b) { if (b.cust === c) x += b.open; }); db.so.forEach(function (s) { if (s.cust === c) s.items.forEach(function (i) { x += (i.q - i.biq) / i.q * i.gross; }); }); return r2(x); }
+  function createSO(h) {
+    var cu = cust(h.cust); if (!cu) fail('Choose a customer.', 'اختر عميلًا.');
+    var items = (h.items || []).filter(function (i) { return i.m && i.q > 0; }); if (!items.length) fail('Add at least one item with a quantity.', 'أضف بندًا واحدًا على الأقل بكمية.');
+    var so = { id: next('so'), date: db.date, cust: h.cust, plant: h.plant || 'DXB1', ref: h.ref || '', req: h.req || addDays(db.date, 3), items: [], cb: false };
+    items.forEach(function (i, n) { var mt = mat(i.m); if (!mt.sale) fail(i.m + ' is not a saleable material.', i.m + ' ليست مادة قابلة للبيع.'); var p = price(h.cust, i.m, i.q); var a = atp(i.m, so.plant); so.items.push({ n: (n + 1) * 10, m: i.m, q: i.q, pr00: p.pr00, disc: p.disc, net: p.net, vat: p.vat, gross: p.gross, conf: Math.min(i.q, a), dlq: 0, biq: 0 }); });
+    var gross = so.items.reduce(function (a, i) { return a + i.gross; }, 0);
+    so.exp = exposure(h.cust); so.cb = so.exp + gross > cu.credit;
+    db.so.push(so);
+    log('Sales order ' + so.id + ' created' + (so.cb ? ' (credit block)' : ''), 'تم إنشاء أمر البيع ' + so.id + (so.cb ? ' (حظر ائتماني)' : ''), so.cb ? 'warn' : 'ok');
+    save(); return so;
+  }
+  function releaseCredit(id) { var so = byId(db.so, id); so.cb = false; so.rel = db.date; log('Credit block released for ' + id, 'تم الإفراج الائتماني عن ' + id); save(); }
+  function reconfirm(so) { so.items.forEach(function (i) { var a = atp(i.m, so.plant, so.id); i.conf = Math.min(i.q, i.dlq + a); }); }
+  function createDelivery(soId) {
+    var so = byId(db.so, soId); if (so.cb) fail('Order ' + soId + ' is blocked by credit management. Release it in VKM3 first.', 'الأمر ' + soId + ' محظور ائتمانيًا. أفرج عنه أولًا من VKM3.');
+    reconfirm(so);
+    var items = []; so.items.forEach(function (i) { var q = Math.min(i.q - i.dlq, stock(i.m, so.plant)); if (q > 0) items.push({ n: i.n, m: i.m, q: q }); });
+    if (!items.length) fail('Nothing to deliver: no open quantity or no stock at ' + so.plant + '.', 'لا شيء للتسليم: لا كمية مفتوحة أو لا مخزون في ' + so.plant + '.');
+    var dl = { id: next('dl'), so: soId, cust: so.cust, plant: so.plant, date: db.date, items: items, gi: false };
+    db.dl.push(dl); log('Delivery ' + dl.id + ' created for ' + soId, 'تم إنشاء التسليم ' + dl.id + ' للأمر ' + soId); save(); return dl;
+  }
+  function pgi(dlId) {
+    var dl = byId(db.dl, dlId), so = byId(db.so, dl.so); if (dl.gi) fail('Goods issue already posted.', 'تم ترحيل الصرف مسبقًا.');
+    dl.items.forEach(function (i) { if (stock(i.m, dl.plant) < i.q) fail('Not enough stock of ' + i.m + ' in ' + dl.plant + '.', 'المخزون غير كافٍ من ' + i.m + ' في ' + dl.plant + '.'); });
+    var md = matdoc('601', dl.items.map(function (i) { return { m: i.m, p: dl.plant, q: -i.q }; }), dlId, 'Goods issue for delivery');
+    var lines = []; dl.items.forEach(function (i) { addStock(i.m, dl.plant, -i.q); var v = i.q * mat(i.m).std; lines.push({ a: '500000', d: v, t: i.m }); lines.push({ a: invAcc(i.m), c: v, t: i.m }); var si = so.items.filter(function (x) { return x.n === i.n; })[0]; si.dlq = r2(si.dlq + i.q); });
+    dl.gi = true; dl.md = md.id; dl.fi = post('WL', 'Goods issue ' + dlId, dlId, lines);
+    log('Goods issue posted for ' + dlId, 'تم ترحيل الصرف للتسليم ' + dlId); save();
+  }
+  function bill(dlId) {
+    var dl = byId(db.dl, dlId), so = byId(db.so, dl.so), cu = cust(so.cust); if (!dl.gi) fail('Post goods issue before billing.', 'رحّل الصرف قبل الفوترة.'); if (dl.bi) fail('Delivery already billed.', 'التسليم مفوتر مسبقًا.');
+    var net = 0, v = 0; dl.items.forEach(function (i) { var si = so.items.filter(function (x) { return x.n === i.n; })[0], f = i.q / si.q; net += si.net * f; v += si.vat * f; si.biq = r2(si.biq + i.q); });
+    net = r2(net); v = r2(v);
+    var b = { id: next('bi'), so: so.id, dl: dlId, cust: so.cust, net: net, vat: v, gross: r2(net + v), date: db.date, due: addDays(db.date, cu.terms) }; b.open = b.gross;
+    b.fi = post('RV', 'Customer invoice ' + b.id, b.id, [{ a: '120000', d: b.gross, p: so.cust }, { a: '400000', c: net }, { a: '220000', c: v }]);
+    dl.bi = b.id; db.bi.push(b); log('Invoice ' + b.id + ' posted: ' + b.gross.toFixed(2) + ' AED', 'تم ترحيل الفاتورة ' + b.id + ': ' + b.gross.toFixed(2) + ' درهم'); save(); return b;
+  }
+  function receive(biId, amt) {
+    var b = byId(db.bi, biId); amt = r2(Math.min(b.open, amt || b.open)); if (amt <= 0) fail('Enter an amount.', 'أدخل مبلغًا.');
+    var id = post('DZ', 'Incoming payment ' + biId, biId, [{ a: '110000', d: amt }, { a: '120000', c: amt, p: b.cust }]);
+    b.open = r2(b.open - amt); (b.pays = b.pays || []).push({ fi: id, amt: amt, date: db.date }); log('Payment ' + amt.toFixed(2) + ' received for ' + biId, 'تم تحصيل ' + amt.toFixed(2) + ' للفاتورة ' + biId); save();
+  }
+  function soStatus(s) {
+    if (s.cb) return 'cblock';
+    var q = 0, d = 0, b = 0; s.items.forEach(function (i) { q += i.q; d += i.dlq; b += i.biq; });
+    var bis = db.bi.filter(function (x) { return x.so === s.id; }), open = bis.reduce(function (a, x) { return a + x.open; }, 0), paidAny = bis.some(function (x) { return x.open < x.gross; });
+    if (b >= q - 1e-6 && open < 0.01) return 'paid';
+    if (b >= q - 1e-6) return paidAny ? 'partpaid' : 'billed';
+    if (d >= q - 1e-6) return 'delivered';
+    if (d > 0) return 'partdl';
+    return 'open';
+  }
+
+  /* ---------- procurement ---------- */
+  function createPR(h) { var mt = mat(h.m); if (!mt) fail('Choose a material.', 'اختر مادة.'); if (!(h.q > 0)) fail('Enter a quantity.', 'أدخل كمية.'); var pr = { id: next('pr'), m: h.m, q: r2(h.q), plant: h.plant || 'DXB1', need: h.need || addDays(db.date, mt.lt), date: db.date, status: 'open', mrp: !!h.mrp, vendor: mt.vendor }; db.pr.push(pr); if (!h.silent) { log('Purchase requisition ' + pr.id + ' created', 'تم إنشاء طلب الشراء ' + pr.id); save(); } return pr; }
+  function createPO(h) {
+    var v = vend(h.vendor); if (!v) fail('Choose a supplier.', 'اختر موردًا.');
+    var items = (h.items || []).filter(function (i) { return i.m && i.q > 0; }); if (!items.length) fail('Add at least one item.', 'أضف بندًا واحدًا على الأقل.');
+    var po = { id: next('po'), vendor: h.vendor, plant: h.plant || 'DXB1', date: db.date, items: items.map(function (i, n) { return { n: (n + 1) * 10, m: i.m, q: r2(i.q), price: r2(i.price || mat(i.m).std), grq: 0, ivq: 0, pr: i.pr || '' }; }) };
+    po.items.forEach(function (i) { if (i.pr) { var pr = byId(db.pr, i.pr); if (pr) { pr.status = 'converted'; pr.po = po.id; } } });
+    db.po.push(po); log('Purchase order ' + po.id + ' created', 'تم إنشاء أمر الشراء ' + po.id); save(); return po;
+  }
+  function gr(poId, qty) {
+    var po = byId(db.po, poId), items = [], lines = [];
+    po.items.forEach(function (i, k) { var q = r2(Math.min(qty[k] || 0, i.q - i.grq)); if (q > 0) { items.push({ m: i.m, p: po.plant, q: q }); i.grq = r2(i.grq + q); addStock(i.m, po.plant, q); var sv = q * mat(i.m).std, pv = q * i.price; lines.push({ a: invAcc(i.m), d: sv, t: i.m }); lines.push({ a: '211000', c: pv, t: i.m }); if (Math.abs(pv - sv) > 0.004) lines.push({ a: '510000', d: pv - sv > 0 ? pv - sv : 0, c: sv - pv > 0 ? sv - pv : 0, t: 'Price difference ' + i.m }); } });
+    if (!items.length) fail('Enter a quantity to receive.', 'أدخل كمية للاستلام.');
+    var md = matdoc('101', items, poId, 'Goods receipt for PO'); md.fi = post('WE', 'Goods receipt ' + poId, poId, lines);
+    log('Goods receipt ' + md.id + ' posted for ' + poId, 'تم ترحيل الاستلام ' + md.id + ' لأمر الشراء ' + poId); save(); return md;
+  }
+  function expectedIV(po) { var x = 0; po.items.forEach(function (i) { x += (i.grq - i.ivq) * i.price; }); return r2(x); }
+  function miro(poId, net, vref) {
+    var po = byId(db.po, poId), v = vend(po.vendor), exp = expectedIV(po); if (exp <= 0) fail('No received quantity waiting for an invoice.', 'لا توجد كمية مستلمة بانتظار فاتورة.');
+    net = r2(net); if (!(net > 0)) fail('Enter the invoice amount.', 'أدخل مبلغ الفاتورة.');
+    var vt = r2(net * vat(v.cty)), dif = r2(net - exp), blocked = Math.abs(dif) / exp > 0.02;
+    var lines = [{ a: '211000', d: exp }, { a: '140000', d: vt }, { a: '210000', c: r2(net + vt), p: po.vendor }];
+    if (dif > 0) lines.push({ a: '510000', d: dif, t: 'Invoice price variance' }); if (dif < 0) lines.push({ a: '510000', c: -dif, t: 'Invoice price variance' });
+    po.items.forEach(function (i) { i.ivq = i.grq; });
+    var iv = { id: next('iv'), po: poId, vendor: po.vendor, vref: vref || '', net: net, vat: vt, gross: r2(net + vt), open: r2(net + vt), date: db.date, due: addDays(db.date, v.terms), blocked: blocked, exp: exp };
+    iv.fi = post('RE', 'Supplier invoice ' + iv.id, poId, lines); db.iv.push(iv);
+    log('Supplier invoice ' + iv.id + ' posted' + (blocked ? ' and blocked: variance ' + dif.toFixed(2) : ''), 'تم ترحيل فاتورة المورد ' + iv.id + (blocked ? ' وحُظرت: فرق ' + dif.toFixed(2) : ''), blocked ? 'warn' : 'ok'); save(); return iv;
+  }
+  function releaseIV(id) { var iv = byId(db.iv, id); iv.blocked = false; log('Invoice ' + id + ' released for payment', 'تم الإفراج عن الفاتورة ' + id + ' للدفع'); save(); }
+  function payVendor(id, amt) { var iv = byId(db.iv, id); if (iv.blocked) fail('Invoice is blocked for payment. Release it in MRBR.', 'الفاتورة محظورة للدفع. أفرج عنها من MRBR.'); amt = r2(Math.min(iv.open, amt || iv.open)); var f = post('KZ', 'Outgoing payment ' + id, id, [{ a: '210000', d: amt, p: iv.vendor }, { a: '110000', c: amt }]); iv.open = r2(iv.open - amt); (iv.pays = iv.pays || []).push({ fi: f, amt: amt, date: db.date }); log('Paid ' + amt.toFixed(2) + ' to ' + iv.vendor, 'تم دفع ' + amt.toFixed(2) + ' إلى ' + iv.vendor); save(); }
+  function poStatus(p) { var q = 0, g = 0, iv = 0; p.items.forEach(function (i) { q += i.q; g += i.grq; iv += i.ivq; }); var ivs = db.iv.filter(function (x) { return x.po === p.id; }); if (ivs.some(function (x) { return x.blocked; })) return 'blocked'; if (g >= q - 1e-6 && iv >= g - 1e-6 && ivs.length) return ivs.every(function (x) { return x.open < 0.01; }) ? 'paid' : 'invoiced'; if (g >= q - 1e-6) return 'received'; if (g > 0) return 'partgr'; return 'ordered'; }
+
+  /* ---------- inventory ---------- */
+  function transfer(m, from, to, q) { q = r2(q); if (!(q > 0)) fail('Enter a quantity.', 'أدخل كمية.'); if (from === to) fail('Choose two different plants.', 'اختر موقعين مختلفين.'); if (stock(m, from) < q) fail('Not enough stock in ' + from + '.', 'المخزون غير كافٍ في ' + from + '.'); addStock(m, from, -q); addStock(m, to, q); var md = matdoc('301', [{ m: m, p: from, q: -q }, { m: m, p: to, q: q }], '', 'Plant-to-plant transfer'); log('Transfer ' + md.id + ': ' + q + ' ' + m + ' ' + from + '→' + to, 'نقل ' + md.id + ': ' + q + ' ' + m + ' ' + from + '←' + to); save(); return md; }
+  function scrap(m, p, q, reason) { q = r2(q); if (!(q > 0)) fail('Enter a quantity.', 'أدخل كمية.'); if (stock(m, p) < q) fail('Not enough stock.', 'المخزون غير كافٍ.'); addStock(m, p, -q); var md = matdoc('551', [{ m: m, p: p, q: -q }], '', reason || 'Scrapping'); var v = q * mat(m).std; md.fi = post('WA', 'Scrap ' + m, md.id, [{ a: '590000', d: v }, { a: invAcc(m), c: v }]); log('Scrap posted: ' + q + ' ' + m, 'تم ترحيل إتلاف: ' + q + ' ' + m, 'warn'); save(); return md; }
+  function physInv(m, p, counted) {
+    counted = r2(counted); if (!(counted >= 0)) fail('Enter the counted quantity.', 'أدخل الكمية المعدودة.');
+    var book = stock(m, p), d = r2(counted - book), pi = { id: next('pi'), m: m, p: p, book: book, counted: counted, diff: d, date: db.date };
+    if (Math.abs(d) > 0) { addStock(m, p, d); var md = matdoc(d > 0 ? '701' : '702', [{ m: m, p: p, q: d }], pi.id, 'Inventory difference'); var v = Math.abs(d) * mat(m).std; md.fi = post('WI', 'Inventory difference ' + m, pi.id, d > 0 ? [{ a: invAcc(m), d: v }, { a: '590000', c: v }] : [{ a: '590000', d: v }, { a: invAcc(m), c: v }]); pi.md = md.id; }
+    db.pi.push(pi); log('Count for ' + m + ' posted, difference ' + d, 'تم ترحيل جرد ' + m + '، الفرق ' + d, d ? 'warn' : 'ok'); save(); return pi;
+  }
+
+  /* ---------- production ---------- */
+  function createPP(m, q, p, pl) {
+    var mt = mat(m); if (!mt || mt.type !== 'FERT') fail('Choose a finished product with a BOM.', 'اختر منتجًا تامًا له قائمة مواد.'); q = r2(q); if (!(q > 0)) fail('Enter a quantity.', 'أدخل كمية.');
+    var pp = { id: next('pp'), m: m, q: q, plant: p || 'DXB1', date: db.date, status: 'crtd', cnf: 0, comps: db.boms[m].map(function (c) { return { m: c.m, q: r2(c.q * q), iss: 0 }; }), pl: pl || '' };
+    db.pp.push(pp); if (pl) { var x = byId(db.pl, pl); if (x) x.status = 'converted'; }
+    log('Production order ' + pp.id + ' created', 'تم إنشاء أمر الإنتاج ' + pp.id); save(); return pp;
+  }
+  function missing(pp) { var miss = []; pp.comps.forEach(function (c) { var need = c.q - c.iss, have = stock(c.m, pp.plant); if (have < need - 1e-6) miss.push({ m: c.m, need: r2(need), have: have }); }); return miss; }
+  function releasePP(id) { var pp = byId(db.pp, id), mi = missing(pp); if (mi.length) fail('Missing parts: ' + mi.map(function (x) { return x.m + ' (need ' + x.need + ', have ' + x.have + ')'; }).join(', ') + '.', 'مكونات ناقصة: ' + mi.map(function (x) { return x.m + ' (المطلوب ' + x.need + '، المتاح ' + x.have + ')'; }).join('، ') + '.'); pp.status = 'rel'; log('Production order ' + id + ' released', 'تم إطلاق أمر الإنتاج ' + id); save(); }
+  function confirmPP(id, q, scrapPct) {
+    var pp = byId(db.pp, id); if (pp.status === 'crtd') fail('Release the order first.', 'أطلق الأمر أولًا.'); q = r2(Math.min(q, pp.q - pp.cnf)); if (!(q > 0)) fail('Nothing left to confirm.', 'لا يوجد ما يمكن تأكيده.');
+    var f = 1 + (scrapPct || 0) / 100, lines = [], gi = [], cv = 0;
+    db.boms[pp.m].forEach(function (b) { var qq = r2(b.q * q * f); if (stock(b.m, pp.plant) < qq) fail('Not enough ' + b.m + ' for backflush (need ' + qq + ').', 'لا يكفي ' + b.m + ' للصرف (المطلوب ' + qq + ').'); });
+    db.boms[pp.m].forEach(function (b) { var qq = r2(b.q * q * f); addStock(b.m, pp.plant, -qq); gi.push({ m: b.m, p: pp.plant, q: -qq }); var v = qq * mat(b.m).std; cv += v; lines.push({ a: '131000', d: v, t: 'GI ' + b.m }); lines.push({ a: invAcc(b.m), c: v, t: 'GI ' + b.m }); pp.comps.forEach(function (c) { if (c.m === b.m) c.iss = r2(c.iss + qq); }); });
+    var conv = r2((db.conv[pp.m] || 0) * q); lines.push({ a: '131000', d: conv, t: 'Activity' }); lines.push({ a: '610000', c: conv, t: 'Activity absorbed' });
+    addStock(pp.m, pp.plant, q); var fv = r2(q * mat(pp.m).std); lines.push({ a: '130100', d: fv, t: 'GR ' + pp.m }); lines.push({ a: '131000', c: fv, t: 'GR ' + pp.m });
+    var vr = r2(cv + conv - fv); if (Math.abs(vr) > 0.004) { lines.push({ a: '520000', d: vr > 0 ? vr : 0, c: vr < 0 ? -vr : 0, t: 'Production variance' }); lines.push({ a: '131000', c: vr > 0 ? vr : 0, d: vr < 0 ? -vr : 0, t: 'Settlement' }); }
+    var md1 = matdoc('261', gi, id, 'Backflush to production order'), md2 = matdoc('101', [{ m: pp.m, p: pp.plant, q: q }], id, 'Receipt from production');
+    var fid = post('PR', 'Confirmation ' + id, id, lines);
+    pp.cnf = r2(pp.cnf + q); (pp.conf = pp.conf || []).push({ q: q, scrap: scrapPct || 0, var: vr, fi: fid, md: [md1.id, md2.id], date: db.date }); if (pp.cnf >= pp.q - 1e-6) pp.status = 'cnf';
+    log('Order ' + id + ' confirmed: ' + q + ' ' + pp.m + (vr ? ', variance ' + vr.toFixed(2) : ''), 'تم تأكيد الأمر ' + id + ': ' + q + ' ' + pp.m + (vr ? '، انحراف ' + vr.toFixed(2) : ''), vr > 0 ? 'warn' : 'ok'); save(); return vr;
+  }
+
+  /* ---------- MRP ---------- */
+  function mrp(plant) {
+    plant = plant || 'DXB1';
+    db.pl = db.pl.filter(function (x) { return x.status !== 'open'; });
+    db.pr = db.pr.filter(function (x) { return !(x.mrp && x.status === 'open'); });
+    var rows = [], dep = {};
+    function addDep(m, q) { dep[m] = (dep[m] || 0) + q; }
+    db.pp.forEach(function (pp) { if (pp.plant === plant && pp.status !== 'cnf') pp.comps.forEach(function (c) { addDep(c.m, Math.max(0, c.q - c.iss)); }); });
+    var order = db.materials.slice().sort(function (a, b) { return (a.type === 'FERT' ? 0 : 1) - (b.type === 'FERT' ? 0 : 1); });
+    order.forEach(function (mt) {
+      var m = mt.id, ind = 0;
+      db.so.forEach(function (s) { if (s.plant === plant) s.items.forEach(function (i) { if (i.m === m) ind += Math.max(0, i.q - i.dlq); }); });
+      var dd = dep[m] || 0, st = stock(m, plant), po = 0, prq = 0, ppq = 0;
+      db.po.forEach(function (p) { if (p.plant === plant) p.items.forEach(function (i) { if (i.m === m) po += i.q - i.grq; }); });
+      db.pr.forEach(function (p) { if (p.plant === plant && p.m === m && p.status === 'open') prq += p.q; });
+      db.pp.forEach(function (p) { if (p.plant === plant && p.m === m && p.status !== 'cnf') ppq += p.q - p.cnf; });
+      var demand = r2(ind + dd + mt.ss), supply = r2(st + po + prq + ppq), net = r2(demand - supply), prop = null, qty = 0;
+      if (net > 0) {
+        qty = Math.max(mt.lot, Math.ceil(net));
+        if (mt.proc === 'E') { var pl = { id: next('pl'), m: m, q: qty, plant: plant, date: addDays(db.date, mt.lt), status: 'open' }; db.pl.push(pl); prop = pl.id; db.boms[m].forEach(function (c) { addDep(c.m, c.q * qty); }); }
+        else { prop = createPR({ m: m, q: qty, plant: plant, mrp: true, silent: true }).id; }
+      }
+      rows.push({ m: m, ind: r2(ind), dep: r2(dd), ss: mt.ss, st: st, rec: r2(po + prq + ppq), net: net, qty: qty, prop: prop, kind: mt.proc === 'E' ? 'PLO' : 'PR' });
+    });
+    db.lastMrp = { date: db.date, plant: plant, rows: rows, at: Date.now() };
+    log('MRP run for ' + plant + ': ' + rows.filter(function (r) { return r.prop; }).length + ' proposals', 'تشغيل تخطيط المواد لـ ' + plant + ': ' + rows.filter(function (r) { return r.prop; }).length + ' مقترحات'); save(); return rows;
+  }
+
+  /* ---------- finance ---------- */
+  function journal(lines, text, ref) { if (!lines.length) fail('Add lines.', 'أضف بنودًا.'); var id = post('SA', text || 'Manual journal', ref || '', lines); log('Journal entry ' + id + ' posted', 'تم ترحيل القيد ' + id); save(); return id; }
+  function bal(a, upto) { var b = 0; db.fi.forEach(function (f) { if (upto && f.date > upto) return; f.lines.forEach(function (l) { if (l.a === a) b += l.d - l.c; }); }); return r2(b); }
+  function tb() { return db.accounts.map(function (a) { var d = 0, c = 0; db.fi.forEach(function (f) { f.lines.forEach(function (l) { if (l.a === a.id) { d += l.d; c += l.c; } }); }); return { a: a, d: r2(d), c: r2(c), b: r2(d - c) }; }); }
+  function pnl() { var rev = 0, exp = 0, rows = []; tb().forEach(function (r) { if (r.a.t === 'R') { rev += -r.b; rows.push(r); } if (r.a.t === 'X') { exp += r.b; rows.push(r); } }); return { rev: r2(rev), exp: r2(exp), profit: r2(rev - exp), rows: rows }; }
+  function addDaysDb(n) { db.date = addDays(db.date, n); log('Posting date moved to ' + db.date, 'تم تغيير تاريخ الترحيل إلى ' + db.date); save(); }
+
+  return {
+    get db() { return db; }, set db(v) { db = v; save(); }, save: save, reset: reset, r2: r2, addDays: addDays, days: days,
+    mat: mat, cust: cust, vend: vend, acc: acc, byId: byId, stock: stock, invAcc: invAcc, vat: vat, atp: atp, price: price, exposure: exposure,
+    createSO: createSO, releaseCredit: releaseCredit, createDelivery: createDelivery, pgi: pgi, bill: bill, receive: receive, soStatus: soStatus, soOpen: soOpen,
+    createPR: function (h) { return createPR(h); }, createPO: createPO, gr: gr, miro: miro, expectedIV: expectedIV, releaseIV: releaseIV, payVendor: payVendor, poStatus: poStatus,
+    transfer: transfer, scrap: scrap, physInv: physInv, createPP: createPP, releasePP: releasePP, confirmPP: confirmPP, missing: missing, mrp: mrp,
+    journal: journal, bal: bal, tb: tb, pnl: pnl, addDaysDb: addDaysDb, KEY: KEY
+  };
+})();
+</script>
+<script>/* QAFILA ERP — user interface */
+(function () {
+  'use strict';
+  var lang = /(^|[#&])lang=ar/.test(location.hash) || localStorage.getItem('qafila-erp-lang') === 'ar' ? 'ar' : 'en';
+  try { lang = localStorage.getItem('qafila-erp-lang') || lang; } catch (e) {}
+  var role = 'all'; try { role = localStorage.getItem('qafila-erp-role') || 'all'; } catch (e) {}
+  var $ = function (id) { return document.getElementById(id); };
+  var view = $('view');
+  function T(k) { var o = ERP_TX[lang], p = k.split('.'); for (var i = 0; i < p.length; i++) o = o && o[p[i]]; return o == null ? k : o; }
+  function L(en, ar) { return lang === 'ar' ? ar : en; }
+  function nm(o) { return o ? (lang === 'ar' ? o.ar : o.en) : ''; }
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function n2(x) { return Number(x || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+  function nk(x) { return Math.round(Number(x || 0)).toLocaleString('en-US'); }
+  function n0(x) { return Number(x || 0).toLocaleString('en-US', { maximumFractionDigits: 2 }); }
+  function db() { return E.db; }
+  function go(h) { if (location.hash === '#' + h) route(); else location.hash = h; }
+  function act(fn) { try { var r = fn(); refreshShell(); return r; } catch (e) { toast((lang === 'ar' && e.ar) ? e.ar : e.message, 'err'); return null; } }
+  function toast(msg, kind) { var t = document.createElement('div'); t.className = 'toast ' + (kind || 'ok'); t.setAttribute('role', kind === 'err' ? 'alert' : 'status'); t.textContent = msg; $('toasts').appendChild(t); while ($('toasts').children.length > 3) $('toasts').firstChild.remove(); setTimeout(function () { t.classList.add('out'); setTimeout(function () { t.remove(); }, 400); }, kind === 'err' ? 6500 : 3800); }
+  function badge(s) { var c = { open: 'b-blue', ordered: 'b-blue', crtd: 'b-blue', cblock: 'b-red', blocked: 'b-red', partdl: 'b-amber', partgr: 'b-amber', partpaid: 'b-amber', picked: 'b-amber', rel: 'b-amber', delivered: 'b-teal', received: 'b-teal', gi: 'b-teal', billed: 'b-violet', invoiced: 'b-violet', paid: 'b-green', cnf: 'b-green', converted: 'b-grey' }[s] || 'b-grey'; return '<span class="badge ' + c + '">' + esc(T('stat.' + s)) + '</span>'; }
+  function link(kind, id, label) { return '<a href="#obj/' + kind + '/' + esc(id) + '" class="dl mono">' + esc(label || id) + '</a>'; }
+  function opt(list, val, lab) { return list.map(function (x) { var v = typeof x === 'string' ? x : x.id; return '<option value="' + esc(v) + '"' + (v === val ? ' selected' : '') + '>' + esc(lab ? lab(x) : (typeof x === 'string' ? x : x.id + ' · ' + nm(x))) + '</option>'; }).join(''); }
+  function plantOpt(v) { return opt(db().plants, v); }
+  function card(title, body, extra) { return '<section class="card"><div class="card-h"><h3>' + title + '</h3>' + (extra || '') + '</div>' + body + '</section>'; }
+  function kv(rows) { return '<dl class="kv">' + rows.map(function (r) { return '<div><dt>' + esc(r[0]) + '</dt><dd>' + r[1] + '</dd></div>'; }).join('') + '</dl>'; }
+  function page(code, title, sub, body, actions) {
+    return '<div class="ph"><div><p class="tc mono">' + esc(code) + '</p><h1>' + esc(title) + '</h1>' + (sub ? '<p class="sub">' + esc(sub) + '</p>' : '') + '</div><div class="pa">' + (actions || '') + '</div></div>' + body;
+  }
+  function table(cols, rows, o) {
+    o = o || {}; var id = 'tb' + Math.random().toString(36).slice(2, 7);
+    if (!rows.length) return '<p class="empty">' + esc(T('none')) + '</p>';
+    var h = (o.search === false ? '' : '<input class="tsearch" type="search" data-t="' + id + '" placeholder="' + esc(L('Filter rows…', 'تصفية الصفوف…')) + '" aria-label="' + esc(L('Filter rows', 'تصفية الصفوف')) + '">') + '<div class="tw"><table class="grid" id="' + id + '"><thead><tr>' + cols.map(function (c, i) { return '<th class="' + (c.n ? 'num' : '') + '" data-i="' + i + '" tabindex="0" aria-sort="none">' + esc(c.l) + '</th>'; }).join('') + '</tr></thead><tbody>' +
+      rows.map(function (r) { return '<tr' + (o.cls ? ' class="' + o.cls(r) + '"' : '') + '>' + cols.map(function (c) { var v = c.f ? c.f(r) : esc(r[c.k]); var sv = c.s ? c.s(r) : (c.k ? r[c.k] : ''); return '<td class="' + (c.n ? 'num' : '') + '" data-s="' + esc(sv) + '">' + v + '</td>'; }).join('') + '</tr>'; }).join('') + '</tbody>' + (o.foot ? '<tfoot><tr>' + o.foot.map(function (f, i) { return '<td class="' + (cols[i] && cols[i].n ? 'num' : '') + '">' + f + '</td>'; }).join('') + '</tr></tfoot>' : '') + '</table></div>';
+    return h;
+  }
+  function wireTables() {
+    view.querySelectorAll('.tsearch').forEach(function (inp) { inp.oninput = function () { var q = inp.value.toLowerCase(); $(inp.dataset.t).querySelectorAll('tbody tr').forEach(function (tr) { tr.hidden = q && tr.textContent.toLowerCase().indexOf(q) < 0; }); }; });
+    view.querySelectorAll('table.grid th').forEach(function (th) {
+      function sort() { var tb = th.closest('table'), i = +th.dataset.i, dir = th.getAttribute('aria-sort') === 'ascending' ? -1 : 1; tb.querySelectorAll('th').forEach(function (x) { x.setAttribute('aria-sort', 'none'); }); th.setAttribute('aria-sort', dir > 0 ? 'ascending' : 'descending'); var body = tb.tBodies[0], rows = Array.prototype.slice.call(body.rows); rows.sort(function (a, b) { var x = a.cells[i].dataset.s, y = b.cells[i].dataset.s, nx = parseFloat(x), ny = parseFloat(y); if (!isNaN(nx) && !isNaN(ny) && /^-?[\d.]+$/.test(x) && /^-?[\d.]+$/.test(y)) return (nx - ny) * dir; return String(x).localeCompare(String(y)) * dir; }); rows.forEach(function (r) { body.appendChild(r); }); }
+      th.onclick = sort; th.onkeydown = function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); sort(); } };
+    });
+  }
+  function csv(rows) { return rows.map(function (r) { return r.map(function (x) { x = String(x == null ? '' : x); return /[",\n]/.test(x) ? '"' + x.replace(/"/g, '""') + '"' : x; }).join(','); }).join('\n'); }
+  var downloads = null, sample = null;
+  function saveFile(name, data, type) {
+    if (downloads) { downloads.save({ filename: name, data: data, mimeType: type || 'text/csv' }).then(function () { toast(L('Saved ', 'تم حفظ ') + name); }).catch(function () {}); return; }
+    try { var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([data], { type: type || 'text/csv' })); a.download = name; a.click(); } catch (e) {}
+  }
+  function exportBtn(id) { return '<button class="btn ghost" type="button" data-export="' + id + '">' + esc(T('export')) + '</button>'; }
+  var EXPORTS = {};
+  function mvtName(m) { return { '101': L('Goods receipt', 'استلام بضائع'), '601': L('Goods issue: delivery', 'صرف: تسليم'), '261': L('Goods issue: production', 'صرف: إنتاج'), '301': L('Plant-to-plant transfer', 'نقل بين المواقع'), '551': L('Scrapping', 'إتلاف'), '701': L('Inventory gain', 'زيادة جرد'), '702': L('Inventory loss', 'نقص جرد') }[m] || m; }
+  function fiName(t) { return { OB: L('Opening balance', 'رصيد افتتاحي'), WL: L('Goods issue', 'صرف بضاعة'), RV: L('Customer invoice', 'فاتورة عميل'), DZ: L('Customer payment', 'تحصيل عميل'), WE: L('Goods receipt', 'استلام بضاعة'), RE: L('Supplier invoice', 'فاتورة مورد'), KZ: L('Supplier payment', 'سداد مورد'), WA: L('Scrap', 'إتلاف'), WI: L('Inventory difference', 'فرق جرد'), PR: L('Production confirmation', 'تأكيد إنتاج'), SA: L('G/L journal', 'قيد يومية') }[t] || t; }
+  function fiAmt(f) { var s = 0; f.lines.forEach(function (l) { s += l.d; }); return s; }
+  function partnerName(p) { return p ? (E.cust(p) ? nm(E.cust(p)) : E.vend(p) ? nm(E.vend(p)) : p) : ''; }
+  function matLabel(m) { var x = E.mat(m); return x ? m + ' · ' + nm(x) : m; }
+
+  /* ---------- KPIs & inbox ---------- */
+  function kpis() {
+    var d = db(), rev = -E.bal('400000'), cogs = E.bal('500000'), inv = E.bal('130000') + E.bal('130100') + E.bal('130200'), ard = 0, ap = 0;
+    d.bi.forEach(function (b) { if (b.open > 0.004 && b.due < d.date) ard += b.open; }); d.iv.forEach(function (i) { ap += i.open; });
+    var openSO = d.so.filter(function (s) { var x = E.soStatus(s); return x !== 'paid' && x !== 'billed' && x !== 'partpaid'; }).length;
+    return { rev: rev, gm: rev ? (rev - cogs) / rev : 0, inv: inv, ar: ard, ap: ap, cash: E.bal('110000'), open: openSO };
+  }
+  function inbox() {
+    var d = db(), q = [];
+    var cb = d.so.filter(function (s) { return s.cb; }).length; if (cb) q.push(['VKM3', cb, L('orders blocked by credit management', 'أوامر محظورة ائتمانيًا'), 'red']);
+    var dd = d.so.filter(function (s) { return !s.cb && s.items.some(function (i) { return i.q - i.dlq > 0; }); }).length; if (dd) q.push(['VL01N', dd, L('sales orders waiting for delivery', 'أوامر بيع بانتظار التسليم'), 'blue']);
+    var gi = d.dl.filter(function (x) { return !x.gi; }).length; if (gi) q.push(['VL01N', gi, L('deliveries waiting for goods issue', 'تسليمات بانتظار الصرف'), 'amber']);
+    var bl = d.dl.filter(function (x) { return x.gi && !x.bi; }).length; if (bl) q.push(['VF01', bl, L('deliveries ready to bill', 'تسليمات جاهزة للفوترة'), 'violet']);
+    var od = d.bi.filter(function (b) { return b.open > 0.004 && b.due < d.date; }).length; if (od) q.push(['FBL5N', od, L('customer invoices overdue', 'فواتير عملاء متأخرة'), 'red']);
+    var grq = d.po.filter(function (p) { return p.items.some(function (i) { return i.q - i.grq > 0; }); }).length; if (grq) q.push(['MIGO', grq, L('purchase orders awaiting receipt', 'أوامر شراء بانتظار الاستلام'), 'blue']);
+    var ivq = d.po.filter(function (p) { return E.expectedIV(p) > 0; }).length; if (ivq) q.push(['MIRO', ivq, L('receipts awaiting supplier invoice', 'استلامات بانتظار فاتورة المورد'), 'amber']);
+    var blk = d.iv.filter(function (i) { return i.blocked; }).length; if (blk) q.push(['MRBR', blk, L('supplier invoices blocked for payment', 'فواتير موردين محظورة للدفع'), 'red']);
+    var due = d.iv.filter(function (i) { return !i.blocked && i.open > 0.004 && i.due <= E.addDays(d.date, 7); }).length; if (due) q.push(['F-53', due, L('supplier invoices due within 7 days', 'فواتير موردين تستحق خلال 7 أيام'), 'amber']);
+    var low = d.materials.filter(function (m) { return E.stock(m.id, 'DXB1') < m.ss; }).length; if (low) q.push(['MD01', low, L('materials below safety stock in DXB1', 'مواد أقل من مخزون الأمان في DXB1'), 'red']);
+    var pl = d.pl.filter(function (p) { return p.status === 'open'; }).length; if (pl) q.push(['CO40', pl, L('planned orders to convert', 'أوامر مخططة للتحويل'), 'blue']);
+    var pp = d.pp.filter(function (p) { return p.status !== 'cnf'; }).length; if (pp) q.push(['COOIS', pp, L('production orders in progress', 'أوامر إنتاج قيد التنفيذ'), 'amber']);
+    return q;
+  }
+  function tileKpi(c) { var d = db(); var f = { VA05: function () { return d.so.length; }, VKM3: function () { return d.so.filter(function (s) { return s.cb; }).length; }, VL01N: function () { return d.dl.filter(function (x) { return !x.gi; }).length; }, VF01: function () { return d.dl.filter(function (x) { return x.gi && !x.bi; }).length; }, 'F-28': function () { return d.bi.filter(function (b) { return b.open > 0.004; }).length; }, ME2N: function () { return d.po.length; }, MIGO: function () { return d.po.filter(function (p) { return p.items.some(function (i) { return i.q - i.grq > 0; }); }).length; }, MIRO: function () { return d.po.filter(function (p) { return E.expectedIV(p) > 0; }).length; }, MRBR: function () { return d.iv.filter(function (i) { return i.blocked; }).length; }, 'F-53': function () { return d.iv.filter(function (i) { return i.open > 0.004; }).length; }, MMBE: function () { return d.materials.length; }, MB51: function () { return d.md.length; }, CO40: function () { return d.pl.filter(function (p) { return p.status === 'open'; }).length; }, COOIS: function () { return d.pp.length; }, FB03: function () { return d.fi.length; }, ME51N: function () { return d.pr.filter(function (p) { return p.status === 'open'; }).length; } }[c]; return f ? f() : null; }
+
+  /* ---------- pages ---------- */
+  var P = {};
+  P.home = function () {
+    var k = kpis(), q = inbox(), d = db(), hour = 'hello';
+    var kc = [[T('k.rev'), nk(k.rev), 'DASH'], [T('k.gm'), (k.gm * 100).toFixed(1) + '%', 'F.01'], [T('k.open'), k.open, 'VA05'], [T('k.inv'), nk(k.inv), 'MMBE'], [T('k.ar'), nk(k.ar), 'FBL5N'], [T('k.ap'), nk(k.ap), 'FBL1N'], [T('k.cash'), nk(k.cash), 'FS10N']];
+    var h = '<section class="hero"><div><p class="tc mono">' + esc(d.company.code + ' · ' + nm(d.company) + ' · ' + d.company.currency) + '</p><h1>' + esc(T(hour)) + '</h1><p class="sub">' + esc(T('helloSub')) + '</p></div><input id="appSearch" type="search" placeholder="' + esc(T('search')) + '" aria-label="' + esc(T('search')) + '"></section>';
+    h += '<div class="kpis">' + kc.map(function (x) { return '<a class="kpi" href="#' + x[2] + '"><span>' + esc(x[0]) + '</span><b class="mono">' + esc(x[1]) + '</b></a>'; }).join('') + '</div>';
+    h += '<div class="home2"><div id="groups"></div><aside><section class="card inbox"><div class="card-h"><h3>' + esc(L('My inbox', 'صندوق المهام')) + '</h3><span class="pill">' + q.length + '</span></div>' + (q.length ? '<ul>' + q.map(function (x) { return '<li><a href="#' + x[0] + '"><b class="dot ' + x[3] + '">' + x[1] + '</b><span>' + esc(x[2]) + '</span><code class="mono">' + x[0] + '</code></a></li>'; }).join('') + '</ul>' : '<p class="empty">' + esc(L('Nothing waiting. Well done.', 'لا مهام معلقة. أحسنت.')) + '</p>') + '</section>' +
+      '<section class="card"><div class="card-h"><h3>' + esc(L('Recent activity', 'آخر النشاطات')) + '</h3></div><ul class="log">' + d.log.slice(0, 9).map(function (l) { return '<li class="' + l.k + '"><span class="mono">' + l.t + '</span>' + esc(lang === 'ar' ? l.ar : l.en) + '</li>'; }).join('') + '</ul></section></aside></div>';
+    view.innerHTML = h; drawGroups('');
+    $('appSearch').oninput = function () { drawGroups(this.value); };
+  };
+  function drawGroups(q) {
+    q = (q || '').toLowerCase();
+    var groups = {}; ERP_APPS.forEach(function (a) { if (role !== 'all' && a[2].indexOf(role) < 0 && a[2] !== 'all') return; var txt = (a[0] + ' ' + a[3] + ' ' + a[4] + ' ' + a[5] + ' ' + a[6]).toLowerCase(); if (q && txt.indexOf(q) < 0) return; (groups[a[1]] = groups[a[1]] || []).push(a); });
+    var order = ['sales', 'mm', 'im', 'pp', 'fi', 'md', 'an', 'learn', 'adm'];
+    $('groups').innerHTML = order.filter(function (g) { return groups[g]; }).map(function (g) { return '<section class="grp"><h2>' + esc(T('groups.' + g)) + '</h2><div class="tiles">' + groups[g].map(function (a) { var k = tileKpi(a[0]); return '<a class="tile g-' + g + '" href="#' + a[0] + '"><span class="tc mono">' + a[0] + '</span><b>' + esc(L(a[3], a[4])) + '</b><span class="ts">' + esc(L(a[5], a[6])) + '</span>' + (k != null ? '<span class="tk mono">' + k + '</span>' : '') + '</a>'; }).join('') + '</div></section>'; }).join('') || '<p class="empty">' + esc(L('No apps match.', 'لا توجد تطبيقات مطابقة.')) + '</p>';
+  }
+
+  /* ---- SALES ---- */
+  P.VA01 = function () {
+    var d = db(), sale = d.materials.filter(function (m) { return m.sale > 0; });
+    var h = page('VA01', L('Create sales order', 'إنشاء أمر بيع'), L('Standard order (OR). Pricing: PR00 list price, K007 customer discount, MWST VAT. ATP and credit checks run on save.', 'طلب قياسي. التسعير: سعر القائمة PR00، خصم العميل K007، ضريبة القيمة المضافة. يجري فحص التوفر والائتمان عند الحفظ.'),
+      '<div class="two"><div>' + card(T('header'), '<div class="form"><label>' + T('customer') + '<select id="soC">' + opt(d.customers, 'C-1001') + '</select></label><label>' + T('plant') + '<select id="soP">' + plantOpt('DXB1') + '</select></label><label>' + L('Customer PO reference', 'مرجع أمر شراء العميل') + '<input id="soR" placeholder="PO-2026-118"></label><label>' + L('Requested delivery date', 'تاريخ التسليم المطلوب') + '<input id="soD" type="date" value="' + E.addDays(d.date, 3) + '"></label></div>') +
+      card(T('items'), '<div id="soItems"></div><button class="btn ghost" type="button" id="soAdd">+ ' + T('add') + '</button>') + '</div><div>' + card(L('Pricing, availability and credit', 'التسعير والتوفر والائتمان'), '<div id="soSim"></div>') + '</div></div>',
+      '<button class="btn" type="button" id="soSave">' + T('save') + '</button>');
+    view.innerHTML = h;
+    var rows = [{ m: 'FG-100', q: 50 }];
+    function drawRows() { $('soItems').innerHTML = '<table class="grid edit"><thead><tr><th>' + T('material') + '</th><th class="num">' + T('qty') + '</th><th></th></tr></thead><tbody>' + rows.map(function (r, i) { return '<tr><td><select data-r="' + i + '" data-f="m">' + opt(sale, r.m) + '</select></td><td class="num"><input type="number" min="0" step="1" data-r="' + i + '" data-f="q" value="' + r.q + '" aria-label="' + T('qty') + '"></td><td><button class="icon" type="button" data-del="' + i + '" aria-label="' + T('del') + '">✕</button></td></tr>'; }).join('') + '</tbody></table>'; sim(); }
+    function sim() {
+      var c = $('soC').value, p = $('soP').value, cu = E.cust(c), tot = { net: 0, vat: 0, gross: 0, disc: 0 }, out = '<table class="grid"><thead><tr><th>' + T('material') + '</th><th class="num">PR00</th><th class="num">K007</th><th class="num">' + T('net') + '</th><th class="num">' + T('avail') + '</th></tr></thead><tbody>';
+      rows.forEach(function (r) { if (!r.m || !(r.q > 0)) return; var pr = E.price(c, r.m, r.q), a = E.atp(r.m, p); tot.net += pr.net; tot.vat += pr.vat; tot.gross += pr.gross; tot.disc += pr.disc; out += '<tr><td>' + esc(r.m) + '</td><td class="num">' + n2(pr.pr00 * r.q) + '</td><td class="num">−' + n2(pr.disc) + '</td><td class="num">' + n2(pr.net) + '</td><td class="num"><span class="badge ' + (a >= r.q ? 'b-green' : a > 0 ? 'b-amber' : 'b-red') + '">' + n0(Math.min(a, r.q)) + ' / ' + n0(r.q) + '</span></td></tr>'; });
+      out += '</tbody></table>';
+      var exp = E.exposure(c), after = exp + tot.gross, pct = Math.min(100, after / cu.credit * 100);
+      out += kv([[L('Customer discount (K007)', 'خصم العميل'), (cu.disc * 100).toFixed(0) + '%'], [L('VAT (MWST)', 'الضريبة'), (E.vat(cu.cty) * 100).toFixed(0) + '% ' + (cu.cty === 'AE' ? L('standard rated', 'قياسية') : L('zero-rated export', 'تصدير بنسبة صفر'))], [T('net'), n2(tot.net)], [T('tax'), n2(tot.vat)], [T('gross') + ' (AED)', '<b>' + n2(tot.gross) + '</b>'], [L('Payment terms', 'شروط الدفع'), L('Net ', 'صافي ') + cu.terms + L(' days', ' يومًا')]]);
+      out += '<div class="credit"><div class="cbar"><i style="width:' + pct + '%;background:' + (after > cu.credit ? '#C2410C' : '#0F766E') + '"></i></div><p>' + esc(L('Credit exposure after this order: ', 'التعرض الائتماني بعد هذا الأمر: ')) + '<b class="mono">' + n0(after) + '</b> / ' + n0(cu.credit) + (after > cu.credit ? ' · <b class="neg">' + esc(L('order will be credit-blocked', 'سيُحظر الأمر ائتمانيًا')) + '</b>' : '') + '</p></div>';
+      $('soSim').innerHTML = out;
+    }
+    view.oninput = view.onchange = function (e) { var t = e.target; if (t.dataset.r != null) { var r = rows[+t.dataset.r]; r[t.dataset.f] = t.dataset.f === 'q' ? +t.value : t.value; sim(); } else if (t.id === 'soC' || t.id === 'soP') sim(); };
+    view.onclick = function (e) { var b = e.target.closest('[data-del]'); if (b) { rows.splice(+b.dataset.del, 1); drawRows(); } };
+    $('soAdd').onclick = function () { rows.push({ m: sale[0].id, q: 10 }); drawRows(); };
+    $('soSave').onclick = function () { var so = act(function () { return E.createSO({ cust: $('soC').value, plant: $('soP').value, ref: $('soR').value, req: $('soD').value, items: rows }); }); if (so) { toast(L('Sales order ', 'أمر البيع ') + so.id + ' ' + T('saved') + (so.cb ? L(' · credit block', ' · حظر ائتماني') : ''), so.cb ? 'warn' : 'ok'); go('obj/so/' + so.id); } };
+    drawRows();
+  };
+  P.VA05 = function () {
+    var d = db(), rows = d.so.slice().reverse();
+    EXPORTS.so = function () { return csv([['order', 'date', 'customer', 'plant', 'net', 'gross', 'status']].concat(rows.map(function (s) { return [s.id, s.date, s.cust, s.plant, sum(s.items, 'net'), sum(s.items, 'gross'), E.soStatus(s)]; }))); };
+    view.innerHTML = page('VA05', L('Sales orders', 'أوامر البيع'), L('All orders with live status. Open an order for its document flow.', 'كل الأوامر مع الحالة الحية. افتح الأمر لرؤية تسلسل المستندات.'), card(L('Orders', 'الأوامر') + ' (' + rows.length + ')', table([{ l: T('doc'), k: 'id', f: function (s) { return link('so', s.id); } }, { l: T('dateL'), k: 'date' }, { l: T('customer'), f: function (s) { return esc(nm(E.cust(s.cust))); }, s: function (s) { return s.cust; } }, { l: T('plant'), k: 'plant' }, { l: T('net'), n: 1, f: function (s) { return n2(sum(s.items, 'net')); }, s: function (s) { return sum(s.items, 'net'); } }, { l: T('gross'), n: 1, f: function (s) { return n2(sum(s.items, 'gross')); }, s: function (s) { return sum(s.items, 'gross'); } }, { l: T('status'), f: function (s) { return badge(E.soStatus(s)); }, s: function (s) { return E.soStatus(s); } }], rows)), '<a class="btn" href="#VA01">' + L('Create order', 'إنشاء أمر') + '</a>' + exportBtn('so'));
+  };
+  function sum(list, k) { return E.r2(list.reduce(function (a, x) { return a + (x[k] || 0); }, 0)); }
+  P.VKM3 = function () {
+    var rows = db().so.filter(function (s) { return s.cb; });
+    view.innerHTML = page('VKM3', L('Release credit-blocked orders', 'الإفراج عن الأوامر المحظورة ائتمانيًا'), L('Orders whose open receivables plus order value exceed the customer credit limit.', 'أوامر تتجاوز فيها الذمم المفتوحة مع قيمة الأمر حد ائتمان العميل.'), card(L('Blocked orders', 'الأوامر المحظورة'), table([{ l: T('doc'), f: function (s) { return link('so', s.id); }, s: function (s) { return s.id; } }, { l: T('customer'), f: function (s) { return esc(nm(E.cust(s.cust))); } }, { l: L('Credit limit', 'حد الائتمان'), n: 1, f: function (s) { return n0(E.cust(s.cust).credit); } }, { l: L('Exposure before order', 'التعرض قبل الأمر'), n: 1, f: function (s) { return n0(s.exp); } }, { l: L('Order value', 'قيمة الأمر'), n: 1, f: function (s) { return n2(sum(s.items, 'gross')); } }, { l: '', f: function (s) { return '<button class="btn sm" type="button" data-rel="' + s.id + '">' + T('release') + '</button>'; } }], rows)));
+    view.onclick = function (e) { var b = e.target.closest('[data-rel]'); if (b) { act(function () { E.releaseCredit(b.dataset.rel); }); toast(L('Credit released for ', 'تم الإفراج عن ') + b.dataset.rel); P.VKM3(); wireTables(); } };
+  };
+  P.VL01N = function () {
+    var d = db(), due = d.so.filter(function (s) { return !s.cb && s.items.some(function (i) { return i.q - i.dlq > 0; }) && !d.dl.some(function (x) { return x.so === s.id && !x.gi; }); }), pend = d.dl.filter(function (x) { return !x.gi; }), done = d.dl.filter(function (x) { return x.gi; }).slice(-10).reverse();
+    view.innerHTML = page('VL01N', L('Outbound deliveries', 'التسليمات الصادرة'), L('Create a delivery from an order, pick it, then post goods issue. Goods issue reduces stock and posts cost of goods sold.', 'أنشئ تسليمًا من الأمر والتقطه ثم رحّل الصرف. يخفض الصرف المخزون ويرحّل تكلفة البضاعة المباعة.'),
+      card(L('Orders due for delivery', 'أوامر مستحقة للتسليم'), table([{ l: T('doc'), f: function (s) { return link('so', s.id); }, s: function (s) { return s.id; } }, { l: T('customer'), f: function (s) { return esc(nm(E.cust(s.cust))); } }, { l: T('plant'), k: 'plant' }, { l: L('Open items', 'البنود المفتوحة'), f: function (s) { return s.items.filter(function (i) { return i.q - i.dlq > 0; }).map(function (i) { var st = E.stock(i.m, s.plant); return esc(i.m) + ' <span class="mono">' + n0(i.q - i.dlq) + '</span>' + (st < i.q - i.dlq ? ' <span class="badge b-amber">' + L('stock ', 'المخزون ') + n0(st) + '</span>' : ''); }).join('<br>'); } }, { l: '', f: function (s) { return '<button class="btn sm" type="button" data-dl="' + s.id + '">' + T('deliver') + '</button>'; } }], due)) +
+      card(L('Picked, waiting for goods issue', 'تم الالتقاط وبانتظار الصرف'), table([{ l: T('doc'), f: function (x) { return link('dl', x.id); }, s: function (x) { return x.id; } }, { l: L('Order', 'الأمر'), f: function (x) { return link('so', x.so); } }, { l: T('items'), f: function (x) { return x.items.map(function (i) { return esc(i.m) + ' × ' + n0(i.q); }).join(', '); } }, { l: '', f: function (x) { return '<button class="btn sm" type="button" data-pgi="' + x.id + '">' + T('pgi') + '</button>'; } }], pend)) +
+      card(L('Recently issued', 'صُرفت مؤخرًا'), table([{ l: T('doc'), f: function (x) { return link('dl', x.id); }, s: function (x) { return x.id; } }, { l: T('dateL'), k: 'date' }, { l: L('Order', 'الأمر'), f: function (x) { return link('so', x.so); } }, { l: L('Billed', 'مفوتر'), f: function (x) { return x.bi ? link('bi', x.bi) : badge('gi'); } }], done, { search: false })));
+    view.onclick = function (e) { var b = e.target.closest('[data-dl]'), g = e.target.closest('[data-pgi]'); if (b) { var dl = act(function () { return E.createDelivery(b.dataset.dl); }); if (dl) toast(L('Delivery ', 'التسليم ') + dl.id + ' ' + T('saved')); P.VL01N(); wireTables(); } if (g) { var ok = act(function () { E.pgi(g.dataset.pgi); return 1; }); if (ok) toast(L('Goods issue posted for ', 'تم ترحيل الصرف للتسليم ') + g.dataset.pgi); P.VL01N(); wireTables(); } };
+  };
+  P.VF01 = function () {
+    var d = db(), due = d.dl.filter(function (x) { return x.gi && !x.bi; }), recent = d.bi.filter(function (b) { return !b.ob; }).slice(-10).reverse();
+    view.innerHTML = page('VF01', L('Billing', 'الفوترة'), L('Create customer invoices from issued deliveries. Posts receivable, revenue and VAT output.', 'أنشئ فواتير العملاء من التسليمات المصروفة. يرحّل الذمة والإيراد وضريبة المخرجات.'),
+      card(L('Billing due list', 'قائمة الفوترة المستحقة'), table([{ l: L('Delivery', 'التسليم'), f: function (x) { return link('dl', x.id); }, s: function (x) { return x.id; } }, { l: L('Order', 'الأمر'), f: function (x) { return link('so', x.so); } }, { l: T('customer'), f: function (x) { return esc(nm(E.cust(x.cust))); } }, { l: '', f: function (x) { return '<button class="btn sm" type="button" data-bill="' + x.id + '">' + T('bill') + '</button>'; } }], due)) +
+      card(L('Recent invoices', 'الفواتير الأخيرة'), table([{ l: T('doc'), f: function (b) { return link('bi', b.id); }, s: function (b) { return b.id; } }, { l: T('dateL'), k: 'date' }, { l: T('customer'), f: function (b) { return esc(nm(E.cust(b.cust))); } }, { l: T('net'), n: 1, f: function (b) { return n2(b.net); } }, { l: T('tax'), n: 1, f: function (b) { return n2(b.vat); } }, { l: T('gross'), n: 1, f: function (b) { return n2(b.gross); } }, { l: T('open_'), n: 1, f: function (b) { return n2(b.open); } }], recent, { search: false })));
+    view.onclick = function (e) { var b = e.target.closest('[data-bill]'); if (b) { var bi = act(function () { return E.bill(b.dataset.bill); }); if (bi) toast(L('Invoice ', 'الفاتورة ') + bi.id + ' ' + T('posted') + ': ' + n2(bi.gross) + ' AED'); P.VF01(); wireTables(); } };
+  };
+  P['F-28'] = function () {
+    var d = db(), rows = d.bi.filter(function (b) { return b.open > 0.004; });
+    view.innerHTML = page('F-28', L('Post incoming payment', 'ترحيل تحصيل'), L('Clear open customer invoices against the bank account. Partial payments leave a residual open item.', 'سوِّ فواتير العملاء المفتوحة مقابل حساب البنك. الدفعات الجزئية تترك رصيدًا مفتوحًا.'),
+      card(L('Open customer items', 'بنود العملاء المفتوحة'), table([{ l: T('doc'), f: function (b) { return link('bi', b.id); }, s: function (b) { return b.id; } }, { l: T('customer'), f: function (b) { return esc(nm(E.cust(b.cust))); }, s: function (b) { return b.cust; } }, { l: T('due'), k: 'due', f: function (b) { return esc(b.due) + (b.due < d.date ? ' <span class="badge b-red">' + E.days(b.due, d.date) + L(' days late', ' يوم تأخير') + '</span>' : ''); } }, { l: T('open_'), n: 1, f: function (b) { return n2(b.open); }, s: function (b) { return b.open; } }, { l: T('amount'), f: function (b) { return '<input type="number" class="amt" step="0.01" min="0" id="pay_' + b.id + '" value="' + b.open.toFixed(2) + '" aria-label="' + T('amount') + '">'; } }, { l: '', f: function (b) { return '<button class="btn sm" type="button" data-pay="' + b.id + '">' + T('post') + '</button>'; } }], rows)));
+    view.onclick = function (e) { var b = e.target.closest('[data-pay]'); if (b) { var amt = +$('pay_' + b.dataset.pay).value, ok = act(function () { E.receive(b.dataset.pay, amt); return 1; }); if (ok) toast(L('Payment posted: ', 'تم ترحيل الدفعة: ') + n2(amt)); P['F-28'](); wireTables(); } };
+  };
+  function aging(items, partyKey, nameFn, code, title, sub) {
+    var d = db(), B = [L('Not due', 'غير مستحق'), '1–30', '31–60', '61–90', '>90'], per = {};
+    items.filter(function (x) { return x.open > 0.004; }).forEach(function (x) { var late = E.days(x.due, d.date), k = late <= 0 ? 0 : late <= 30 ? 1 : late <= 60 ? 2 : late <= 90 ? 3 : 4, p = per[x[partyKey]] = per[x[partyKey]] || [0, 0, 0, 0, 0, 0]; p[k] += x.open; p[5] += x.open; });
+    var rows = Object.keys(per).map(function (k) { return { id: k, b: per[k] }; }), tot = [0, 0, 0, 0, 0, 0]; rows.forEach(function (r) { r.b.forEach(function (v, i) { tot[i] += v; }); });
+    var mx = Math.max.apply(null, tot.slice(0, 5).concat([1]));
+    var chart = '<div class="bars">' + B.map(function (b, i) { return '<div class="bar"><span class="mono">' + n0(tot[i]) + '</span><i style="height:' + (tot[i] / mx * 100) + '%;background:' + ['#0F766E', '#CA8A04', '#EA580C', '#C2410C', '#7F1D1D'][i] + '"></i><b>' + B[i] + '</b></div>'; }).join('') + '</div>';
+    var cols = [{ l: partyKey === 'cust' ? T('customer') : T('vendor'), f: function (r) { return esc(r.id + ' · ' + nameFn(r.id)); }, s: function (r) { return r.id; } }].concat(B.map(function (b, i) { return { l: b, n: 1, f: function (r) { return r.b[i] ? n2(r.b[i]) : '—'; }, s: function (r) { return r.b[i]; } }; })).concat([{ l: T('total'), n: 1, f: function (r) { return '<b>' + n2(r.b[5]) + '</b>'; }, s: function (r) { return r.b[5]; } }]);
+    var line = table([{ l: T('doc'), f: function (x) { return link(partyKey === 'cust' ? 'bi' : 'iv', x.id); }, s: function (x) { return x.id; } }, { l: partyKey === 'cust' ? T('customer') : T('vendor'), k: partyKey }, { l: T('dateL'), k: 'date' }, { l: T('due'), k: 'due' }, { l: L('Days overdue', 'أيام التأخير'), n: 1, f: function (x) { var l = E.days(x.due, d.date); return l > 0 ? '<span class="neg">' + l + '</span>' : '—'; }, s: function (x) { return E.days(x.due, d.date); } }, { l: T('gross'), n: 1, f: function (x) { return n2(x.gross); } }, { l: T('open_'), n: 1, f: function (x) { return n2(x.open); }, s: function (x) { return x.open; } }], items.filter(function (x) { return x.open > 0.004; }));
+    EXPORTS.aging = function () { return csv([[partyKey].concat(B, ['total'])].concat(rows.map(function (r) { return [r.id].concat(r.b.map(function (v) { return v.toFixed(2); })); }))); };
+    view.innerHTML = page(code, title, sub + ' ' + L('Key date: ', 'تاريخ المرجع: ') + d.date, '<div class="two">' + card(L('Aging buckets (days overdue)', 'فئات الأعمار (أيام التأخير)'), chart) + card(L('By partner', 'حسب الشريك'), table(cols, rows, { search: false, foot: [T('total')].concat(tot.map(function (v) { return n2(v); })) })) + '</div>' + card(L('Open line items', 'البنود المفتوحة'), line), exportBtn('aging'));
+  }
+  P.FBL5N = function () { aging(db().bi, 'cust', function (id) { return nm(E.cust(id)); }, 'FBL5N', L('Customer line items & aging', 'بنود العملاء وأعمار الديون'), L('Open receivables by days overdue.', 'الذمم المدينة المفتوحة حسب أيام التأخير.')); };
+  P.FBL1N = function () { aging(db().iv, 'vendor', function (id) { return nm(E.vend(id)); }, 'FBL1N', L('Supplier line items & aging', 'بنود الموردين وأعمار الديون'), L('Open payables by days overdue.', 'الذمم الدائنة المفتوحة حسب أيام التأخير.')); };
+
+  /* ---- PROCUREMENT ---- */
+  function buyable() { return db().materials.filter(function (m) { return m.proc === 'F'; }); }
+  P.ME51N = function () {
+    var d = db(), rows = d.pr.slice().reverse();
+    view.innerHTML = page('ME51N', L('Purchase requisitions', 'طلبات الشراء'), L('Internal requests for materials. MRP creates them automatically; buyers convert them to purchase orders.', 'طلبات داخلية للمواد. ينشئها تخطيط المواد آليًا ويحوّلها المشترون إلى أوامر شراء.'),
+      card(L('New requisition', 'طلب جديد'), '<div class="form row"><label>' + T('material') + '<select id="prM">' + opt(buyable(), 'RM-200') + '</select></label><label>' + T('qty') + '<input id="prQ" type="number" min="1" value="500"></label><label>' + T('plant') + '<select id="prP">' + plantOpt('DXB1') + '</select></label><button class="btn" type="button" id="prSave">' + T('create') + '</button></div>') +
+      card(L('Requisitions', 'الطلبات') + ' (' + rows.length + ')', table([{ l: '', f: function (p) { return p.status === 'open' ? '<input type="checkbox" class="prsel" value="' + p.id + '" aria-label="' + L('Select ', 'اختر ') + p.id + '">' : ''; } }, { l: T('doc'), k: 'id' }, { l: T('material'), f: function (p) { return esc(matLabel(p.m)); }, s: function (p) { return p.m; } }, { l: T('qty'), n: 1, f: function (p) { return n0(p.q) + ' ' + esc(E.mat(p.m).uom); }, s: function (p) { return p.q; } }, { l: L('Need date', 'تاريخ الحاجة'), k: 'need' }, { l: L('Source', 'المصدر'), f: function (p) { return p.mrp ? '<span class="badge b-violet">MRP</span>' : L('Manual', 'يدوي'); } }, { l: T('status'), f: function (p) { return badge(p.status === 'open' ? 'open' : 'converted') + (p.po ? ' ' + link('po', p.po) : ''); } }], rows)), '<button class="btn" type="button" id="prToPo">' + L('Create PO from selected', 'إنشاء أمر شراء من المحدد') + '</button>');
+    $('prSave').onclick = function () { var pr = act(function () { return E.createPR({ m: $('prM').value, q: +$('prQ').value, plant: $('prP').value }); }); if (pr) { toast(L('Requisition ', 'طلب الشراء ') + pr.id + ' ' + T('saved')); P.ME51N(); wireTables(); } };
+    $('prToPo').onclick = function () { var ids = Array.prototype.map.call(view.querySelectorAll('.prsel:checked'), function (c) { return c.value; }); if (!ids.length) { toast(L('Select at least one open requisition.', 'اختر طلبًا مفتوحًا واحدًا على الأقل.'), 'warn'); return; } sessionPR = ids; go('ME21N'); };
+  };
+  var sessionPR = [];
+  P.ME21N = function () {
+    var d = db(), pre = sessionPR.map(function (id) { return E.byId(d.pr, id); }).filter(Boolean); sessionPR = [];
+    var vendor = pre.length ? (pre[0].vendor || 'V-2001') : 'V-2001';
+    var rows = pre.length ? pre.map(function (p) { return { m: p.m, q: p.q, price: E.mat(p.m).std, pr: p.id }; }) : [{ m: 'RM-200', q: 500, price: 24 }];
+    view.innerHTML = page('ME21N', L('Create purchase order', 'إنشاء أمر شراء'), L('Standard PO (NB). Price defaults to the standard cost; a different price creates a purchase price variance at goods receipt.', 'أمر شراء قياسي. السعر الافتراضي هو التكلفة المعيارية؛ وأي سعر مختلف ينشئ فرق سعر شراء عند الاستلام.'),
+      card(T('header'), '<div class="form row"><label>' + T('vendor') + '<select id="poV">' + opt(d.vendors, vendor) + '</select></label><label>' + T('plant') + '<select id="poP">' + plantOpt('DXB1') + '</select></label></div>') + card(T('items'), '<div id="poItems"></div><button class="btn ghost" type="button" id="poAdd">+ ' + T('add') + '</button><p class="hint" id="poTot"></p>') +
+      card(L('Open requisitions', 'طلبات مفتوحة'), table([{ l: T('doc'), k: 'id' }, { l: T('material'), f: function (p) { return esc(matLabel(p.m)); } }, { l: T('qty'), n: 1, f: function (p) { return n0(p.q); } }, { l: L('Fixed vendor', 'المورد الثابت'), f: function (p) { return esc(p.vendor || '—'); } }, { l: '', f: function (p) { return '<button class="btn sm ghost" type="button" data-addpr="' + p.id + '">' + T('add') + '</button>'; } }], d.pr.filter(function (p) { return p.status === 'open' && !rows.some(function (r) { return r.pr === p.id; }); }), { search: false })),
+      '<button class="btn" type="button" id="poSave">' + T('save') + '</button>');
+    function draw() { $('poItems').innerHTML = '<table class="grid edit"><thead><tr><th>' + T('material') + '</th><th class="num">' + T('qty') + '</th><th class="num">' + T('price') + '</th><th class="num">' + T('value') + '</th><th>' + L('Req.', 'الطلب') + '</th><th></th></tr></thead><tbody>' + rows.map(function (r, i) { return '<tr><td><select data-r="' + i + '" data-f="m">' + opt(buyable(), r.m) + '</select></td><td class="num"><input type="number" min="0" data-r="' + i + '" data-f="q" value="' + r.q + '" aria-label="' + T('qty') + '"></td><td class="num"><input type="number" min="0" step="0.01" data-r="' + i + '" data-f="price" value="' + r.price + '" aria-label="' + T('price') + '"></td><td class="num mono">' + n2(r.q * r.price) + '</td><td class="mono">' + esc(r.pr || '') + '</td><td><button class="icon" type="button" data-del="' + i + '" aria-label="' + T('del') + '">✕</button></td></tr>'; }).join('') + '</tbody></table>'; var v = E.vend($('poV').value), net = rows.reduce(function (a, r) { return a + r.q * r.price; }, 0); $('poTot').textContent = T('net') + ': ' + n2(net) + ' · ' + T('tax') + ' ' + (E.vat(v.cty) * 100) + '% · ' + L('Payment terms: net ', 'شروط الدفع: صافي ') + v.terms + L(' days', ' يومًا'); }
+    view.onchange = function (e) { var t = e.target; if (t.dataset.r != null) { var r = rows[+t.dataset.r]; r[t.dataset.f] = t.dataset.f === 'm' ? t.value : +t.value; if (t.dataset.f === 'm') r.price = E.mat(t.value).std; draw(); } if (t.id === 'poV') draw(); };
+    view.onclick = function (e) { var b = e.target.closest('[data-del]'); if (b) { rows.splice(+b.dataset.del, 1); draw(); } var a = e.target.closest('[data-addpr]'); if (a) { var p = E.byId(d.pr, a.dataset.addpr); rows.push({ m: p.m, q: p.q, price: E.mat(p.m).std, pr: p.id }); a.closest('tr').remove(); draw(); } };
+    $('poAdd').onclick = function () { rows.push({ m: 'PK-300', q: 1000, price: 2.5 }); draw(); };
+    $('poSave').onclick = function () { var po = act(function () { return E.createPO({ vendor: $('poV').value, plant: $('poP').value, items: rows }); }); if (po) { toast(L('Purchase order ', 'أمر الشراء ') + po.id + ' ' + T('saved')); go('obj/po/' + po.id); } };
+    draw();
+  };
+  P.ME2N = function () {
+    var rows = db().po.slice().reverse();
+    view.innerHTML = page('ME2N', L('Purchase orders', 'أوامر الشراء'), L('Receipt and invoice status per order.', 'حالة الاستلام والفوترة لكل أمر.'), card(L('Orders', 'الأوامر') + ' (' + rows.length + ')', table([{ l: T('doc'), f: function (p) { return link('po', p.id); }, s: function (p) { return p.id; } }, { l: T('dateL'), k: 'date' }, { l: T('vendor'), f: function (p) { return esc(nm(E.vend(p.vendor))); }, s: function (p) { return p.vendor; } }, { l: T('value'), n: 1, f: function (p) { return n2(p.items.reduce(function (a, i) { return a + i.q * i.price; }, 0)); } }, { l: L('Received', 'المستلم'), n: 1, f: function (p) { var q = sum(p.items, 'q'), g = sum(p.items, 'grq'); return Math.round(g / q * 100) + '%'; } }, { l: T('status'), f: function (p) { return badge(E.poStatus(p)); } }], rows)), '<a class="btn" href="#ME21N">' + L('Create PO', 'إنشاء أمر شراء') + '</a>');
+  };
+  P.MIGO = function (arg) {
+    var d = db(), open = d.po.filter(function (p) { return p.items.some(function (i) { return i.q - i.grq > 0; }); }), sel = arg && E.byId(d.po, arg) ? arg : (open[0] && open[0].id);
+    var po = sel && E.byId(d.po, sel);
+    var gr = po ? '<div class="form row"><label>' + L('Purchase order', 'أمر الشراء') + '<select id="miPo">' + opt(open, sel, function (p) { return p.id + ' · ' + nm(E.vend(p.vendor)); }) + '</select></label></div><table class="grid edit"><thead><tr><th>' + T('material') + '</th><th class="num">' + L('Ordered', 'المطلوب') + '</th><th class="num">' + L('Received', 'المستلم') + '</th><th class="num">' + L('Receive now', 'استلم الآن') + '</th></tr></thead><tbody>' + po.items.map(function (i, k) { return '<tr><td>' + esc(matLabel(i.m)) + '</td><td class="num">' + n0(i.q) + '</td><td class="num">' + n0(i.grq) + '</td><td class="num"><input type="number" min="0" data-k="' + k + '" class="grq" value="' + E.r2(i.q - i.grq) + '" aria-label="' + L('Receive now', 'استلم الآن') + '"></td></tr>'; }).join('') + '</tbody></table><button class="btn" type="button" id="miPost">' + T('post') + ' 101</button>' : '<p class="empty">' + L('No purchase orders waiting for receipt.', 'لا توجد أوامر شراء بانتظار الاستلام.') + '</p>';
+    var all = d.materials;
+    view.innerHTML = page('MIGO', L('Goods movement', 'حركة البضائع'), L('Movement types: 101 receipt for PO, 301 plant-to-plant transfer, 551 scrapping. Each movement creates a material document and, when value changes, an accounting document.', 'أنواع الحركة: 101 استلام لأمر شراء، 301 نقل بين المواقع، 551 إتلاف. كل حركة تنشئ مستند مادة، ومستندًا محاسبيًا عند تغير القيمة.'),
+      card(L('101 · Goods receipt for purchase order', '101 · استلام بضائع لأمر شراء'), gr) +
+      '<div class="two">' + card(L('301 · Transfer between plants', '301 · نقل بين المواقع'), '<div class="form"><label>' + T('material') + '<select id="trM">' + opt(all, 'FG-100') + '</select></label><label>' + L('From', 'من') + '<select id="trF">' + plantOpt('DXB1') + '</select></label><label>' + L('To', 'إلى') + '<select id="trT">' + plantOpt('RUH1') + '</select></label><label>' + T('qty') + '<input id="trQ" type="number" min="1" value="20"></label><button class="btn" type="button" id="trPost">' + T('post') + ' 301</button></div>') +
+      card(L('551 · Scrapping', '551 · إتلاف'), '<div class="form"><label>' + T('material') + '<select id="scM">' + opt(all, 'PK-300') + '</select></label><label>' + T('plant') + '<select id="scP">' + plantOpt('DXB1') + '</select></label><label>' + T('qty') + '<input id="scQ" type="number" min="1" value="10"></label><label>' + L('Reason', 'السبب') + '<input id="scR" value="' + esc(L('Damaged in handling', 'تلف أثناء المناولة')) + '"></label><button class="btn" type="button" id="scPost">' + T('post') + ' 551</button></div>') + '</div>');
+    if ($('miPo')) { $('miPo').onchange = function () { P.MIGO(this.value); wireTables(); }; $('miPost').onclick = function () { var q = {}; view.querySelectorAll('.grq').forEach(function (x) { q[+x.dataset.k] = +x.value; }); var md = act(function () { return E.gr(sel, q); }); if (md) { toast(L('Material document ', 'مستند المادة ') + md.id + ' ' + T('posted')); go('obj/po/' + sel); } }; }
+    $('trPost').onclick = function () { var md = act(function () { return E.transfer($('trM').value, $('trF').value, $('trT').value, +$('trQ').value); }); if (md) toast(L('Transfer ', 'النقل ') + md.id + ' ' + T('posted')); };
+    $('scPost').onclick = function () { var md = act(function () { return E.scrap($('scM').value, $('scP').value, +$('scQ').value, $('scR').value); }); if (md) toast(L('Scrap ', 'الإتلاف ') + md.id + ' ' + T('posted'), 'warn'); };
+  };
+  P.MIRO = function (arg) {
+    var d = db(), open = d.po.filter(function (p) { return E.expectedIV(p) > 0; }), sel = arg && E.byId(d.po, arg) ? arg : (open[0] && open[0].id), po = sel && E.byId(d.po, sel);
+    var body = po ? (function () { var v = E.vend(po.vendor), exp = E.expectedIV(po); return '<div class="form row"><label>' + L('Purchase order', 'أمر الشراء') + '<select id="ivPo">' + opt(open, sel, function (p) { return p.id + ' · ' + nm(E.vend(p.vendor)); }) + '</select></label><label>' + L('Supplier invoice number', 'رقم فاتورة المورد') + '<input id="ivRef" value="INV-' + (Math.floor(Math.random() * 9000) + 1000) + '"></label><label>' + L('Invoice amount, net', 'مبلغ الفاتورة الصافي') + '<input id="ivNet" type="number" step="0.01" value="' + exp.toFixed(2) + '"></label></div>' + kv([[L('Expected (GR × PO price)', 'المتوقع (الاستلام × سعر الأمر)'), '<b class="mono">' + n2(exp) + '</b>'], [L('VAT rate', 'نسبة الضريبة'), (E.vat(v.cty) * 100) + '%'], [L('Tolerance', 'حد التسامح'), '± 2%'], [L('Payment terms', 'شروط الدفع'), L('Net ', 'صافي ') + v.terms + L(' days', ' يومًا')]]) + '<p class="hint" id="ivChk"></p><button class="btn" type="button" id="ivPost">' + T('post') + '</button>'; })() : '<p class="empty">' + L('No goods receipts waiting for an invoice.', 'لا توجد استلامات بانتظار فاتورة.') + '</p>';
+    view.innerHTML = page('MIRO', L('Enter supplier invoice', 'إدخال فاتورة مورد'), L('Three-way match: purchase order, goods receipt and invoice. Variances above 2% block the invoice for payment.', 'المطابقة الثلاثية: أمر الشراء والاستلام والفاتورة. الفروق التي تتجاوز 2٪ تحظر الفاتورة للدفع.'), card(L('Invoice', 'الفاتورة'), body));
+    if (po) { var chk = function () { var exp = E.expectedIV(po), n = +$('ivNet').value, dv = (n - exp) / exp * 100; $('ivChk').innerHTML = L('Variance: ', 'الفرق: ') + '<b class="mono ' + (Math.abs(dv) > 2 ? 'neg' : 'pos') + '">' + (dv >= 0 ? '+' : '') + dv.toFixed(2) + '%</b> ' + (Math.abs(dv) > 2 ? esc(L('· invoice will be blocked for payment', '· ستُحظر الفاتورة للدفع')) : esc(L('· within tolerance', '· ضمن حد التسامح'))); }; $('ivNet').oninput = chk; chk(); $('ivPo').onchange = function () { P.MIRO(this.value); }; $('ivPost').onclick = function () { var iv = act(function () { return E.miro(sel, +$('ivNet').value, $('ivRef').value); }); if (iv) { toast(L('Invoice ', 'الفاتورة ') + iv.id + ' ' + T('posted') + (iv.blocked ? L(' · blocked for payment', ' · محظورة للدفع') : ''), iv.blocked ? 'warn' : 'ok'); go('obj/po/' + sel); } }; }
+  };
+  P.MRBR = function () {
+    var rows = db().iv.filter(function (i) { return i.blocked; });
+    view.innerHTML = page('MRBR', L('Release blocked invoices', 'الإفراج عن الفواتير المحظورة'), L('Invoices whose price differs from the PO by more than the tolerance. Review, then release for payment.', 'فواتير يختلف سعرها عن أمر الشراء بأكثر من حد التسامح. راجعها ثم أفرج عنها للدفع.'), card(L('Blocked invoices', 'الفواتير المحظورة'), table([{ l: T('doc'), f: function (i) { return link('iv', i.id); }, s: function (i) { return i.id; } }, { l: L('PO', 'أمر الشراء'), f: function (i) { return link('po', i.po); } }, { l: T('vendor'), f: function (i) { return esc(nm(E.vend(i.vendor))); } }, { l: L('Expected', 'المتوقع'), n: 1, f: function (i) { return n2(i.exp); } }, { l: L('Invoiced', 'المفوتر'), n: 1, f: function (i) { return n2(i.net); } }, { l: L('Variance', 'الفرق'), n: 1, f: function (i) { return '<span class="neg">' + ((i.net - i.exp) / i.exp * 100).toFixed(1) + '%</span>'; } }, { l: '', f: function (i) { return '<button class="btn sm" type="button" data-rel="' + i.id + '">' + T('release') + '</button>'; } }], rows)));
+    view.onclick = function (e) { var b = e.target.closest('[data-rel]'); if (b) { act(function () { E.releaseIV(b.dataset.rel); }); toast(L('Released ', 'تم الإفراج عن ') + b.dataset.rel); P.MRBR(); wireTables(); } };
+  };
+  P['F-53'] = function () {
+    var d = db(), rows = d.iv.filter(function (i) { return i.open > 0.004; });
+    view.innerHTML = page('F-53', L('Post outgoing payment', 'ترحيل سداد'), L('Pay open supplier invoices from the bank account.', 'ادفع فواتير الموردين المفتوحة من حساب البنك.'), card(L('Open supplier items', 'بنود الموردين المفتوحة'), table([{ l: T('doc'), f: function (i) { return link('iv', i.id); }, s: function (i) { return i.id; } }, { l: T('vendor'), f: function (i) { return esc(nm(E.vend(i.vendor))); }, s: function (i) { return i.vendor; } }, { l: T('due'), k: 'due' }, { l: T('open_'), n: 1, f: function (i) { return n2(i.open); }, s: function (i) { return i.open; } }, { l: T('status'), f: function (i) { return i.blocked ? badge('blocked') : badge('open'); } }, { l: '', f: function (i) { return i.blocked ? '<a class="btn sm ghost" href="#MRBR">MRBR</a>' : '<button class="btn sm" type="button" data-pay="' + i.id + '">' + T('pay') + '</button>'; } }], rows)));
+    view.onclick = function (e) { var b = e.target.closest('[data-pay]'); if (b) { var ok = act(function () { E.payVendor(b.dataset.pay); return 1; }); if (ok) toast(L('Payment posted for ', 'تم ترحيل السداد للفاتورة ') + b.dataset.pay); P['F-53'](); wireTables(); } };
+  };
+
+  /* ---- INVENTORY ---- */
+  P.MMBE = function () {
+    var d = db(), rows = []; d.materials.forEach(function (m) { d.plants.forEach(function (p) { var q = E.stock(m.id, p.id); if (q || p.id === 'DXB1') rows.push({ m: m, p: p.id, q: q, v: q * m.std, atp: E.atp(m.id, p.id) }); }); });
+    var tot = rows.reduce(function (a, r) { return a + r.v; }, 0);
+    EXPORTS.stock = function () { return csv([['material', 'description', 'type', 'plant', 'unrestricted', 'uom', 'std_price', 'value', 'safety_stock', 'atp']].concat(rows.map(function (r) { return [r.m.id, r.m.en, r.m.type, r.p, r.q, r.m.uom, r.m.std, r.v.toFixed(2), r.m.ss, r.atp]; }))); };
+    view.innerHTML = page('MMBE', L('Stock overview', 'نظرة على المخزون'), L('Unrestricted stock at standard price, with availability after reservations for open sales orders.', 'المخزون غير المقيد بالسعر المعياري، مع المتاح بعد الحجوزات لأوامر البيع المفتوحة.'), card(L('Stock', 'المخزون') + ' · ' + L('total value ', 'القيمة الإجمالية ') + n2(tot) + ' AED', table([{ l: T('material'), f: function (r) { return link('mat', r.m.id); }, s: function (r) { return r.m.id; } }, { l: T('desc'), f: function (r) { return esc(nm(r.m)); } }, { l: T('type'), f: function (r) { return '<span class="mono">' + r.m.type + '</span>'; }, s: function (r) { return r.m.type; } }, { l: T('plant'), k: 'p' }, { l: L('Unrestricted', 'غير مقيد'), n: 1, f: function (r) { return n0(r.q) + ' ' + r.m.uom; }, s: function (r) { return r.q; } }, { l: L('ATP', 'المتاح'), n: 1, f: function (r) { return n0(r.atp); }, s: function (r) { return r.atp; } }, { l: L('Std price', 'السعر المعياري'), n: 1, f: function (r) { return n2(r.m.std); } }, { l: T('value'), n: 1, f: function (r) { return n2(r.v); }, s: function (r) { return r.v; } }, { l: L('Safety stock', 'مخزون الأمان'), n: 1, f: function (r) { return r.p === 'DXB1' ? n0(r.m.ss) : '—'; } }, { l: '', f: function (r) { return r.p === 'DXB1' && r.q < r.m.ss ? '<span class="badge b-red">' + L('Below safety stock', 'أقل من مخزون الأمان') + '</span>' : ''; } }], rows)), exportBtn('stock'));
+  };
+  P.MB51 = function () {
+    var rows = []; db().md.slice().reverse().forEach(function (d) { d.items.forEach(function (i) { rows.push({ id: d.id, date: d.date, mvt: d.mvt, m: i.m, p: i.p, q: i.q, v: i.v, ref: d.ref }); }); });
+    view.innerHTML = page('MB51', L('Material documents', 'مستندات المواد'), L('Every goods movement with movement type, quantity and value.', 'كل حركات البضائع مع نوع الحركة والكمية والقيمة.'), card(L('Movements', 'الحركات') + ' (' + rows.length + ')', table([{ l: T('doc'), k: 'id', f: function (r) { return '<span class="mono">' + r.id + '</span>'; } }, { l: T('dateL'), k: 'date' }, { l: L('Mvt', 'الحركة'), k: 'mvt', f: function (r) { return '<span class="mono">' + r.mvt + '</span> ' + esc(mvtName(r.mvt)); } }, { l: T('material'), k: 'm' }, { l: T('plant'), k: 'p' }, { l: T('qty'), n: 1, f: function (r) { return '<span class="' + (r.q < 0 ? 'neg' : 'pos') + '">' + n0(r.q) + '</span>'; }, s: function (r) { return r.q; } }, { l: T('value'), n: 1, f: function (r) { return n2(r.v); }, s: function (r) { return r.v; } }, { l: T('ref'), k: 'ref' }], rows)));
+  };
+  P.MI07 = function () {
+    var d = db();
+    view.innerHTML = page('MI07', L('Physical inventory', 'الجرد الفعلي'), L('Enter the counted quantity. The system compares it with book stock and posts the difference (movement 701 gain or 702 loss).', 'أدخل الكمية المعدودة. يقارنها النظام بالمخزون الدفتري ويرحّل الفرق (حركة 701 زيادة أو 702 نقص).'),
+      card(L('Count', 'العد'), '<div class="form row"><label>' + T('material') + '<select id="piM">' + opt(d.materials, 'RM-210') + '</select></label><label>' + T('plant') + '<select id="piP">' + plantOpt('DXB1') + '</select></label><label>' + L('Book quantity', 'الكمية الدفترية') + '<input id="piB" disabled></label><label>' + L('Counted quantity', 'الكمية المعدودة') + '<input id="piC" type="number" min="0" step="0.01"></label><button class="btn" type="button" id="piPost">' + T('post') + '</button></div>') +
+      card(L('Count history', 'سجل الجرد'), table([{ l: T('doc'), k: 'id' }, { l: T('dateL'), k: 'date' }, { l: T('material'), k: 'm' }, { l: T('plant'), k: 'p' }, { l: L('Book', 'الدفتري'), n: 1, f: function (x) { return n0(x.book); } }, { l: L('Counted', 'المعدود'), n: 1, f: function (x) { return n0(x.counted); } }, { l: L('Difference', 'الفرق'), n: 1, f: function (x) { return '<span class="' + (x.diff < 0 ? 'neg' : x.diff > 0 ? 'pos' : '') + '">' + n0(x.diff) + '</span>'; } }, { l: L('Value', 'القيمة'), n: 1, f: function (x) { return n2(x.diff * E.mat(x.m).std); } }], db().pi.slice().reverse(), { search: false })));
+    function bk() { var b = E.stock($('piM').value, $('piP').value); $('piB').value = b; $('piC').value = b; }
+    $('piM').onchange = $('piP').onchange = bk; bk();
+    $('piPost').onclick = function () { var pi = act(function () { return E.physInv($('piM').value, $('piP').value, +$('piC').value); }); if (pi) { toast(L('Count posted, difference ', 'تم ترحيل الجرد، الفرق ') + pi.diff, pi.diff ? 'warn' : 'ok'); P.MI07(); wireTables(); } };
+  };
+
+  /* ---- PLANNING & PRODUCTION ---- */
+  P.MD01 = function () {
+    var d = db(), m = d.lastMrp;
+    view.innerHTML = page('MD01', L('MRP run', 'تشغيل تخطيط المواد'), L('Regenerative net-change planning: demand (open sales orders + dependent demand from BOMs + safety stock) minus supply (stock + open POs, requisitions and production orders). Shortages create planned orders for in-house items and requisitions for purchased items.', 'تخطيط تجديدي: الطلب (أوامر البيع المفتوحة + الطلب التابع من قوائم المواد + مخزون الأمان) ناقص العرض (المخزون + أوامر الشراء والطلبات وأوامر الإنتاج المفتوحة). النقص ينشئ أوامر مخططة للتصنيع الداخلي وطلبات شراء للمواد المشتراة.'),
+      card(L('Planning run', 'تشغيل التخطيط'), '<div class="form row"><label>' + T('plant') + '<select id="mrpP">' + plantOpt('DXB1') + '</select></label><button class="btn" type="button" id="mrpRun">' + T('run') + ' MRP</button></div>' + (m ? '<p class="hint">' + L('Last run: ', 'آخر تشغيل: ') + m.date + ' · ' + m.plant + '</p>' : '')) +
+      (m ? card(L('Results', 'النتائج'), table([{ l: T('material'), f: function (r) { return '<a href="#MD04/' + r.m + '" class="dl mono">' + r.m + '</a> ' + esc(nm(E.mat(r.m))); }, s: function (r) { return r.m; } }, { l: L('Sales demand', 'طلب المبيعات'), n: 1, f: function (r) { return n0(r.ind); } }, { l: L('Dependent', 'تابع'), n: 1, f: function (r) { return n0(r.dep); } }, { l: L('Safety', 'الأمان'), n: 1, f: function (r) { return n0(r.ss); } }, { l: L('Stock', 'المخزون'), n: 1, f: function (r) { return n0(r.st); } }, { l: L('Receipts', 'الواردات'), n: 1, f: function (r) { return n0(r.rec); } }, { l: L('Net req.', 'صافي الحاجة'), n: 1, f: function (r) { return '<span class="' + (r.net > 0 ? 'neg' : 'pos') + '">' + n0(r.net) + '</span>'; }, s: function (r) { return r.net; } }, { l: L('Proposal', 'المقترح'), f: function (r) { return r.prop ? '<span class="badge ' + (r.kind === 'PLO' ? 'b-blue' : 'b-violet') + '">' + (r.kind === 'PLO' ? L('Planned order', 'أمر مخطط') : L('Requisition', 'طلب شراء')) + ' ' + r.prop + '</span> <span class="mono">' + n0(r.qty) + '</span>' : '—'; } }], m.rows), '<span class="hint">' + L('Next: CO40 converts planned orders, ME51N → ME21N turns requisitions into POs.', 'التالي: CO40 يحوّل الأوامر المخططة، وME51N ثم ME21N يحوّلان الطلبات إلى أوامر شراء.') + '</span>') : ''));
+    $('mrpRun').onclick = function () { var r = act(function () { return E.mrp($('mrpP').value); }); if (r) { var np = r.filter(function (x) { return x.prop; }).length; toast(L('MRP finished: ' + np + (np === 1 ? ' proposal' : ' proposals'), 'انتهى التخطيط: ' + np + ' مقترح')); P.MD01(); wireTables(); } };
+  };
+  P.MD04 = function (arg) {
+    var d = db(), m = arg && E.mat(arg) ? arg : 'FG-100', mt = E.mat(m), p = 'DXB1', el = [];
+    el.push({ d: d.date, t: L('Stock', 'المخزون'), id: '', q: E.stock(m, p) });
+    d.so.forEach(function (s) { if (s.plant === p) s.items.forEach(function (i) { if (i.m === m && i.q - i.dlq > 0) el.push({ d: s.req, t: L('Sales order', 'أمر بيع'), id: s.id, q: -(i.q - i.dlq), k: 'so' }); }); });
+    d.pp.forEach(function (o) { if (o.plant !== p || o.status === 'cnf') return; if (o.m === m) el.push({ d: o.date, t: L('Production order', 'أمر إنتاج'), id: o.id, q: o.q - o.cnf, k: 'pp' }); o.comps.forEach(function (c) { if (c.m === m && c.q - c.iss > 0) el.push({ d: o.date, t: L('Dependent req.', 'احتياج تابع'), id: o.id, q: -(c.q - c.iss), k: 'pp' }); }); });
+    d.pl.forEach(function (o) { if (o.status !== 'open') return; if (o.m === m) el.push({ d: o.date, t: L('Planned order', 'أمر مخطط'), id: o.id, q: o.q }); (d.boms[o.m] || []).forEach(function (b) { if (b.m === m) el.push({ d: o.date, t: L('Dependent req.', 'احتياج تابع'), id: o.id, q: -E.r2(b.q * o.q) }); }); });
+    d.po.forEach(function (o) { if (o.plant === p) o.items.forEach(function (i) { if (i.m === m && i.q - i.grq > 0) el.push({ d: E.addDays(o.date, mt.lt), t: L('Purchase order', 'أمر شراء'), id: o.id, q: i.q - i.grq, k: 'po' }); }); });
+    d.pr.forEach(function (o) { if (o.plant === p && o.m === m && o.status === 'open') el.push({ d: o.need, t: L('Requisition', 'طلب شراء'), id: o.id, q: o.q }); });
+    var first = el.shift(); el.sort(function (a, b) { return a.d < b.d ? -1 : 1; }); el.unshift(first);
+    var run = 0; el.forEach(function (x) { run += x.q; x.bal = E.r2(run); });
+    view.innerHTML = page('MD04', L('Stock / requirements list', 'قائمة المخزون والاحتياجات'), L('Live supply and demand elements for one material at DXB1, with projected available quantity.', 'عناصر العرض والطلب الحية لمادة واحدة في DXB1، مع الكمية المتاحة المتوقعة.'),
+      card(L('Material', 'المادة'), '<div class="form row"><label>' + T('material') + '<select id="mdM">' + opt(d.materials, m) + '</select></label></div>' + kv([[L('Safety stock', 'مخزون الأمان'), n0(mt.ss)], [L('Lot size', 'حجم الدفعة'), n0(mt.lot)], [L('Procurement', 'التوريد'), mt.proc === 'E' ? L('In-house', 'تصنيع داخلي') : L('External', 'شراء خارجي')], [L('Lead time', 'مهلة التوريد'), mt.lt + L(' days', ' يوم')]])) +
+      card(L('Elements', 'العناصر'), table([{ l: T('dateL'), k: 'd' }, { l: L('MRP element', 'عنصر التخطيط'), k: 't' }, { l: T('doc'), f: function (x) { return x.k ? link(x.k, x.id) : '<span class="mono">' + esc(x.id) + '</span>'; } }, { l: L('Receipt/requirement', 'وارد/احتياج'), n: 1, f: function (x) { return '<span class="' + (x.q < 0 ? 'neg' : 'pos') + '">' + n0(x.q) + '</span>'; } }, { l: L('Available qty', 'الكمية المتاحة'), n: 1, f: function (x) { return '<b class="' + (x.bal < mt.ss ? 'neg' : '') + '">' + n0(x.bal) + '</b>'; } }], el, { search: false })));
+    $('mdM').onchange = function () { go('MD04/' + this.value); };
+  };
+  P.CO40 = function () {
+    var rows = db().pl.filter(function (p) { return p.status === 'open'; });
+    view.innerHTML = page('CO40', L('Convert planned orders', 'تحويل الأوامر المخططة'), L('Planned orders from MRP become production orders with a component list from the BOM.', 'تتحول الأوامر المخططة من التخطيط إلى أوامر إنتاج مع قائمة مكونات من قائمة المواد.'), card(L('Planned orders', 'الأوامر المخططة'), table([{ l: T('doc'), k: 'id' }, { l: T('material'), f: function (p) { return esc(matLabel(p.m)); } }, { l: T('qty'), n: 1, f: function (p) { return n0(p.q); } }, { l: L('Start', 'البدء'), k: 'date' }, { l: '', f: function (p) { return '<button class="btn sm" type="button" data-cv="' + p.id + '">' + T('convert') + '</button>'; } }], rows)));
+    view.onclick = function (e) { var b = e.target.closest('[data-cv]'); if (b) { var pl = E.byId(db().pl, b.dataset.cv), pp = act(function () { return E.createPP(pl.m, pl.q, pl.plant, pl.id); }); if (pp) { toast(L('Production order ', 'أمر الإنتاج ') + pp.id + ' ' + T('saved')); go('obj/pp/' + pp.id); } } };
+  };
+  P.CO01 = function () {
+    var fg = db().materials.filter(function (m) { return m.type === 'FERT'; });
+    view.innerHTML = page('CO01', L('Create production order', 'إنشاء أمر إنتاج'), L('Order type PP01. Components come from the BOM; activity cost from the routing.', 'نوع الأمر PP01. المكونات من قائمة المواد وتكلفة النشاط من مسار التشغيل.'), card(T('header'), '<div class="form row"><label>' + T('material') + '<select id="coM">' + opt(fg, 'FG-100') + '</select></label><label>' + T('qty') + '<input id="coQ" type="number" min="1" value="200"></label><label>' + T('plant') + '<select id="coP">' + plantOpt('DXB1') + '</select></label><button class="btn" type="button" id="coSave">' + T('create') + '</button></div><div id="coPrev"></div>'));
+    function prev() { var m = $('coM').value, q = +$('coQ').value || 0; $('coPrev').innerHTML = table([{ l: L('Component', 'المكون'), f: function (c) { return esc(matLabel(c.m)); } }, { l: L('Required', 'المطلوب'), n: 1, f: function (c) { return n0(c.q * q); } }, { l: L('In stock', 'في المخزون'), n: 1, f: function (c) { var s = E.stock(c.m, $('coP').value); return '<span class="' + (s < c.q * q ? 'neg' : 'pos') + '">' + n0(s) + '</span>'; } }], db().boms[m], { search: false }); }
+    $('coM').onchange = $('coQ').oninput = $('coP').onchange = prev; prev();
+    $('coSave').onclick = function () { var pp = act(function () { return E.createPP($('coM').value, +$('coQ').value, $('coP').value); }); if (pp) { toast(L('Production order ', 'أمر الإنتاج ') + pp.id + ' ' + T('saved')); go('obj/pp/' + pp.id); } };
+  };
+  P.COOIS = function () {
+    var rows = db().pp.slice().reverse();
+    view.innerHTML = page('COOIS', L('Production orders', 'أوامر الإنتاج'), L('Release checks component availability (missing parts). Confirmation backflushes components, receives the product and settles variances.', 'يفحص الإطلاق توفر المكونات. ويصرف التأكيد المكونات آليًا ويستلم المنتج ويسوي الانحرافات.'), card(L('Orders', 'الأوامر'), table([{ l: T('doc'), f: function (p) { return link('pp', p.id); }, s: function (p) { return p.id; } }, { l: T('material'), f: function (p) { return esc(matLabel(p.m)); } }, { l: T('qty'), n: 1, f: function (p) { return n0(p.q); } }, { l: L('Confirmed', 'المؤكد'), n: 1, f: function (p) { return n0(p.cnf); } }, { l: T('status'), f: function (p) { return badge(p.status); } }, { l: '', f: function (p) { return p.status === 'crtd' ? '<button class="btn sm" type="button" data-rel="' + p.id + '">' + T('release') + '</button>' : p.status === 'rel' ? '<a class="btn sm" href="#CO11N/' + p.id + '">' + T('confirm') + '</a>' : ''; } }], rows)), '<a class="btn" href="#CO01">' + L('Create order', 'إنشاء أمر') + '</a>');
+    view.onclick = function (e) { var b = e.target.closest('[data-rel]'); if (b) { var ok = act(function () { E.releasePP(b.dataset.rel); return 1; }); if (ok) toast(L('Released ', 'تم إطلاق ') + b.dataset.rel); P.COOIS(); wireTables(); } };
+  };
+  P.CO11N = function (arg) {
+    var d = db(), rel = d.pp.filter(function (p) { return p.status === 'rel'; }), sel = arg && E.byId(d.pp, arg) ? arg : rel[0] && rel[0].id, pp = sel && E.byId(d.pp, sel);
+    var body = pp && pp.status === 'rel' ? '<div class="form row"><label>' + L('Production order', 'أمر الإنتاج') + '<select id="cfO">' + opt(rel, sel, function (p) { return p.id + ' · ' + p.m + ' · ' + n0(p.q - p.cnf); }) + '</select></label><label>' + L('Yield to confirm', 'الكمية المنتجة') + '<input id="cfQ" type="number" min="1" value="' + E.r2(pp.q - pp.cnf) + '"></label><label>' + L('Actual scrap % on components', 'نسبة التالف الفعلية للمكونات') + '<input id="cfS" type="number" min="0" max="50" step="0.5" value="0"></label><button class="btn" type="button" id="cfPost">' + T('confirm') + '</button></div>' + kv([[L('Standard cost per unit', 'التكلفة المعيارية للوحدة'), n2(E.mat(pp.m).std)], [L('Activity (labour & overhead) per unit', 'النشاط (عمالة ومصاريف) للوحدة'), n2(d.conv[pp.m])]]) + '<p class="hint">' + L('Scrap above zero consumes extra components and creates an unfavourable production variance (account 520000).', 'التالف فوق الصفر يستهلك مكونات إضافية وينشئ انحراف إنتاج غير ملائم (الحساب 520000).') + '</p>' : '<p class="empty">' + L('No released production orders. Release one in COOIS.', 'لا توجد أوامر إنتاج مُطلقة. أطلق أمرًا من COOIS.') + '</p>';
+    view.innerHTML = page('CO11N', L('Confirm production', 'تأكيد الإنتاج'), L('Backflush components (261), receive finished goods (101), absorb activity cost and settle variance.', 'صرف المكونات آليًا (261) واستلام المنتج (101) وتحميل تكلفة النشاط وتسوية الانحراف.'), card(L('Confirmation', 'التأكيد'), body));
+    if ($('cfO')) { $('cfO').onchange = function () { go('CO11N/' + this.value); }; $('cfPost').onclick = function () { var v = act(function () { return E.confirmPP(sel, +$('cfQ').value, +$('cfS').value); }); if (v != null) { toast(L('Confirmed. Variance: ', 'تم التأكيد. الانحراف: ') + n2(v), v > 0 ? 'warn' : 'ok'); go('obj/pp/' + sel); } }; }
+  };
+  P.CS03 = function (arg) {
+    var d = db(), fg = d.materials.filter(function (m) { return m.type === 'FERT'; }), m = arg && d.boms[arg] ? arg : 'FG-100', mt = E.mat(m), comp = d.boms[m].map(function (c) { var x = E.mat(c.m); return { m: c.m, q: c.q, uom: x.uom, p: x.std, v: E.r2(c.q * x.std) }; }), mc = comp.reduce(function (a, c) { return a + c.v; }, 0), conv = d.conv[m], tot = E.r2(mc + conv);
+    view.innerHTML = page('CS03', L('Bill of materials & cost roll-up', 'قائمة المواد وتجميع التكلفة'), L('Material cost from the BOM plus activity cost from the routing gives the standard cost.', 'تكلفة المواد من القائمة مع تكلفة النشاط من المسار تعطي التكلفة المعيارية.'),
+      card(L('Header', 'الرأس'), '<div class="form row"><label>' + T('material') + '<select id="bomM">' + opt(fg, m) + '</select></label></div>') + '<div class="two">' + card(L('Components per 1 ', 'المكونات لكل 1 ') + mt.uom, table([{ l: L('Component', 'المكون'), f: function (c) { return link('mat', c.m) + ' ' + esc(nm(E.mat(c.m))); } }, { l: T('qty'), n: 1, f: function (c) { return n0(c.q) + ' ' + c.uom; } }, { l: L('Std price', 'السعر المعياري'), n: 1, f: function (c) { return n2(c.p); } }, { l: T('value'), n: 1, f: function (c) { return n2(c.v); } }], comp, { search: false })) +
+      card(L('Cost roll-up', 'تجميع التكلفة'), kv([[L('Material', 'المواد'), n2(mc)], [L('Activity: packing line', 'النشاط: خط التعبئة'), n2(conv)], [L('Calculated cost', 'التكلفة المحسوبة'), '<b>' + n2(tot) + '</b>'], [L('Standard price in master', 'السعر المعياري في السجل'), n2(mt.std)], [L('Sales price', 'سعر البيع'), n2(mt.sale)], [L('Standard margin', 'الهامش المعياري'), ((mt.sale - mt.std) / mt.sale * 100).toFixed(1) + '%']]) + '<div class="stack"><i style="width:' + (mc / mt.sale * 100) + '%;background:#0F766E" title="' + L('Material', 'المواد') + '"></i><i style="width:' + (conv / mt.sale * 100) + '%;background:#CA8A04" title="' + L('Activity', 'النشاط') + '"></i><i style="width:' + ((mt.sale - mt.std) / mt.sale * 100) + '%;background:#EA580C" title="' + L('Margin', 'الهامش') + '"></i></div><p class="hint">' + L('Bar: material · activity · margin, as a share of the sales price.', 'الشريط: المواد · النشاط · الهامش، كنسبة من سعر البيع.') + '</p>') + '</div>');
+    $('bomM').onchange = function () { go('CS03/' + this.value); };
+  };
+
+  /* ---- FINANCE ---- */
+  P.FB50 = function () {
+    var d = db(), rows = [{ a: '620000', d: 25000, c: 0, t: L('November warehouse rent', 'إيجار المستودع لشهر نوفمبر') }, { a: '230000', d: 0, c: 25000, t: L('Accrual', 'استحقاق') }];
+    view.innerHTML = page('FB50', L('G/L journal entry', 'قيد يومية'), L('Manual posting, for example accruals, salaries or corrections. Debits must equal credits.', 'ترحيل يدوي، مثل الاستحقاقات والرواتب والتصحيحات. يجب أن يتساوى المدين والدائن.'), card(L('Document', 'المستند'), '<div class="form row"><label>' + T('text') + '<input id="jeT" value="' + esc(L('Month-end accrual', 'استحقاق نهاية الشهر')) + '"></label><label>' + T('ref') + '<input id="jeR" value="ACR-11"></label></div><div id="jeL"></div><button class="btn ghost" type="button" id="jeAdd">+ ' + L('Add line', 'إضافة سطر') + '</button><p class="hint" id="jeB"></p>'), '<button class="btn" type="button" id="jePost">' + T('post') + '</button>');
+    function draw() { $('jeL').innerHTML = '<table class="grid edit"><thead><tr><th>' + T('account') + '</th><th class="num">' + T('debit') + '</th><th class="num">' + T('credit') + '</th><th>' + T('text') + '</th><th></th></tr></thead><tbody>' + rows.map(function (r, i) { return '<tr><td><select data-r="' + i + '" data-f="a">' + opt(d.accounts, r.a) + '</select></td><td class="num"><input type="number" min="0" step="0.01" data-r="' + i + '" data-f="d" value="' + r.d + '" aria-label="' + T('debit') + '"></td><td class="num"><input type="number" min="0" step="0.01" data-r="' + i + '" data-f="c" value="' + r.c + '" aria-label="' + T('credit') + '"></td><td><input data-r="' + i + '" data-f="t" value="' + esc(r.t) + '" aria-label="' + T('text') + '"></td><td><button class="icon" type="button" data-del="' + i + '" aria-label="' + T('del') + '">✕</button></td></tr>'; }).join('') + '</tbody></table>'; bal(); }
+    function bal() { var D = 0, C = 0; rows.forEach(function (r) { D += +r.d || 0; C += +r.c || 0; }); $('jeB').innerHTML = T('debit') + ' <b class="mono">' + n2(D) + '</b> · ' + T('credit') + ' <b class="mono">' + n2(C) + '</b> · ' + (Math.abs(D - C) < 0.005 ? '<span class="pos">' + L('Balanced', 'متوازن') + '</span>' : '<span class="neg">' + L('Difference ', 'الفرق ') + n2(D - C) + '</span>'); }
+    view.oninput = function (e) { var t = e.target; if (t.dataset.r != null) { rows[+t.dataset.r][t.dataset.f] = t.dataset.f === 'd' || t.dataset.f === 'c' ? +t.value : t.value; bal(); } };
+    view.onclick = function (e) { var b = e.target.closest('[data-del]'); if (b) { rows.splice(+b.dataset.del, 1); draw(); } };
+    $('jeAdd').onclick = function () { rows.push({ a: '600000', d: 0, c: 0, t: '' }); draw(); };
+    $('jePost').onclick = function () { var id = act(function () { return E.journal(rows.map(function (r) { return { a: r.a, d: +r.d, c: +r.c, t: r.t }; }), $('jeT').value, $('jeR').value); }); if (id) { toast(L('Journal entry ', 'القيد ') + id + ' ' + T('posted')); go('obj/fi/' + id); } };
+    draw();
+  };
+  P.FB03 = function () {
+    var rows = db().fi.slice().reverse();
+    view.innerHTML = page('FB03', L('Accounting documents', 'المستندات المحاسبية'), L('Every financial posting created by the logistics and finance processes.', 'كل الترحيلات المالية التي تنشئها عمليات الإمداد والمالية.'), card(L('Documents', 'المستندات') + ' (' + rows.length + ')', table([{ l: T('doc'), f: function (f) { return link('fi', f.id); }, s: function (f) { return f.id; } }, { l: T('dateL'), k: 'date' }, { l: T('type'), f: function (f) { return '<span class="mono">' + f.type + '</span> ' + esc(fiName(f.type)); }, s: function (f) { return f.type; } }, { l: T('text'), k: 'text' }, { l: T('ref'), k: 'ref' }, { l: T('amount'), n: 1, f: function (f) { return n2(fiAmt(f)); }, s: function (f) { return fiAmt(f); } }], rows)));
+  };
+  P.FS10N = function (arg) {
+    var d = db(), a = arg && E.acc(arg) ? arg : '110000', lines = [], run = 0;
+    d.fi.forEach(function (f) { f.lines.forEach(function (l) { if (l.a === a) { run += l.d - l.c; lines.push({ id: f.id, date: f.date, type: f.type, text: l.t || f.text, d: l.d, c: l.c, bal: E.r2(run), p: l.p }); } }); });
+    view.innerHTML = page('FS10N', L('G/L account balance', 'رصيد حساب الأستاذ'), L('Balance and line items with running balance.', 'الرصيد والبنود مع الرصيد التراكمي.'), card(T('account'), '<div class="form row"><label>' + T('account') + '<select id="glA">' + opt(d.accounts, a) + '</select></label></div>' + kv([[L('Balance (debit +)', 'الرصيد (مدين +)'), '<b class="mono">' + n2(E.bal(a)) + '</b>'], [L('Postings', 'الترحيلات'), lines.length]])) + card(L('Line items', 'البنود'), table([{ l: T('doc'), f: function (x) { return link('fi', x.id); }, s: function (x) { return x.id; } }, { l: T('dateL'), k: 'date' }, { l: T('type'), k: 'type' }, { l: T('text'), k: 'text' }, { l: L('Partner', 'الشريك'), f: function (x) { return esc(x.p); } }, { l: T('debit'), n: 1, f: function (x) { return x.d ? n2(x.d) : ''; }, s: function (x) { return x.d; } }, { l: T('credit'), n: 1, f: function (x) { return x.c ? n2(x.c) : ''; }, s: function (x) { return x.c; } }, { l: L('Balance', 'الرصيد'), n: 1, f: function (x) { return n2(x.bal); }, s: function (x) { return x.bal; } }], lines.reverse())));
+    $('glA').onchange = function () { go('FS10N/' + this.value); };
+  };
+  P['F.01'] = function (arg) {
+    var tab = arg || 'tb', tb = E.tb(), pl = E.pnl(), D = 0, C = 0; tb.forEach(function (r) { D += r.d; C += r.c; });
+    var tabs = '<div class="tabs" role="tablist">' + [['tb', L('Trial balance', 'ميزان المراجعة')], ['pl', L('Profit & loss', 'قائمة الدخل')], ['bs', L('Balance sheet', 'الميزانية العمومية')]].map(function (x) { return '<a role="tab" aria-selected="' + (tab === x[0]) + '" href="#F.01/' + x[0] + '">' + esc(x[1]) + '</a>'; }).join('') + '</div>', body = '';
+    if (tab === 'tb') { body = table([{ l: T('account'), f: function (r) { return '<a href="#FS10N/' + r.a.id + '" class="dl mono">' + r.a.id + '</a> ' + esc(nm(r.a)); }, s: function (r) { return r.a.id; } }, { l: T('type'), f: function (r) { return r.a.t; } }, { l: T('debit'), n: 1, f: function (r) { return n2(r.d); }, s: function (r) { return r.d; } }, { l: T('credit'), n: 1, f: function (r) { return n2(r.c); }, s: function (r) { return r.c; } }, { l: L('Balance', 'الرصيد'), n: 1, f: function (r) { return n2(r.b); }, s: function (r) { return r.b; } }], tb.filter(function (r) { return r.d || r.c; }), { foot: [T('total'), '', n2(D), n2(C), '<span class="' + (Math.abs(D - C) < 0.01 ? 'pos' : 'neg') + '">' + n2(D - C) + '</span>'] }); EXPORTS.tb = function () { return csv([['account', 'name', 'type', 'debit', 'credit', 'balance']].concat(tb.map(function (r) { return [r.a.id, r.a.en, r.a.t, r.d, r.c, r.b]; }))); }; }
+    if (tab === 'pl') { var rev = pl.rev, cogs = E.bal('500000'), gp = rev - cogs, rows = [[L('Sales revenue', 'إيرادات المبيعات'), rev, 1], [L('Cost of goods sold', 'تكلفة البضاعة المباعة'), -cogs], [L('Gross profit', 'إجمالي الربح'), gp, 1]]; tb.forEach(function (r) { if (r.a.t === 'X' && r.a.id !== '500000' && r.b) rows.push([r.a.id + ' ' + nm(r.a), -r.b]); }); rows.push([L('Net profit (loss)', 'صافي الربح (الخسارة)'), pl.profit, 1]); body = '<table class="grid fs"><tbody>' + rows.map(function (r) { return '<tr class="' + (r[2] ? 'strong' : '') + '"><td>' + esc(r[0]) + '</td><td class="num ' + (r[1] < 0 ? 'neg' : '') + '">' + n2(r[1]) + '</td></tr>'; }).join('') + '</tbody></table><p class="hint">' + L('Gross margin ', 'هامش الربح الإجمالي ') + (rev ? (gp / rev * 100).toFixed(1) : '0.0') + '%. ' + L('Period: since go-live on 31 Oct 2026.', 'الفترة: منذ بدء التشغيل في 31 أكتوبر 2026.') + '</p>'; EXPORTS.tb = function () { return csv([['line', 'amount']].concat(rows.map(function (r) { return [r[0], r[1].toFixed(2)]; }))); }; }
+    if (tab === 'bs') { var A = [], Li = [], Q = [], sa = 0, sl = 0; tb.forEach(function (r) { if (!r.b) return; if (r.a.t === 'A') { A.push(r); sa += r.b; } if (r.a.t === 'L') { Li.push(r); sl += -r.b; } if (r.a.t === 'E') { Q.push(r); sl += -r.b; } }); sl += pl.profit; var sec = function (title, list, neg) { return '<tr class="strong"><td colspan="2">' + esc(title) + '</td></tr>' + list.map(function (r) { return '<tr><td>' + r.a.id + ' ' + esc(nm(r.a)) + '</td><td class="num">' + n2(neg ? -r.b : r.b) + '</td></tr>'; }).join(''); }; body = '<div class="two"><table class="grid fs"><tbody>' + sec(L('Assets', 'الأصول'), A) + '<tr class="strong total"><td>' + L('Total assets', 'إجمالي الأصول') + '</td><td class="num">' + n2(sa) + '</td></tr></tbody></table><table class="grid fs"><tbody>' + sec(L('Liabilities', 'الالتزامات'), Li, 1) + sec(L('Equity', 'حقوق الملكية'), Q, 1) + '<tr><td>' + L('Current-year profit', 'ربح السنة الحالية') + '</td><td class="num">' + n2(pl.profit) + '</td></tr><tr class="strong total"><td>' + L('Total liabilities & equity', 'إجمالي الالتزامات وحقوق الملكية') + '</td><td class="num">' + n2(sl) + '</td></tr></tbody></table></div><p class="hint ' + (Math.abs(sa - sl) < 0.01 ? 'pos' : 'neg') + '">' + (Math.abs(sa - sl) < 0.01 ? L('Balance sheet balances.', 'الميزانية متوازنة.') : L('Out of balance by ', 'غير متوازنة بفارق ') + n2(sa - sl)) + '</p>'; EXPORTS.tb = function () { return csv([['section', 'account', 'amount']].concat(A.map(function (r) { return ['asset', r.a.id, r.b]; }), Li.map(function (r) { return ['liability', r.a.id, -r.b]; }), Q.map(function (r) { return ['equity', r.a.id, -r.b]; }), [['equity', 'current profit', pl.profit]])); }; }
+    view.innerHTML = page('F.01', L('Financial statements', 'القوائم المالية'), L('Built directly from the general ledger. Every operational transaction above lands here automatically.', 'مبنية مباشرة من دفتر الأستاذ العام. كل معاملة تشغيلية تصل إلى هنا آليًا.'), tabs + card('', body), exportBtn('tb'));
+    seen.fs = true; E.save();
+  };
+  var seen = {};
+
+  /* ---- MASTER DATA ---- */
+  P.MM03 = function () {
+    var d = db();
+    view.innerHTML = page('MM03', L('Material master', 'سجل المواد'), L('Basic data, MRP, purchasing, sales and accounting views.', 'البيانات الأساسية والتخطيط والمشتريات والمبيعات والمحاسبة.'), card(L('Materials', 'المواد') + ' (' + d.materials.length + ')', table([{ l: T('material'), f: function (m) { return link('mat', m.id); }, s: function (m) { return m.id; } }, { l: T('desc'), f: function (m) { return esc(nm(m)); } }, { l: T('type'), f: function (m) { return '<span class="mono">' + m.type + '</span>'; }, s: function (m) { return m.type; } }, { l: T('uom'), k: 'uom' }, { l: L('Std cost', 'التكلفة المعيارية'), n: 1, f: function (m) { return n2(m.std); } }, { l: L('Sales price', 'سعر البيع'), n: 1, f: function (m) { return m.sale ? n2(m.sale) : '—'; } }, { l: L('Procurement', 'التوريد'), f: function (m) { return m.proc === 'E' ? L('In-house', 'داخلي') : L('External', 'خارجي') + (m.vendor ? ' · ' + m.vendor : ''); } }, { l: L('Valuation account', 'حساب التقييم'), f: function (m) { return '<span class="mono">' + E.invAcc(m.id) + '</span>'; } }], d.materials)) + card(L('Create material (MM01)', 'إنشاء مادة (MM01)'), '<div class="form row"><label>ID<input id="nmId" value="RM-2' + (20 + d.materials.length) + '"></label><label>' + L('Description (EN)', 'الوصف (إنجليزي)') + '<input id="nmEn" value="Sesame seeds"></label><label>' + L('Description (AR)', 'الوصف (عربي)') + '<input id="nmAr" value="بذور السمسم"></label><label>' + T('type') + '<select id="nmT"><option>ROH</option><option>VERP</option><option>HAWA</option></select></label><label>' + T('uom') + '<input id="nmU" value="KG"></label><label>' + L('Std cost', 'التكلفة المعيارية') + '<input id="nmS" type="number" step="0.01" value="9"></label><label>' + L('Sales price (trading goods)', 'سعر البيع (بضائع تجارية)') + '<input id="nmP" type="number" step="0.01" value="0"></label><label>' + T('vendor') + '<select id="nmV">' + opt(d.vendors, 'V-2001') + '</select></label><button class="btn" type="button" id="nmSave">' + T('create') + '</button></div>'));
+    $('nmSave').onclick = function () { var id = $('nmId').value.trim(); act(function () { if (!/^[A-Z]{2}-\d{3,4}$/.test(id)) { var e = new Error('Use an ID like RM-230.'); e.ar = 'استخدم معرفًا مثل RM-230.'; throw e; } if (E.mat(id)) { var e2 = new Error('Material exists.'); e2.ar = 'المادة موجودة.'; throw e2; } var t = $('nmT').value; d.materials.push({ id: id, en: $('nmEn').value, ar: $('nmAr').value, type: t, uom: $('nmU').value || 'EA', std: +$('nmS').value, sale: t === 'HAWA' ? +$('nmP').value : 0, ss: 0, lot: 100, proc: 'F', vendor: $('nmV').value, lt: 7 }); E.save(); }); toast(L('Material ', 'المادة ') + id + ' ' + T('saved')); P.MM03(); wireTables(); };
+  };
+  P.XD03 = function () {
+    var d = db();
+    view.innerHTML = page('XD03', L('Customer master', 'سجل العملاء'), L('Payment terms, discount, VAT treatment and credit limit.', 'شروط الدفع والخصم والمعاملة الضريبية وحد الائتمان.'), card(L('Customers', 'العملاء'), table([{ l: 'ID', k: 'id' }, { l: L('Name', 'الاسم'), f: function (c) { return esc(nm(c)); } }, { l: L('City', 'المدينة'), k: 'city' }, { l: L('Country', 'الدولة'), k: 'cty' }, { l: L('Terms', 'الشروط'), f: function (c) { return L('Net ', 'صافي ') + c.terms; } }, { l: L('Discount', 'الخصم'), n: 1, f: function (c) { return (c.disc * 100).toFixed(0) + '%'; } }, { l: L('Credit limit', 'حد الائتمان'), n: 1, f: function (c) { return '<input type="number" class="amt" data-cl="' + c.id + '" value="' + c.credit + '" aria-label="' + L('Credit limit', 'حد الائتمان') + '">'; } }, { l: L('Used', 'المستخدم'), f: function (c) { var u = E.exposure(c.id) / c.credit * 100; return '<div class="cbar sm"><i style="width:' + Math.min(100, u) + '%;background:' + (u > 100 ? '#C2410C' : u > 80 ? '#CA8A04' : '#0F766E') + '"></i></div><span class="mono">' + u.toFixed(0) + '%</span>'; } }], d.customers)) + card(L('Create customer (XD01)', 'إنشاء عميل (XD01)'), '<div class="form row"><label>' + L('Name (EN)', 'الاسم (إنجليزي)') + '<input id="ncE" value="Sharjah Co-op Society"></label><label>' + L('Name (AR)', 'الاسم (عربي)') + '<input id="ncA" value="جمعية الشارقة التعاونية"></label><label>' + L('City', 'المدينة') + '<input id="ncC" value="Sharjah"></label><label>' + L('Country', 'الدولة') + '<select id="ncK"><option>AE</option><option>SA</option><option>QA</option><option>OM</option><option>KW</option><option>BH</option></select></label><label>' + L('Credit limit', 'حد الائتمان') + '<input id="ncL" type="number" value="70000"></label><label>' + L('Terms (days)', 'الشروط (أيام)') + '<input id="ncT" type="number" value="30"></label><button class="btn" type="button" id="ncSave">' + T('create') + '</button></div>'));
+    view.onchange = function (e) { var t = e.target; if (t.dataset.cl) { E.cust(t.dataset.cl).credit = +t.value; E.save(); toast(L('Credit limit updated', 'تم تحديث حد الائتمان')); } };
+    $('ncSave').onclick = function () { var id = 'C-' + (1001 + d.customers.length); d.customers.push({ id: id, en: $('ncE').value, ar: $('ncA').value, city: $('ncC').value, cty: $('ncK').value, credit: +$('ncL').value, terms: +$('ncT').value, disc: 0 }); E.save(); toast(L('Customer ', 'العميل ') + id + ' ' + T('saved')); P.XD03(); wireTables(); };
+  };
+  P.XK03 = function () {
+    var d = db();
+    view.innerHTML = page('XK03', L('Supplier master', 'سجل الموردين'), L('Payment terms, country (VAT) and supplier rating.', 'شروط الدفع والدولة (الضريبة) وتصنيف المورد.'), card(L('Suppliers', 'الموردون'), table([{ l: 'ID', k: 'id' }, { l: L('Name', 'الاسم'), f: function (v) { return esc(nm(v)); } }, { l: L('City', 'المدينة'), k: 'city' }, { l: L('Country', 'الدولة'), k: 'cty' }, { l: L('Terms', 'الشروط'), f: function (v) { return L('Net ', 'صافي ') + v.terms; } }, { l: L('Rating', 'التصنيف'), f: function (v) { return '<span class="badge ' + (v.rating === 'A' ? 'b-green' : 'b-amber') + '">' + v.rating + '</span>'; } }, { l: L('Open payables', 'الذمم المفتوحة'), n: 1, f: function (v) { return n2(db().iv.filter(function (i) { return i.vendor === v.id; }).reduce(function (a, i) { return a + i.open; }, 0)); } }], d.vendors)) + card(L('Create supplier (XK01)', 'إنشاء مورد (XK01)'), '<div class="form row"><label>' + L('Name (EN)', 'الاسم (إنجليزي)') + '<input id="nvE" value="Gulf Cold Logistics"></label><label>' + L('Name (AR)', 'الاسم (عربي)') + '<input id="nvA" value="الخليج للخدمات اللوجستية المبردة"></label><label>' + L('City', 'المدينة') + '<input id="nvC" value="Dubai"></label><label>' + L('Country', 'الدولة') + '<select id="nvK"><option>AE</option><option>SA</option><option>OM</option></select></label><label>' + L('Terms (days)', 'الشروط (أيام)') + '<input id="nvT" type="number" value="30"></label><button class="btn" type="button" id="nvSave">' + T('create') + '</button></div>'));
+    $('nvSave').onclick = function () { var id = 'V-' + (2001 + d.vendors.length); d.vendors.push({ id: id, en: $('nvE').value, ar: $('nvA').value, city: $('nvC').value, cty: $('nvK').value, terms: +$('nvT').value, rating: 'B' }); E.save(); toast(L('Supplier ', 'المورد ') + id + ' ' + T('saved')); P.XK03(); wireTables(); };
+  };
+  P.FSP0 = function () {
+    var tN = { A: L('Asset', 'أصل'), L: L('Liability', 'التزام'), E: L('Equity', 'حقوق ملكية'), R: L('Revenue', 'إيراد'), X: L('Expense', 'مصروف') };
+    view.innerHTML = page('FSP0', L('Chart of accounts', 'دليل الحسابات'), L('Operational postings use automatic account determination: e.g. goods issue → 500000 COGS against the material valuation account.', 'تستخدم الترحيلات التشغيلية التحديد الآلي للحسابات: مثل صرف البضاعة ← 500000 تكلفة المبيعات مقابل حساب تقييم المادة.'), card(L('Accounts', 'الحسابات'), table([{ l: T('account'), f: function (a) { return '<a href="#FS10N/' + a.id + '" class="dl mono">' + a.id + '</a>'; }, s: function (a) { return a.id; } }, { l: L('Name', 'الاسم'), f: function (a) { return esc(nm(a)); } }, { l: T('type'), f: function (a) { return tN[a.t]; } }, { l: L('Balance', 'الرصيد'), n: 1, f: function (a) { return n2(E.bal(a.id)); }, s: function (a) { return E.bal(a.id); } }], db().accounts)));
+  };
+
+  /* ---- ANALYTICS ---- */
+  function hbars(rows, color) { var mx = Math.max.apply(null, rows.map(function (r) { return Math.abs(r[1]); }).concat([1])); return '<div class="hbars">' + rows.map(function (r) { return '<div class="hb"><span>' + esc(r[0]) + '</span><div><i style="width:' + (Math.abs(r[1]) / mx * 100) + '%;background:' + (r[2] || color || '#0F766E') + '"></i></div><b class="mono">' + n0(r[1]) + '</b></div>'; }).join('') + '</div>'; }
+  P.DASH = function () {
+    var d = db(), k = kpis(), byC = {}, byM = {}, inv = {};
+    d.bi.forEach(function (b) { if (!b.ob) byC[b.cust] = (byC[b.cust] || 0) + b.net; });
+    d.so.forEach(function (s) { s.items.forEach(function (i) { if (i.biq) byM[i.m] = (byM[i.m] || 0) + i.net * i.biq / i.q; }); });
+    Object.keys(d.stock).forEach(function (x) { var m = E.mat(x.split('|')[0]); inv[m.type] = (inv[m.type] || 0) + d.stock[x] * m.std; });
+    var cyc = [], perfect = 0, delivered = 0; d.so.forEach(function (s) { var bis = d.bi.filter(function (b) { return b.so === s.id && b.pays && b.open < 0.01; }); if (bis.length) cyc.push(E.days(s.date, bis[bis.length - 1].pays.slice(-1)[0].date)); var dls = d.dl.filter(function (x) { return x.so === s.id; }); if (dls.length) { delivered++; var f = dls[0], full = s.items.every(function (i) { return f.items.some(function (x) { return x.n === i.n && x.q >= i.q; }); }); if (full && !s.cb) perfect++; } });
+    var tN = { FERT: L('Finished goods', 'منتجات تامة'), ROH: L('Raw materials', 'مواد خام'), VERP: L('Packaging', 'تغليف'), HAWA: L('Trading goods', 'بضائع تجارية') };
+    var dso = k.rev ? (E.bal('120000') / k.rev * Math.max(1, E.days('2026-10-31', d.date))) : 0;
+    view.innerHTML = page('DASH', L('Management cockpit', 'لوحة الإدارة'), L('Live KPIs computed from the documents in the system.', 'مؤشرات حية محسوبة من المستندات في النظام.'),
+      '<div class="kpis">' + [[T('k.rev'), nk(k.rev)], [T('k.gm'), (k.gm * 100).toFixed(1) + '%'], [T('k.cash'), nk(k.cash)], [T('k.inv'), nk(k.inv)], [L('Order-to-cash cycle (days)', 'دورة الطلب حتى التحصيل (يوم)'), cyc.length ? (cyc.reduce(function (a, b) { return a + b; }, 0) / cyc.length).toFixed(1) : '—'], [L('Perfect orders', 'الطلبات المثالية'), delivered ? Math.round(perfect / delivered * 100) + '%' : '—'], [L('Receivables (AED)', 'الذمم المدينة'), nk(E.bal('120000'))], [L('Payables (AED)', 'الذمم الدائنة'), nk(-E.bal('210000'))]].map(function (x) { return '<div class="kpi"><span>' + esc(x[0]) + '</span><b class="mono">' + esc(x[1]) + '</b></div>'; }).join('') + '</div>' +
+      '<div class="two">' + card(L('Revenue by customer (net)', 'الإيرادات حسب العميل (صافي)'), Object.keys(byC).length ? hbars(Object.keys(byC).map(function (c) { return [nm(E.cust(c)), byC[c]]; }).sort(function (a, b) { return b[1] - a[1]; }), '#EA580C') : '<p class="empty">' + L('Bill a delivery to see revenue here.', 'فوتر تسليمًا لترى الإيرادات هنا.') + '</p>') + card(L('Revenue by product (net)', 'الإيرادات حسب المنتج (صافي)'), Object.keys(byM).length ? hbars(Object.keys(byM).map(function (m) { return [m + ' ' + nm(E.mat(m)), byM[m]]; }).sort(function (a, b) { return b[1] - a[1]; }), '#7C3AED') : '<p class="empty">—</p>') + '</div>' +
+      '<div class="two">' + card(L('Inventory value by type', 'قيمة المخزون حسب النوع'), hbars(Object.keys(inv).map(function (t) { return [tN[t] || t, inv[t]]; }), '#0F766E')) + card(L('Working capital', 'رأس المال العامل'), hbars([[L('Bank', 'البنك'), k.cash, '#0F766E'], [L('Receivables', 'الذمم المدينة'), E.bal('120000'), '#2563EB'], [L('Inventory', 'المخزون'), k.inv, '#CA8A04'], [L('Payables', 'الذمم الدائنة'), -E.bal('210000'), '#C2410C']]) + '<p class="hint">DSO ≈ ' + dso.toFixed(0) + L(' days (receivables ÷ revenue × days since go-live).', ' يومًا (الذمم ÷ الإيرادات × الأيام منذ بدء التشغيل).') + '</p>') + '</div>');
+  };
+
+  /* ---- TRAINING ---- */
+  var EX = [
+    { id: 'o2c', en: 'Order to cash', ar: 'من الطلب إلى التحصيل', steps: [['VA01', 'Create a sales order for Al Waha Hypermarkets', 'أنشئ أمر بيع لعميل الواحة', function (b) { return db().so.some(function (s) { return +s.id > b.so; }); }], ['VL01N', 'Create the outbound delivery', 'أنشئ التسليم الصادر', function (b) { return db().dl.some(function (x) { return +x.id > b.dl; }); }], ['VL01N', 'Post goods issue (stock ↓, COGS posted)', 'رحّل الصرف (ينخفض المخزون وتُرحّل التكلفة)', function (b) { return db().dl.some(function (x) { return +x.id > b.dl && x.gi; }); }], ['VF01', 'Create the invoice (receivable, revenue, VAT)', 'أصدر الفاتورة (ذمة وإيراد وضريبة)', function (b) { return db().bi.some(function (x) { return !x.ob && +x.id > b.bi; }); }], ['F-28', 'Post the customer payment', 'رحّل تحصيل العميل', function (b) { return db().bi.some(function (x) { return !x.ob && +x.id > b.bi && x.pays; }); }]] },
+    { id: 'p2p', en: 'Procure to pay', ar: 'من الشراء إلى الدفع', steps: [['ME51N', 'Create a purchase requisition', 'أنشئ طلب شراء', function (b) { return db().pr.some(function (x) { return +x.id > b.pr && !x.mrp; }); }], ['ME21N', 'Convert it into a purchase order', 'حوّله إلى أمر شراء', function (b) { return db().po.some(function (x) { return +x.id > b.po; }); }], ['MIGO', 'Post the goods receipt (101)', 'رحّل استلام البضائع (101)', function (b) { return db().md.some(function (x) { return +x.id > b.md && x.mvt === '101' && E.byId(db().po, x.ref); }); }], ['MIRO', 'Enter the supplier invoice (three-way match)', 'أدخل فاتورة المورد (المطابقة الثلاثية)', function (b) { return db().iv.some(function (x) { return !x.ob && +x.id > b.iv; }); }], ['F-53', 'Pay the supplier', 'ادفع للمورد', function (b) { return db().iv.some(function (x) { return !x.ob && +x.id > b.iv && x.pays; }); }]] },
+    { id: 'p2m', en: 'Plan to produce', ar: 'من التخطيط إلى الإنتاج', steps: [['MD01', 'Run MRP for DXB1', 'شغّل تخطيط المواد لـ DXB1', function (b) { return db().lastMrp && db().lastMrp.at > b.t; }], ['CO40', 'Convert a planned order (or CO01 create one)', 'حوّل أمرًا مخططًا (أو أنشئ أمرًا من CO01)', function (b) { return db().pp.some(function (x) { return +x.id > b.pp; }); }], ['COOIS', 'Release the order (missing-parts check)', 'أطلق الأمر (فحص المكونات الناقصة)', function (b) { return db().pp.some(function (x) { return +x.id > b.pp && x.status !== 'crtd'; }); }], ['CO11N', 'Confirm production (backflush and receipt)', 'أكّد الإنتاج (صرف آلي واستلام)', function (b) { return db().pp.some(function (x) { return +x.id > b.pp && x.cnf > 0; }); }]] },
+    { id: 'r2r', en: 'Record to report', ar: 'من التسجيل إلى التقرير', steps: [['FB50', 'Post a month-end accrual', 'رحّل استحقاق نهاية الشهر', function (b) { return db().fi.some(function (x) { return +x.id > b.fi && x.type === 'SA'; }); }], ['F.01', 'Review the trial balance and P&L', 'راجع ميزان المراجعة وقائمة الدخل', function (b) { return !!seen.fs; }], ['FBL5N', 'Check overdue receivables', 'افحص الذمم المتأخرة', function (b) { return !!seen.FBL5N; }]] },
+    { id: 'credit', en: 'Credit management', ar: 'إدارة الائتمان', steps: [['VA01', 'Create an order that exceeds the credit limit (e.g. 900 FG-120 for Doha Gourmet)', 'أنشئ أمرًا يتجاوز حد الائتمان (مثل 900 من FG-120 للدوحة)', function (b) { return db().so.some(function (s) { return +s.id > b.so && s.exp != null && (s.cb || s.rel); }); }], ['VKM3', 'Release the credit block', 'أفرج عن الحظر الائتماني', function (b) { return db().so.some(function (s) { return +s.id > b.so && s.rel; }); }], ['VL01N', 'Deliver the released order', 'سلّم الأمر المُفرج عنه', function (b) { return db().dl.some(function (x) { var s = E.byId(db().so, x.so); return s && s.rel && +x.id > b.dl; }); }]] },
+    { id: 'inv', en: 'Inventory control', ar: 'الرقابة على المخزون', steps: [['MI07', 'Count a material and post a difference', 'اجرد مادة ورحّل الفرق', function (b) { return db().pi.some(function (x) { return +x.id > b.pi && x.diff; }); }], ['MIGO', 'Transfer stock DXB1 → RUH1 (301)', 'انقل مخزونًا من DXB1 إلى RUH1 (301)', function (b) { return db().md.some(function (x) { return +x.id > b.md && x.mvt === '301'; }); }], ['MB51', 'Review the material documents', 'راجع مستندات المواد', function (b) { return !!seen.MB51; }]] }
+  ];
+  P.TRAIN = function () {
+    var d = db(); d.train = d.train || {};
+    view.innerHTML = page('TRAIN', L('Guided exercises', 'تمارين موجّهة'), L('Start an exercise, then follow the steps. Each step ticks automatically when the system sees the document you created.', 'ابدأ تمرينًا ثم اتبع الخطوات. تُعلَّم كل خطوة آليًا عندما يرى النظام المستند الذي أنشأته.'), '<div class="exgrid">' + EX.map(function (x) {
+      var b = d.train[x.id], done = b ? x.steps.filter(function (s) { try { return s[3](b); } catch (e) { return false; } }).length : 0;
+      return '<section class="card ex"><div class="card-h"><h3>' + esc(L(x.en, x.ar)) + '</h3><span class="pill">' + done + ' / ' + x.steps.length + '</span></div><div class="cbar"><i style="width:' + (done / x.steps.length * 100) + '%;background:#0F766E"></i></div><ol>' + x.steps.map(function (s, i) { var ok = b && (function () { try { return s[3](b); } catch (e) { return false; } })(); return '<li class="' + (ok ? 'done' : '') + '"><span class="chk" aria-hidden="true">' + (ok ? '✓' : i + 1) + '</span><a href="#' + s[0] + '"><code class="mono">' + s[0] + '</code> ' + esc(L(s[1], s[2])) + '</a></li>'; }).join('') + '</ol><button class="btn ' + (b ? 'ghost' : '') + '" type="button" data-start="' + x.id + '">' + (b ? L('Restart', 'إعادة البدء') : L('Start exercise', 'ابدأ التمرين')) + '</button></section>';
+    }).join('') + '</div>');
+    view.onclick = function (e) { var s = e.target.closest('[data-start]'); if (s) { var q = d.seq; d.train[s.dataset.start] = { so: +q.so, dl: +q.dl, bi: +q.bi, pr: +q.pr, po: +q.po, md: +q.md, iv: +q.iv, fi: +q.fi, pp: +q.pp, pi: +q.pi, t: Date.now() }; seen = {}; E.save(); toast(L('Exercise started. Follow the steps.', 'بدأ التمرين. اتبع الخطوات.')); P.TRAIN(); } };
+  };
+  P.ADMIN = function () {
+    var d = db();
+    view.innerHTML = page('ADMIN', L('System settings', 'إعدادات النظام'), '', '<div class="two">' + card(L('About this system', 'عن النظام'), '<p>' + esc(T('about')) + '</p>' + kv([[L('Company code', 'رمز الشركة'), d.company.code], [L('Currency', 'العملة'), d.company.currency], [L('VAT', 'الضريبة'), L('UAE 5% standard rate; GCC exports zero-rated in this model', 'الإمارات 5٪؛ صادرات الخليج بنسبة صفر في هذا النموذج')], [L('Posting date', 'تاريخ الترحيل'), d.date], [L('Documents', 'المستندات'), d.fi.length + ' FI · ' + d.md.length + ' MM']])) +
+      card(L('Data', 'البيانات'), '<div class="stackb"><button class="btn ghost" type="button" id="adExp">' + T('exp') + '</button><label class="btn ghost file">' + T('imp') + '<input type="file" id="adImp" accept="application/json"></label><button class="btn danger" type="button" id="adReset">' + T('reset') + '</button></div><p class="hint">' + L('Data is saved in this browser only. Export it to keep a copy or share a scenario with students.', 'البيانات محفوظة في هذا المتصفح فقط. صدّرها للاحتفاظ بنسخة أو لمشاركة سيناريو مع الطلاب.') + '</p>') + '</div>');
+    $('adExp').onclick = function () { saveFile('qafila-erp-' + d.date + '.json', JSON.stringify(d), 'application/json'); };
+    $('adImp').onchange = function () { var f = this.files[0]; if (!f) return; var r = new FileReader(); r.onload = function () { try { var o = JSON.parse(r.result); if (!o || o.v !== 3 || !o.fi) throw 0; E.db = o; toast(T('impOk')); refreshShell(); go('home'); } catch (e) { toast(L('That file is not a QAFILA ERP database.', 'هذا الملف ليس قاعدة بيانات قافلة ERP.'), 'err'); } }; r.readAsText(f); };
+    $('adReset').onclick = function () { if (confirmBox(T('resetQ'))) { E.reset(); toast(L('Demo company restored.', 'تمت إعادة الشركة التجريبية.')); refreshShell(); go('home'); } };
+  };
+  function confirmBox(msg) { try { return window.confirm(msg); } catch (e) { return true; } }
+
+  /* ---- OBJECT PAGES ---- */
+  function flowNode(kind, id, label, st, sub) { return '<li><a href="#obj/' + kind + '/' + esc(id) + '"><span class="fk">' + esc(label) + '</span><code class="mono">' + esc(id) + '</code>' + (st ? ' ' + st : '') + (sub ? '<small>' + sub + '</small>' : '') + '</a></li>'; }
+  function fiNode(id) { var f = E.byId(db().fi, id); return f ? flowNode('fi', id, L('Accounting', 'محاسبي') + ' · ' + fiName(f.type), '', n2(fiAmt(f))) : ''; }
+  function mdNode(id) { var m = E.byId(db().md, id); return m ? '<li><a href="#MB51"><span class="fk">' + esc(L('Material doc', 'مستند مادة') + ' ' + m.mvt) + '</span><code class="mono">' + m.id + '</code></a></li>' : ''; }
+  var OBJ = {};
+  OBJ.so = function (id) {
+    var d = db(), s = E.byId(d.so, id); if (!s) return null; var c = E.cust(s.cust), st = E.soStatus(s);
+    var flow = '<ol class="flow">' + flowNode('so', s.id, L('Sales order', 'أمر بيع'), badge(st)) + d.dl.filter(function (x) { return x.so === s.id; }).map(function (x) { return flowNode('dl', x.id, L('Delivery', 'تسليم'), badge(x.gi ? 'gi' : 'picked')) + (x.md ? mdNode(x.md) : '') + (x.fi ? fiNode(x.fi) : '') + (x.bi ? (function () { var b = E.byId(d.bi, x.bi); return flowNode('bi', b.id, L('Invoice', 'فاتورة'), badge(b.open < 0.01 ? 'paid' : 'billed'), n2(b.gross)) + fiNode(b.fi) + (b.pays || []).map(function (p) { return fiNode(p.fi); }).join(''); })() : ''); }).join('') + '</ol>';
+    var acts = (s.cb ? '<button class="btn" type="button" id="oRel">' + L('Release credit block', 'الإفراج الائتماني') + '</button>' : '') + (!s.cb && s.items.some(function (i) { return i.q - i.dlq > 0; }) ? '<button class="btn" type="button" id="oDl">' + T('deliver') + '</button>' : '');
+    var h = page(L('Sales order', 'أمر بيع') + ' ' + s.id, nm(c), s.ref ? T('ref') + ': ' + s.ref : '', '<div class="two">' + card(T('header'), kv([[T('status'), badge(st)], [T('customer'), esc(c.id + ' · ' + nm(c))], [T('plant'), s.plant], [T('dateL'), s.date], [L('Requested delivery', 'التسليم المطلوب'), s.req], [L('Payment terms', 'شروط الدفع'), L('Net ', 'صافي ') + c.terms], [L('Credit check', 'فحص الائتمان'), s.cb ? '<span class="neg">' + L('Blocked: exposure ', 'محظور: التعرض ') + n0(s.exp) + ' + ' + n0(sum(s.items, 'gross')) + ' > ' + n0(c.credit) + '</span>' : (s.rel ? L('Released on ', 'أُفرج عنه في ') + s.rel : '<span class="pos">' + L('Passed', 'ناجح') + '</span>')]])) + card(T('flow'), flow) + '</div>' +
+      card(T('items'), table([{ l: L('Item', 'البند'), k: 'n' }, { l: T('material'), f: function (i) { return link('mat', i.m) + ' ' + esc(nm(E.mat(i.m))); } }, { l: T('qty'), n: 1, f: function (i) { return n0(i.q); } }, { l: T('conf'), n: 1, f: function (i) { return n0(i.conf); } }, { l: L('Delivered', 'المسلّم'), n: 1, f: function (i) { return n0(i.dlq); } }, { l: L('Billed', 'المفوتر'), n: 1, f: function (i) { return n0(i.biq); } }, { l: 'PR00', n: 1, f: function (i) { return n2(i.pr00 * i.q); } }, { l: 'K007', n: 1, f: function (i) { return '−' + n2(i.disc); } }, { l: T('net'), n: 1, f: function (i) { return n2(i.net); } }, { l: 'MWST', n: 1, f: function (i) { return n2(i.vat); } }, { l: T('gross'), n: 1, f: function (i) { return '<b>' + n2(i.gross) + '</b>'; } }], s.items, { search: false, foot: [T('total'), '', '', '', '', '', '', '', n2(sum(s.items, 'net')), n2(sum(s.items, 'vat')), '<b>' + n2(sum(s.items, 'gross')) + '</b>'] })), acts);
+    return { h: h, w: function () { if ($('oRel')) $('oRel').onclick = function () { act(function () { E.releaseCredit(s.id); }); toast(L('Released', 'تم الإفراج')); route(); }; if ($('oDl')) $('oDl').onclick = function () { var dl = act(function () { return E.createDelivery(s.id); }); if (dl) { toast(L('Delivery ', 'التسليم ') + dl.id + ' ' + T('saved')); go('obj/dl/' + dl.id); } }; } };
+  };
+  OBJ.dl = function (id) {
+    var d = db(), x = E.byId(d.dl, id); if (!x) return null;
+    var acts = !x.gi ? '<button class="btn" type="button" id="oGi">' + T('pgi') + '</button>' : (!x.bi ? '<button class="btn" type="button" id="oBi">' + T('bill') + '</button>' : '');
+    return { h: page(L('Outbound delivery', 'تسليم صادر') + ' ' + x.id, nm(E.cust(x.cust)), '', card(T('header'), kv([[T('status'), badge(x.gi ? 'gi' : 'picked')], [L('Sales order', 'أمر البيع'), link('so', x.so)], [T('plant'), x.plant], [T('dateL'), x.date], [L('Invoice', 'الفاتورة'), x.bi ? link('bi', x.bi) : '—'], [L('Accounting', 'المحاسبة'), x.fi ? link('fi', x.fi) : '—']])) + card(T('items'), table([{ l: T('material'), f: function (i) { return esc(matLabel(i.m)); } }, { l: T('qty'), n: 1, f: function (i) { return n0(i.q); } }, { l: L('Value at standard', 'القيمة المعيارية'), n: 1, f: function (i) { return n2(i.q * E.mat(i.m).std); } }], x.items, { search: false })), acts), w: function () { if ($('oGi')) $('oGi').onclick = function () { if (act(function () { E.pgi(x.id); return 1; })) { toast(L('Goods issue posted', 'تم ترحيل الصرف')); route(); } }; if ($('oBi')) $('oBi').onclick = function () { var b = act(function () { return E.bill(x.id); }); if (b) { toast(L('Invoice ', 'الفاتورة ') + b.id + ' ' + T('posted')); go('obj/bi/' + b.id); } }; } };
+  };
+  OBJ.bi = function (id) {
+    var b = E.byId(db().bi, id); if (!b) return null;
+    return { h: page(L('Customer invoice', 'فاتورة عميل') + ' ' + b.id, nm(E.cust(b.cust)), '', '<div class="two">' + card(T('header'), kv([[T('status'), badge(b.open < 0.01 ? 'paid' : b.open < b.gross ? 'partpaid' : 'billed')], [L('Sales order', 'أمر البيع'), b.so ? link('so', b.so) : L('Opening item', 'بند افتتاحي')], [T('dateL'), b.date], [T('due'), b.due], [T('net'), n2(b.net)], [T('tax'), n2(b.vat)], [T('gross'), '<b>' + n2(b.gross) + '</b>'], [T('open_'), n2(b.open)], [L('Accounting', 'المحاسبة'), b.fi ? link('fi', b.fi) : '—']])) + card(L('Payments', 'الدفعات'), table([{ l: T('doc'), f: function (p) { return link('fi', p.fi); } }, { l: T('dateL'), k: 'date' }, { l: T('amount'), n: 1, f: function (p) { return n2(p.amt); } }], b.pays || [], { search: false })) + '</div>', b.open > 0.004 ? '<a class="btn" href="#F-28">' + L('Post payment', 'ترحيل دفعة') + '</a>' : '') };
+  };
+  OBJ.po = function (id) {
+    var d = db(), p = E.byId(d.po, id); if (!p) return null; var v = E.vend(p.vendor);
+    var mds = d.md.filter(function (m) { return m.ref === p.id && m.mvt === '101'; }), ivs = d.iv.filter(function (i) { return i.po === p.id; });
+    var flow = '<ol class="flow">' + p.items.filter(function (i) { return i.pr; }).map(function (i) { return '<li><a href="#ME51N"><span class="fk">' + L('Requisition', 'طلب شراء') + '</span><code class="mono">' + i.pr + '</code></a></li>'; }).join('') + flowNode('po', p.id, L('Purchase order', 'أمر شراء'), badge(E.poStatus(p))) + mds.map(function (m) { return mdNode(m.id) + (m.fi ? fiNode(m.fi) : ''); }).join('') + ivs.map(function (i) { return flowNode('iv', i.id, L('Supplier invoice', 'فاتورة مورد'), badge(i.blocked ? 'blocked' : i.open < 0.01 ? 'paid' : 'invoiced'), n2(i.gross)) + fiNode(i.fi) + (i.pays || []).map(function (x) { return fiNode(x.fi); }).join(''); }).join('') + '</ol>';
+    var acts = (p.items.some(function (i) { return i.q - i.grq > 0; }) ? '<a class="btn" href="#MIGO/' + p.id + '">' + L('Goods receipt', 'استلام البضائع') + '</a>' : '') + (E.expectedIV(p) > 0 ? '<a class="btn" href="#MIRO/' + p.id + '">' + L('Enter invoice', 'إدخال الفاتورة') + '</a>' : '');
+    return { h: page(L('Purchase order', 'أمر شراء') + ' ' + p.id, nm(v), '', '<div class="two">' + card(T('header'), kv([[T('status'), badge(E.poStatus(p))], [T('vendor'), esc(v.id + ' · ' + nm(v))], [T('plant'), p.plant], [T('dateL'), p.date], [L('Payment terms', 'شروط الدفع'), L('Net ', 'صافي ') + v.terms]])) + card(T('flow'), flow) + '</div>' + card(T('items'), table([{ l: L('Item', 'البند'), k: 'n' }, { l: T('material'), f: function (i) { return esc(matLabel(i.m)); } }, { l: T('qty'), n: 1, f: function (i) { return n0(i.q); } }, { l: T('price'), n: 1, f: function (i) { return n2(i.price); } }, { l: L('Std cost', 'التكلفة المعيارية'), n: 1, f: function (i) { return n2(E.mat(i.m).std); } }, { l: L('Received', 'المستلم'), n: 1, f: function (i) { return n0(i.grq); } }, { l: L('Invoiced', 'المفوتر'), n: 1, f: function (i) { return n0(i.ivq); } }, { l: T('value'), n: 1, f: function (i) { return n2(i.q * i.price); } }], p.items, { search: false })), acts) };
+  };
+  OBJ.iv = function (id) {
+    var i = E.byId(db().iv, id); if (!i) return null;
+    return { h: page(L('Supplier invoice', 'فاتورة مورد') + ' ' + i.id, nm(E.vend(i.vendor)), '', card(T('header'), kv([[T('status'), badge(i.blocked ? 'blocked' : i.open < 0.01 ? 'paid' : 'invoiced')], [L('Purchase order', 'أمر الشراء'), i.po ? link('po', i.po) : L('Opening item', 'بند افتتاحي')], [L('Supplier reference', 'مرجع المورد'), esc(i.vref || '—')], [T('dateL'), i.date], [T('due'), i.due], [T('net'), n2(i.net)], [T('tax'), n2(i.vat)], [T('gross'), '<b>' + n2(i.gross) + '</b>'], [T('open_'), n2(i.open)], [L('Accounting', 'المحاسبة'), i.fi ? link('fi', i.fi) : '—']])), i.blocked ? '<a class="btn" href="#MRBR">MRBR</a>' : (i.open > 0.004 ? '<a class="btn" href="#F-53">' + T('pay') + '</a>' : '')) };
+  };
+  OBJ.pp = function (id) {
+    var p = E.byId(db().pp, id); if (!p) return null; var mi = E.missing(p);
+    var acts = p.status === 'crtd' ? '<button class="btn" type="button" id="oRelPP">' + T('release') + '</button>' : p.status === 'rel' ? '<a class="btn" href="#CO11N/' + p.id + '">' + T('confirm') + '</a>' : '';
+    return { h: page(L('Production order', 'أمر إنتاج') + ' ' + p.id, matLabel(p.m), '', '<div class="two">' + card(T('header'), kv([[T('status'), badge(p.status)], [T('material'), link('mat', p.m)], [T('qty'), n0(p.q)], [L('Confirmed', 'المؤكد'), n0(p.cnf)], [T('plant'), p.plant], [L('From planned order', 'من أمر مخطط'), p.pl || '—'], [L('Missing parts', 'مكونات ناقصة'), p.status === 'cnf' ? '—' : (mi.length ? '<span class="neg">' + mi.map(function (x) { return x.m; }).join(', ') + '</span>' : '<span class="pos">' + L('None', 'لا يوجد') + '</span>')]])) + card(L('Components', 'المكونات'), table([{ l: L('Component', 'المكون'), f: function (c) { return esc(matLabel(c.m)); } }, { l: L('Required', 'المطلوب'), n: 1, f: function (c) { return n0(c.q); } }, { l: L('Issued', 'المصروف'), n: 1, f: function (c) { return n0(c.iss); } }, { l: L('Stock', 'المخزون'), n: 1, f: function (c) { return n0(E.stock(c.m, p.plant)); } }], p.comps, { search: false })) + '</div>' + card(L('Confirmations', 'التأكيدات'), table([{ l: T('dateL'), k: 'date' }, { l: T('qty'), n: 1, f: function (c) { return n0(c.q); } }, { l: L('Scrap %', 'التالف ٪'), n: 1, f: function (c) { return c.scrap; } }, { l: L('Variance', 'الانحراف'), n: 1, f: function (c) { return '<span class="' + (c.var > 0 ? 'neg' : c.var < 0 ? 'pos' : '') + '">' + n2(c.var) + '</span>'; } }, { l: L('Accounting', 'المحاسبة'), f: function (c) { return link('fi', c.fi); } }], p.conf || [], { search: false })), acts), w: function () { if ($('oRelPP')) $('oRelPP').onclick = function () { if (act(function () { E.releasePP(p.id); return 1; })) { toast(L('Released', 'تم الإطلاق')); route(); } }; } };
+  };
+  OBJ.fi = function (id) {
+    var f = E.byId(db().fi, id); if (!f) return null; var D = 0, C = 0; f.lines.forEach(function (l) { D += l.d; C += l.c; });
+    return { h: page(L('Accounting document', 'مستند محاسبي') + ' ' + f.id, fiName(f.type) + ' · ' + f.text, T('dateL') + ': ' + f.date + (f.ref ? ' · ' + T('ref') + ': ' + f.ref : ''), card(L('Line items', 'البنود'), table([{ l: T('account'), f: function (l) { return '<a href="#FS10N/' + l.a + '" class="dl mono">' + l.a + '</a> ' + esc(nm(E.acc(l.a))); } }, { l: L('Partner', 'الشريك'), f: function (l) { return esc(l.p ? l.p + ' · ' + partnerName(l.p) : ''); } }, { l: T('text'), f: function (l) { return esc(l.t); } }, { l: T('debit'), n: 1, f: function (l) { return l.d ? n2(l.d) : ''; } }, { l: T('credit'), n: 1, f: function (l) { return l.c ? n2(l.c) : ''; } }], f.lines, { search: false, foot: [T('total'), '', '', n2(D), n2(C)] }))) };
+  };
+  OBJ.mat = function (id) {
+    var d = db(), m = E.mat(id); if (!m) return null;
+    var h = page(L('Material', 'المادة') + ' ' + m.id, nm(m), '', '<div class="two">' + card(L('Basic data & sales', 'البيانات الأساسية والمبيعات'), kv([[T('type'), m.type], [T('uom'), m.uom], [L('Sales price', 'سعر البيع'), m.sale ? '<input type="number" id="mSale" class="amt" step="0.01" value="' + m.sale + '">' : '—']])) + card(L('MRP & purchasing', 'التخطيط والمشتريات'), kv([[L('Procurement', 'التوريد'), m.proc === 'E' ? L('In-house (BOM)', 'داخلي (قائمة مواد)') : L('External', 'خارجي')], [L('Fixed vendor', 'المورد الثابت'), m.vendor || '—'], [L('Safety stock', 'مخزون الأمان'), '<input type="number" id="mSs" class="amt" value="' + m.ss + '">'], [L('Lot size', 'حجم الدفعة'), '<input type="number" id="mLot" class="amt" value="' + m.lot + '">'], [L('Lead time (days)', 'مهلة التوريد (أيام)'), '<input type="number" id="mLt" class="amt" value="' + m.lt + '">']])) + '</div><div class="two">' + card(L('Accounting', 'المحاسبة'), kv([[L('Price control', 'رقابة السعر'), L('S · standard price', 'S · سعر معياري')], [L('Standard price', 'السعر المعياري'), n2(m.std)], [L('Valuation account', 'حساب التقييم'), '<span class="mono">' + E.invAcc(m.id) + '</span>']])) + card(L('Stock by plant', 'المخزون حسب الموقع'), table([{ l: T('plant'), k: 'id' }, { l: L('Unrestricted', 'غير مقيد'), n: 1, f: function (p) { return n0(E.stock(m.id, p.id)); } }, { l: L('ATP', 'المتاح'), n: 1, f: function (p) { return n0(E.atp(m.id, p.id)); } }, { l: T('value'), n: 1, f: function (p) { return n2(E.stock(m.id, p.id) * m.std); } }], d.plants, { search: false })) + '</div>', '<button class="btn" type="button" id="mSave">' + L('Save changes (MM02)', 'حفظ التغييرات (MM02)') + '</button><a class="btn ghost" href="#MD04/' + m.id + '">MD04</a>' + (d.boms[m.id] ? '<a class="btn ghost" href="#CS03/' + m.id + '">CS03</a>' : ''));
+    return { h: h, w: function () { $('mSave').onclick = function () { if ($('mSale')) m.sale = +$('mSale').value; m.ss = +$('mSs').value; m.lot = +$('mLot').value; m.lt = +$('mLt').value; E.save(); toast(L('Material ', 'المادة ') + m.id + ' ' + T('saved')); }; } };
+  };
+
+  /* ---------- routing ---------- */
+  var current = 'home', objLabel = '';
+  function route() {
+    var h = decodeURIComponent(location.hash.replace(/^#/, '')) || 'home', parts = h.split('/');
+    view.onclick = view.oninput = view.onchange = null; EXPORTS = {};
+    var code = parts[0].toUpperCase() === 'OBJ' ? 'obj' : (P[parts[0]] ? parts[0] : (P[parts[0].toUpperCase()] ? parts[0].toUpperCase() : null));
+    if (code === 'obj') { var o = OBJ[parts[1]] && OBJ[parts[1]](parts[2]); if (!o) { view.innerHTML = '<p class="empty">' + L('Document not found.', 'المستند غير موجود.') + '</p>'; } else { view.innerHTML = o.h; if (o.w) o.w(); } current = 'obj'; objLabel = ({ so: L('Sales order', 'أمر بيع'), dl: L('Delivery', 'تسليم'), bi: L('Customer invoice', 'فاتورة عميل'), po: L('Purchase order', 'أمر شراء'), iv: L('Supplier invoice', 'فاتورة مورد'), pp: L('Production order', 'أمر إنتاج'), fi: L('Accounting document', 'مستند محاسبي'), mat: L('Material', 'مادة') }[parts[1]] || parts[1]) + ' ' + parts[2]; }
+    else if (code) { seen[code] = true; P[code](parts[1]); current = code; }
+    else { toast(L('Unknown transaction ', 'معاملة غير معروفة ') + parts[0], 'err'); P.home(); current = 'home'; }
+    var app = ERP_APPS.filter(function (a) { return a[0] === current; })[0];
+    $('crumb').innerHTML = '<a href="#home">' + esc(T('home')) + '</a>' + (current !== 'home' ? ' <span aria-hidden="true">' + (lang === 'ar' ? '‹' : '›') + '</span> <span>' + esc(app ? L(app[3], app[4]) : current === 'obj' ? objLabel : current) + '</span>' : '');
+    wireTables(); refreshShell();
+    view.querySelectorAll('[data-export]').forEach(function (b) { b.onclick = function () { var f = EXPORTS[b.dataset.export]; if (f) saveFile('qafila-erp-' + b.dataset.export + '-' + db().date + '.csv', f()); }; });
+    if (code !== 'obj') window.scrollTo(0, 0);
+    var h1 = view.querySelector('h1'); if (h1) { h1.setAttribute('tabindex', '-1'); }
+    try { if (window.QERP_TRAIN_TICK) window.QERP_TRAIN_TICK(); } catch (e) {}
+  }
+  window.addEventListener('hashchange', route);
+
+  /* ---------- shell ---------- */
+  function refreshShell() {
+    var d = db();
+    $('dateV').textContent = d.date; $('coName').textContent = d.company.code + ' · ' + nm(d.company);
+  }
+  function applyLang() {
+    document.documentElement.lang = lang; document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    try { localStorage.setItem('qafila-erp-lang', lang); } catch (e) {}
+    document.querySelectorAll('[data-k]').forEach(function (el) { el.textContent = T(el.dataset.k); });
+    $('cmd').placeholder = T('cmd'); $('langBtn').textContent = lang === 'ar' ? 'English' : 'عربي';
+    $('roleSel').innerHTML = Object.keys(ERP_TX.en.roles).map(function (k) { return '<option value="' + k + '"' + (role === k ? ' selected' : '') + '>' + esc(T('roles.' + k)) + '</option>'; }).join('');
+    $('aiQ').placeholder = T('aiPh');
+    route();
+  }
+  $('langBtn').onclick = function () { lang = lang === 'ar' ? 'en' : 'ar'; applyLang(); };
+  $('roleSel').onchange = function () { role = this.value; try { localStorage.setItem('qafila-erp-role', role); } catch (e) {} if (current === 'home') P.home(); };
+  $('cmdForm').onsubmit = function (e) { e.preventDefault(); var v = $('cmd').value.trim().toUpperCase().replace(/^\/N/, ''); if (!v) return; $('cmd').value = ''; if (v === 'HOME' || v === 'SMEN') go('home'); else go(v); };
+  $('d1').onclick = function () { E.addDaysDb(1); refreshShell(); route(); };
+  $('d7').onclick = function () { E.addDaysDb(7); refreshShell(); route(); };
+  $('dl_cmd').innerHTML = ERP_APPS.map(function (a) { return '<option value="' + a[0] + '">' + esc(a[3]) + '</option>'; }).join('');
+
+  /* ---------- copilot ---------- */
+  var convo = [];
+  function ctxSummary() {
+    var d = db(), k = kpis(), q = inbox();
+    var cur = location.hash.replace('#', '') || 'home', obj = '';
+    var p = cur.split('/'); if (p[0] === 'obj') { var list = { so: d.so, dl: d.dl, bi: d.bi, po: d.po, iv: d.iv, pp: d.pp, fi: d.fi }[p[1]]; var o = list && E.byId(list, p[2]); if (o) obj = JSON.stringify(o).slice(0, 1800); }
+    return 'Company ' + d.company.en + ' (fictional teaching company, currency AED, posting date ' + d.date + '). Current screen: ' + cur + '. KPIs: revenue ' + k.rev.toFixed(0) + ', gross margin ' + (k.gm * 100).toFixed(1) + '%, bank ' + k.cash.toFixed(0) + ', inventory ' + k.inv.toFixed(0) + ', overdue AR ' + k.ar.toFixed(0) + ', open AP ' + k.ap.toFixed(0) + '. Inbox: ' + q.map(function (x) { return x[1] + ' ' + x[0] + ' (' + x[2] + ')'; }).join('; ') + '. Counts: ' + d.so.length + ' sales orders, ' + d.po.length + ' POs, ' + d.pp.length + ' production orders, ' + d.fi.length + ' accounting documents.' + (obj ? ' Current document JSON: ' + obj : '') + ' Recent log: ' + d.log.slice(0, 6).map(function (l) { return l.en; }).join(' | ');
+  }
+  function aiSend(q) {
+    if (!sample) { toast(L('The copilot is not available here.', 'المساعد غير متاح هنا.'), 'warn'); return; }
+    var box = $('aiLog'), u = document.createElement('div'); u.className = 'msg u'; u.textContent = q; box.appendChild(u);
+    var a = document.createElement('div'); a.className = 'msg a'; a.textContent = T('aiWait'); box.appendChild(a); box.scrollTop = box.scrollHeight;
+    var sys = 'You are the copilot inside QAFILA ERP, a teaching ERP that works like SAP S/4HANA or Oracle ERP (transaction codes such as VA01, VL01N, VF01, F-28, ME51N, ME21N, MIGO, MIRO, MRBR, F-53, MD01, CO40, CO11N, FB50, F.01, MMBE). Answer in ' + (lang === 'ar' ? 'Modern Standard Arabic' : 'English') + ', briefly (under 170 words), as a helpful ERP consultant and tutor. Explain what happened and which transaction to use next, and explain the accounting entries when relevant. Use only the facts in the context; if something is not in it, say so.\n\nContext: ' + ctxSummary();
+    convo.push({ role: 'user', content: q });
+    var hist = convo.slice(-8); if (hist[0] && hist[0].role !== 'user') hist = hist.slice(1); var msgs = hist.map(function (m, i) { return i === 0 ? { role: 'user', content: sys + '\n\nQuestion: ' + m.content } : m; }); sample(msgs, { onText: function (o) { a.textContent = o.text; box.scrollTop = box.scrollHeight; }, cache: false }).then(function (r) { a.textContent = r.text; convo.push({ role: 'assistant', content: r.text }); var f = document.createElement('div'); f.className = 'msg f'; f.textContent = T('aiFoot'); box.appendChild(f); box.scrollTop = box.scrollHeight; }).catch(function () { a.textContent = L('Could not reach the copilot.', 'تعذر الوصول إلى المساعد.'); });
+  }
+  $('aiBtn').onclick = function () { var p = $('copilot'); p.hidden = !p.hidden; if (!p.hidden) $('aiQ').focus(); };
+  $('aiClose').onclick = function () { $('copilot').hidden = true; $('aiBtn').focus(); };
+  $('aiForm').onsubmit = function (e) { e.preventDefault(); var q = $('aiQ').value.trim(); if (!q) return; $('aiQ').value = ''; aiSend(q); };
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !$('copilot').hidden) $('copilot').hidden = true; if ((e.ctrlKey || e.metaKey) && e.key === '/') { e.preventDefault(); $('cmd').focus(); } });
+  if (window.claude && window.claude.use) {
+    window.claude.use('sample').then(function (s) { sample = s; $('aiBtn').hidden = false; }).catch(function () {});
+    window.claude.use('downloads').then(function (d) { downloads = d; }).catch(function () {});
+  }
+  window.QERP = { go: go, route: route };
+  applyLang();
+})();
+</script>
+</body>
+</html>
