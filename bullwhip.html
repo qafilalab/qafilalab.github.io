@@ -2410,5 +2410,73 @@ html[lang=ar] .caption{font-family:'IBM Plex Sans Arabic',sans-serif}
   window.QAFILA_BW_LAB = { open: open, sim: sim, demandSeries: demandSeries, S: S, POL: POL };
 })();
 </script>
+
+<!-- QAFILA dock -->
+<style id="qfd-css">
+#qfd{position:fixed;z-index:2147483000;font:600 13px/1.2 "Inter","IBM Plex Sans Arabic",system-ui,-apple-system,Segoe UI,sans-serif;color:#EDE6D6;display:flex;align-items:center;gap:6px}
+#qfd *{box-sizing:border-box}
+#qfd .qb{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:38px;min-width:38px;padding:0 12px;border-radius:999px;background:rgba(14,20,32,.9);border:1px solid rgba(255,255,255,.16);color:#EDE6D6;text-decoration:none;cursor:pointer;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 6px 22px rgba(0,0,0,.35);transition:transform .15s,border-color .15s;font:inherit;white-space:nowrap}
+#qfd .qb:hover{border-color:#FF6A2B}
+#qfd .qh{background:#FF6A2B;border-color:#FF6A2B;color:#111;padding:0;font-size:18px}
+#qfd .qa{padding:0;font-size:15px}
+#qfd .qm{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font:800 11px/1 inherit;background:conic-gradient(#FF6A2B,#38BDF8,#FF6A2B);color:#0E1420;letter-spacing:-.5px;flex:none}
+#qfd .qm span{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:#0E1420;color:#EDE6D6}
+#qfd .qx{padding:0;min-width:24px;height:24px;font-size:12px;opacity:.7}
+#qfd.min .qt,#qfd.min .qa{display:none}
+/* side mode: vertical rail, left edge middle */
+#qfd.side{inset-inline-start:10px;top:50%;transform:translateY(-50%);flex-direction:column}
+#qfd.side .qp{flex-direction:column;height:auto;width:38px;padding:6px 0 10px;border-radius:20px;gap:8px}
+#qfd.side .qt{writing-mode:vertical-rl;transform:rotate(180deg);font-size:11.5px;letter-spacing:.2px}
+[dir=rtl] #qfd.side .qt{transform:none}
+#qfd.side .qcard{inset-inline-start:50px;top:50%;transform:translateY(-50%)}
+/* bottom-right mode (studios footer) */
+#qfd.br{inset-inline-end:10px;bottom:3px}
+#qfd.br .qcard{bottom:46px;inset-inline-end:0}
+body:has(#qfd.br) footer.bar{padding-inline-end:350px}
+#qfd .qcard{position:absolute;width:min(340px,calc(100vw - 70px));background:#0E1420;border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:18px;box-shadow:0 18px 50px rgba(0,0,0,.55);display:none;white-space:normal}
+#qfd.open .qcard{display:block}
+#qfd .qtop{display:flex;gap:13px;align-items:center}
+#qfd .qbig{width:58px;height:58px;border-radius:50%;flex:none;background:conic-gradient(#FF6A2B,#38BDF8,#FF6A2B);display:grid;place-items:center}
+#qfd .qbig span{width:52px;height:52px;border-radius:50%;background:#121A29;display:grid;place-items:center;font:800 20px/1 inherit;color:#EDE6D6}
+#qfd .qn{font:800 17px/1.2 inherit;color:#EDE6D6}
+#qfd .qr{font:500 12px/1.4 inherit;color:#B7BFCC;margin-top:3px}
+#qfd .qchips{display:flex;flex-wrap:wrap;gap:5px;margin:13px 0}
+#qfd .qchips i{font-style:normal;font:600 11px/1 inherit;padding:5px 8px;border-radius:999px;border:1px solid rgba(255,255,255,.14);color:#B7BFCC}
+#qfd .qc{display:flex;align-items:center;gap:10px;padding:9px 11px;margin-top:6px;border-radius:11px;background:#121A29;border:1px solid rgba(255,255,255,.08);color:#EDE6D6;text-decoration:none;font:600 13px/1.2 inherit}
+#qfd .qc:hover{border-color:#FF6A2B}
+#qfd .qc b{width:24px;text-align:center;font-size:15px}
+#qfd .qc small{display:block;color:#8E98AA;font:500 11px/1.2 inherit;margin-bottom:2px}
+#qfd .qmore{display:block;text-align:center;margin-top:12px;color:#FF6A2B;font:700 12.5px/1 inherit;text-decoration:none}
+@media (max-width:700px){#qfd.side{top:auto;bottom:70px;transform:none}#qfd.side .qt{display:none}#qfd.side .qcard{top:auto;bottom:0;transform:none}#qfd.br .qt{display:none}}
+@media print{#qfd{display:none}}
+</style>
+<div id="qfd" class="side" role="navigation" aria-label="QAFILA">
+ <a class="qb qh" href="index.html" title="QAFILA home" aria-label="QAFILA home">⌂</a>
+ <a class="qb qa" href="index.html#universe" title="All tools · كل الأدوات" aria-label="All tools">▦</a>
+ <button class="qb qp" type="button" aria-expanded="false" title="About the creator"><span class="qm"><span>MA</span></span><span class="qt" data-qfd-en="Dr. Mohammad Alsmairat" data-qfd-ar="د. محمد السميرات">Dr. Mohammad Alsmairat</span></button>
+ <button class="qb qx" type="button" title="Minimise" aria-label="Minimise">–</button>
+ <div class="qcard" role="dialog" aria-label="Dr. Mohammad Alsmairat">
+  <div class="qtop"><div class="qbig"><span>MA</span></div><div><div class="qn" data-qfd-en="Dr. Mohammad Alsmairat" data-qfd-ar="د. محمد السميرات">Dr. Mohammad Alsmairat</div>
+   <div class="qr" data-qfd-en="Associate Professor of Supply Chain &amp; Quality Management · Hamdan Bin Mohammad Smart University, Dubai" data-qfd-ar="أستاذ مشارك في إدارة سلاسل الإمداد والجودة · جامعة حمدان بن محمد الذكية، دبي">Associate Professor of Supply Chain &amp; Quality Management · Hamdan Bin Mohammad Smart University, Dubai</div></div></div>
+  <div class="qchips"><i>CSCP · ASCM</i><i data-qfd-en="PhD Supply Chain" data-qfd-ar="دكتوراه سلاسل الإمداد">PhD Supply Chain</i><i data-qfd-en="30+ Scopus papers" data-qfd-ar="+30 بحثاً في سكوبس">30+ Scopus papers</i><i data-qfd-en="Creator of QAFILA" data-qfd-ar="مبتكر قافلة">Creator of QAFILA</i></div>
+  <a class="qc" href="mailto:Moh_cis2004@yahoo.com"><b>✉</b><span><small data-qfd-en="Email" data-qfd-ar="البريد الإلكتروني">Email</small>Moh_cis2004@yahoo.com</span></a>
+  <a class="qc" href="tel:+971545596114"><b>☎</b><span><small data-qfd-en="Phone (UAE)" data-qfd-ar="الهاتف (الإمارات)">Phone (UAE)</small><span dir="ltr">+971 54 559 6114</span></span></a>
+  <a class="qc" href="https://wa.me/962795524803" target="_blank" rel="noopener"><b>💬</b><span><small>WhatsApp</small><span dir="ltr">+962 79 552 4803</span></span></a>
+  <a class="qmore" href="index.html#about" data-qfd-en="Full bio on QAFILA →" data-qfd-ar="← السيرة الكاملة على قافلة">Full bio on QAFILA →</a>
+ </div>
+</div>
+<script>(function(){var d=document.getElementById('qfd');if(!d)return;
+function bottomGap(){var b=14;var f=document.querySelector('footer.bar');if(f&&getComputedStyle(f).position!=='static'){var r=f.getBoundingClientRect();if(r.bottom>=innerHeight-2)b=Math.max(b,innerHeight-r.top+10);}else if(f){var r2=f.getBoundingClientRect();if(r2.top<innerHeight&&r2.bottom>=innerHeight-2)b=Math.max(b,innerHeight-r2.top+10);}d.style.setProperty('--qfd-b',b+'px');}
+function lang(){var ar=(document.documentElement.getAttribute('dir')==='rtl')||document.documentElement.lang==='ar';d.querySelectorAll('[data-qfd-en]').forEach(function(e){e.textContent=e.getAttribute(ar?'data-qfd-ar':'data-qfd-en');});}
+var p=d.querySelector('.qp'),x=d.querySelector('.qx');
+p.addEventListener('click',function(e){e.stopPropagation();d.classList.remove('min');var o=d.classList.toggle('open');p.setAttribute('aria-expanded',o);});
+x.addEventListener('click',function(e){e.stopPropagation();d.classList.add('min');d.classList.remove('open');try{sessionStorage.setItem('qfd-min','1')}catch(_){}});
+d.querySelector('.qh').addEventListener('contextmenu',function(){});
+document.addEventListener('click',function(e){if(!d.contains(e.target))d.classList.remove('open');});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')d.classList.remove('open');});
+try{if(sessionStorage.getItem('qfd-min'))d.classList.add('min');}catch(_){}
+new MutationObserver(lang).observe(document.documentElement,{attributes:true,attributeFilter:['dir','lang']});
+lang();})();</script>
+<!-- /QAFILA dock -->
 </body>
 </html>
